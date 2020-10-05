@@ -1,0 +1,64 @@
+Survey:
+1. Do you have pets?
+- dog
+- cat
+- dogs and cats
+- no pets
+
+2. Do you like spicy food? 
+- yes
+- no
+
+3. which type of date would you like?
+- late -nighter
+- early evening
+- a weekend afternoon
+
+4. Which date activity would you prefer?
+- dancing
+- movies
+- fine-dining dinner
+- picnic
+
+5. What Star Wars character are you most like?
+- Darth Vader
+- Luke Skywalker
+- Hans Solo
+- Princess Leia
+- Padme Amidala
+- Jyn Erso
+- Yoda
+- Chubacka
+
+
+6. do you like beer, wine or cocktails?
+-beer
+-wine
+-cocktails
+-no alcohol please
+
+7. Hand on Heart, are you wearing Pjs right now?
+-Never!
+-100% Yes
+-Business on Top, Pjs on bottom
+-Literally took them off 1 minute ago
+
+8. are you an early bird or night owl?
+-early bird
+-night owl
+
+
+9. If age is a state of mind, which category best describes your state of mind?
+-cheeky child
+-tormented teenager
+-mad mid-lifer
+-groovy grandparent
+
+10. If you were a breed of dog, which would you be?
+- Jack Russell – small, tough, opinionated
+- Tibetan Mastiff – or some other very rare breed
+- German Shepherd – poised and elegant but rather hardy
+- Poodle – beautifully presented but a bit of a poser
+- Golden Retriever – warm, cuddly and great with children
+- Pit Bull Terrier – scary but kind deep down
+- Labradoodle – or some other cute hybrid
