@@ -4,7 +4,7 @@ import Landing from './components/landingpage'
 import PenPal from './components/penpal'
 import Profile from './components/profile'
 import Auth from './components/loginSignup'
-// import NotFound from './components/notfound'
+
 
 class App extends Component {
   render(){

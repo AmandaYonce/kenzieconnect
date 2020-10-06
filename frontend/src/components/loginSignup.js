@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CardBody, Card, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { CardBody, Card, Button, Form, FormGroup, Label, Input, CardText } from 'reactstrap';
 import Header from "./header"
 
 class Auth extends Component {
@@ -26,6 +26,11 @@ class Auth extends Component {
               <Button>Submit</Button>
             </Form>
           </CardBody>
+        </Card>
+
+        <Card style={{width: "300px", marginLeft: "30px", marginTop: "30px"}}>
+          <CardText>New User Registration</CardText>
+          <Button>Sign Up</Button>
         </Card>
     </>
   );
