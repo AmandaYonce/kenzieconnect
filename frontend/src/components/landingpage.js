@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Header from "./header"
+import { CardBody, Card, Col, Row, CardText } from 'reactstrap';
+
 
 class Landing extends Component {
 
@@ -8,7 +10,32 @@ class Landing extends Component {
   return (
     <div >
         <Header/>
-        <h1>LandingPage</h1>
+        <Row style={{width: "400px", margin: "5em"}}>
+          <a href="/messagefeed/:username">You have 4 New Messages</a>
+        </Row>
+        <Row style={{width: "60em", margin: "5em"}}>
+          <Col>
+            <Card style={{width: "25em", margin: "2em"}}>
+              <CardBody>
+                <CardText>Matched Profile</CardText>
+              </CardBody>
+            </Card>
+        </Col>
+        <Col>
+            <Card style={{width: "25em", margin: "2em"}}>
+              <CardBody>
+                <CardText>Matched Profile</CardText>
+              </CardBody>
+            </Card>
+        </Col>
+        <Col>
+            <Card style={{width: "25em", margin: "2em"}}>
+              <CardBody>
+                <CardText>Matched Profile</CardText>
+              </CardBody>
+            </Card>
+        </Col>
+        </Row>
     </div>
   );
 }

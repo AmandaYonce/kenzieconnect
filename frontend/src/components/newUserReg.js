@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from "./header"
-import { CardBody, Card, Button, Form, FormGroup, Label, Input, CardText, Col, Row } from 'reactstrap';
+import { CardBody, Card, Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
 
 
 class NewUserReg extends Component {
