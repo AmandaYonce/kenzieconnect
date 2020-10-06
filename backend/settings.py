@@ -140,4 +140,4 @@ CORS_ALLOW_METHODS = [
 
 LOGIN_URL = '/login/'
 
-AUTH_USER_MODEL = "myuser.MyUser"
+AUTH_USER_MODEL = "kenzie_connect.CustomUser"
