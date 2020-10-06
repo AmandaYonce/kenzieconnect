@@ -25,6 +25,9 @@ class Header extends Component{
                 <NavItem>
                 <NavLink href="/messages/:username">Messages</NavLink>
                 </NavItem>
+                <NavItem>
+                <NavLink href="/">Logout</NavLink>
+                </NavItem>
             </Nav>
         </Navbar>
         </>

@@ -16,7 +16,7 @@ class App extends Component {
         <Route exact path="/" component={Auth} />
         <Route exact path="/home" component={Landing} />
         <Route exact path="/profile/:username" component={Profile} />
-        <Route exact path="/messagefeed/:username" component={PenPal}/>
+        <Route exact path="/messages/:username" component={PenPal}/>
         <Route exact path="/register/" component={NewUserReg}/>
         {/* <Route path="*" component={NotFound} /> */}
     
