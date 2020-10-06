@@ -6,7 +6,6 @@ import {
     NavItem,
     NavLink,
   } from 'reactstrap';
-  import Card from 'bootstrap'
 
 class Header extends Component{
 
@@ -18,13 +17,13 @@ class Header extends Component{
             <NavbarBrand href="/">Kenzie Konnect</NavbarBrand>
             <Nav className="mr-auto" navbar>
             <NavItem>
-                <NavLink href="/">Home</NavLink>
+                <NavLink href="/home/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink href="/profile/">Profile</NavLink>
+                <NavLink href="/profile/:username">Profile</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink href="/messages/">Messages</NavLink>
+                <NavLink href="/messages/:username">Messages</NavLink>
                 </NavItem>
             </Nav>
         </Navbar>
