@@ -4,6 +4,7 @@ import Landing from './components/landingpage'
 import PenPal from './components/penpal'
 import Profile from './components/profile'
 import Auth from './components/loginSignup'
+import NewUserReg from './components/newUserReg'
 
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
         <Route exact path="/home" component={Landing} />
         <Route exact path="/profile/:username" component={Profile} />
         <Route exact path="/messagefeed/:username" component={PenPal}/>
+        <Route exact path="/register/" component={NewUserReg}/>
         {/* <Route path="*" component={NotFound} /> */}
     
   </BrowserRouter>
