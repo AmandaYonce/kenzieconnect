@@ -26,12 +26,10 @@ const Main = (props) => {
 
       <div className="mainContainer">
         <div className="topLeft">
-        <div className="reg">
-            <Card>
-              <CardText>Register Here to Get Connected!</CardText>
-              <Button onClick={openModal}>Register</Button>
-            </Card>
-            <UserRegistration />
+          <div className="reg">
+            <h1 class="regFont">Register Here to Get Connected!</h1>
+                <Button size="lg" onClick={openModal}>Register</Button>
+              <UserRegistration />
           </div>
         </div>
         <div className="right">

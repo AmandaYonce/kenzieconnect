@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&family=Montserrat&display=swap');
+/*font-family: 'Dosis', sans-serif;
+font-family: 'Montserrat', sans-serif;  */
+
 .mainContainer{
     background-color: whitesmoke;
     top: 0;
@@ -23,7 +27,7 @@
 .bottomLeft{
     background-color: #232839;
     position: absolute;
-    top: 60vh;
+    top: 50vh;
     right: 50vw;
     left: 0;
     bottom: 0;
@@ -63,16 +67,25 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 5%;
-    box-shadow: 5px 10px #888888;
+    box-shadow: 5px 10px 2px #888888;
 }
 
 .reg{
-    width: fit-content;
-    display: block;
+    font-family: 'Dosis', sans-serif;
+    padding: 3%;
+    width: 80%;
+    height: 40%;
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20%;
-    box-shadow: 2px 5px whitesmoke
+    background-color: #4a5066;
+    box-shadow: 5px 10px 2px whitesmoke;
+    color: whitesmoke;
+}
+
+.regFont{
+    font-size: 3em;
 }
 
 #collage-container{
