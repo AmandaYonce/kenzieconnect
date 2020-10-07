@@ -9,11 +9,10 @@ import {
   Input,
   CardText,
 } from "reactstrap";
-import Header from "./header";
+
 
 const Auth = (props) => (
   <>
-    <Header />
     <Card style={{ width: "300px", marginLeft: "30px", marginTop: "30px" }}>
       <CardBody>
         <Form>
@@ -38,11 +37,6 @@ const Auth = (props) => (
           <Button>Submit</Button>
         </Form>
       </CardBody>
-    </Card>
-
-    <Card style={{ width: "300px", marginLeft: "30px", marginTop: "30px" }}>
-      <CardText>New User Registration</CardText>
-      <Button>Sign Up</Button>
     </Card>
   </>
 );

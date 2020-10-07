@@ -1,14 +1,15 @@
 import Landing from "./components/landingpage";
 import PenPal from "./components/penpal";
 import Profile from "./components/profile";
-import Auth from "./components/loginSignup";
+// import Auth from "./components/loginSignup";
+import Main from './components/main'
 import NewUserReg from "./components/newUserReg";
 import { useRouteMatch } from "react-router-dom";
 import { routeDispatcher } from "./components/helpers";
 
 export const Routes = () => {
   const matches = [
-    { match: useRouteMatch({ path: "/", exact: true }), component: Auth },
+    { match: useRouteMatch({ path: "/", exact: true }), component: Main },
     {
       match: useRouteMatch({ path: "/home", exact: true }),
       component: Landing,

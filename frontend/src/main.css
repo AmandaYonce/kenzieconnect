@@ -1,0 +1,73 @@
+.mainContainer{
+    background-color: whitesmoke;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    /* margin-top: 40px; */
+    /* position: absolute; */
+    z-index: -1;
+}
+
+.topLeft{
+    background-color: lightgrey;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 30vh;
+    z-index: -1;
+}
+
+.bottomLeft{
+    background-color: #232839;
+    position: absolute;
+    top: 70vh;
+    right: 50vw;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.right{
+    background-color:#4a5066;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 50vw;
+    bottom: 0;
+    z-index: -1;
+}
+
+
+.rightBottom{
+    background-color: white;
+    height: 20vh;
+    top: 80vh;
+    position: absolute;
+    width: 100%;
+}
+
+.fullLogo{
+    width: 50%;
+    margin-top: 0.7em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.auth{
+    width: fit-content;
+    display: block;
+    margin-left: 10%;
+    margin-right: 90%;
+    margin-top: 10%;
+}
+
+.reg{
+    width: fit-content;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
