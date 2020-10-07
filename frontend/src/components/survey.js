@@ -50,49 +50,6 @@ const Survey = (props) => {
       <Card style={{ width: "1000px", marginLeft: "30px", marginTop: "30px" }}>
         <CardBody>
           <Form onSubmit={handleSubmit}>
-            <FormGroup>
-              <Label for="username">Username</Label>
-              <Input
-                type="text"
-                name="username"
-                placeholder="username"
-                required={true}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="password">Password</Label>
-              <Input
-                type="text"
-                name="password"
-                placeholder="password"
-                required={true}
-              />
-            </FormGroup>
-            <FormGroup row>
-              <Label for="gender" sm={2}>
-                Select Gender
-              </Label>
-              <Col sm={10}>
-                <Input type="select" name="gender" id="gender" required={true}>
-                  <option value="">------</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                </Input>
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Label for="dating" sm={2}>
-                I want to see profiles for:
-              </Label>
-              <Col sm={10}>
-                <Input type="select" name="dating" id="dating" required={true}>
-                  <option value="">------</option>
-                  <option>Men</option>
-                  <option>Women</option>
-                  <option>Both</option>
-                </Input>
-              </Col>
-            </FormGroup>
             <FormGroup row>
               <Label for="survey1" sm={2}>
                 Do you have pets:
