@@ -51,4 +51,11 @@ class Survey(models.Model):
 
 
 
-#class PenPal(models.Model):?
+class Penpal(models.Model):
+    penpal_message = models.CharField(max_length=500)
+    from_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    to_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return self.penpal_message
