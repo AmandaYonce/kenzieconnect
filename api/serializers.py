@@ -1,4 +1,4 @@
-from kenzie_connect.models import CustomUser, Survey
+from kenzie_connect.models import CustomUser, Survey, Penpal
 from rest_framework import serializers
 
 
@@ -15,7 +15,7 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
             ]
 
 
-class SurveySerializer(seializers.HyperlinkedModelSerializer):
+class SurveySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Survey
         fields = [
@@ -32,9 +32,9 @@ class SurveySerializer(seializers.HyperlinkedModelSerializer):
             ]
 
 
-class PenPalSerializer(serializers.HyperlinkedModelSerializer):
+class PenpalSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = PenPalSerializer
+        model = Penpal
         fields = [
             'penpal_message',
             'from_user',
