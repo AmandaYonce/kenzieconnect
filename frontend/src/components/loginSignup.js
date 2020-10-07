@@ -13,7 +13,7 @@ import {
 
 const Auth = (props) => (
   <>
-    <Card style={{ width: "300px", marginLeft: "30px", marginTop: "30px" }}>
+    <Card style={{ width: "300px" }}>
       <CardBody>
         <Form>
           <FormGroup>
@@ -34,7 +34,7 @@ const Auth = (props) => (
               placeholder="password"
             />
           </FormGroup>
-          <Button>Submit</Button>
+          <Button>Login</Button>
         </Form>
       </CardBody>
     </Card>
