@@ -28,6 +28,17 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 category = "main"
+description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
+name = "django-cors-headers"
+optional = false
+python-versions = ">=3.5"
+version = "3.5.0"
+
+[package.dependencies]
+Django = ">=2.2"
+
+[[package]]
+category = "main"
 description = "Tiny, lightweight, blazing fast REST library for django"
 name = "django-rest"
 optional = false
@@ -37,6 +48,17 @@ version = "0.8.6"
 [package.dependencies]
 django = ">=1.11"
 six = "*"
+
+[[package]]
+category = "main"
+description = "Web APIs for Django, made easy."
+name = "djangorestframework"
+optional = false
+python-versions = ">=3.5"
+version = "3.12.1"
+
+[package.dependencies]
+django = ">=2.2"
 
 [[package]]
 category = "main"
@@ -63,7 +85,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "0.3.1"
 
 [metadata]
-content-hash = "c6b88e14b841e1892fe9fad3294b04b94772c11d94c1db719f818d33925c9a7c"
+content-hash = "1aba90b3b71bca551564b6ecca523d54aa85a3872c0b892edfbc1bee9fa1f616"
 lock-version = "1.0"
 python-versions = "^3.8"
 
@@ -76,8 +98,16 @@ django = [
     {file = "Django-3.1.2-py3-none-any.whl", hash = "sha256:c93c28ccf1d094cbd00d860e83128a39e45d2c571d3b54361713aaaf9a94cac4"},
     {file = "Django-3.1.2.tar.gz", hash = "sha256:a2127ad0150ec6966655bedf15dbbff9697cc86d61653db2da1afa506c0b04cc"},
 ]
+django-cors-headers = [
+    {file = "django-cors-headers-3.5.0.tar.gz", hash = "sha256:db82b2840f667d47872ae3e4a4e0a0d72fbecb42779b8aa233fa8bb965f7836a"},
+    {file = "django_cors_headers-3.5.0-py3-none-any.whl", hash = "sha256:9322255c296d5f75089571f29e520c83ff9693df17aa3cf9f6a4bea7c6740169"},
+]
 django-rest = [
     {file = "django-rest-0.8.6.tar.gz", hash = "sha256:94e0ef7794e1b23ab4dacbce4e210d1f24a2e7542a22921e4ed4bfc378f0dc5d"},
+]
+djangorestframework = [
+    {file = "djangorestframework-3.12.1-py3-none-any.whl", hash = "sha256:5c5071fcbad6dce16f566d492015c829ddb0df42965d488b878594aabc3aed21"},
+    {file = "djangorestframework-3.12.1.tar.gz", hash = "sha256:d54452aedebb4b650254ca092f9f4f5df947cb1de6ab245d817b08b4f4156249"},
 ]
 pytz = [
     {file = "pytz-2020.1-py2.py3-none-any.whl", hash = "sha256:a494d53b6d39c3c6e44c3bec237336e14305e4f29bbf800b599253057fbb79ed"},
