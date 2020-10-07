@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, CardText } from "reactstrap";
+import { Card, Button, CardText, Modal } from "reactstrap";
 import HeaderMain from "./headerMain";
 import UserRegistration from './userRegistration'
 import Auth from "./loginSignup";
@@ -16,9 +16,8 @@ import eight from "../images/weddingcouple.jpeg";
 const Main = (props) => {
 
   const openModal = (e) => {
-    e.preventDefault();
-
-    // history.push("/home/");
+    // not sure we need this but we need some way to change the state of the Modal
+    // on the child component UserRegistration to isOpen=true so the modal will display
   };
  
   return (
