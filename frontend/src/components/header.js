@@ -37,8 +37,9 @@ const Header = (props) => {
             <NavLink href={`/messages/${state.user}`}>Pen Pal</NavLink>
           </NavItem>
         </Nav>
+        <Button onClick={(e) => handleLogOut(e)}>Logout</Button>
       </Navbar>
-      <Button onClick={(e) => handleLogOut(e)}>Logout</Button>
+      
     </React.Fragment>
   );
 };
