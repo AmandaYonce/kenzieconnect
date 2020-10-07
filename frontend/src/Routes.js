@@ -1,34 +1,56 @@
+import React from "react";
 import Landing from "./components/landingpage";
 import PenPal from "./components/penpal";
 import Profile from "./components/profile";
 // import Auth from "./components/loginSignup";
-import Main from './components/main'
+import Main from "./components/main";
 import NewUserReg from "./components/newUserReg";
-import { useRouteMatch } from "react-router-dom";
+import { Redirect, useLocation, useRouteMatch } from "react-router-dom";
 import { routeDispatcher } from "./components/helpers";
+import NotFound from "./components/notfound";
 
-export const Routes = () => {
-  const matches = [
-    { match: useRouteMatch({ path: "/", exact: true }), component: Main },
-    {
-      match: useRouteMatch({ path: "/home", exact: true }),
-      component: Landing,
-    },
-    {
-      match: useRouteMatch({ path: "/profile/:username", exact: true }),
-      component: Profile,
-    },
-    {
-      match: useRouteMatch({ path: "/messages/:username", exact: true }),
-      component: PenPal,
-    },
-    {
-      match: useRouteMatch({ path: "/register/", exact: true }),
-      component: NewUserReg,
-    },
-  ];
+const Routes = () => {
+  let { pathname } = useLocation();
+  // console.log(pathname);
 
-  return routeDispatcher(matches);
+  const logOutMatch = useRouteMatch({ path: "/logout/", exact: true });
+
+  if (logOutMatch) {
+    return <Redirect to="/" />;
+  }
+
+  let routes = [];
+
+  let urls = {
+    PenPal: { path: /^\/messages\/\w+$/, PenPal },
+    Home: { path: /\/home\//, Home: Landing },
+    NewUserReg: { path: /\/signup\/$/, NewUserReg },
+    Profile: {
+      path: /\/profile\/\w+$/,
+      Profile: Profile,
+    },
+    Main: { path: /^\/$/, Main },
+  };
+
+  for (const key in urls) {
+    // console.log(urls[key][key]);
+
+    if (urls[key].path.test(pathname)) {
+      routes = [
+        ...routes,
+        {
+          match: urls[key].path.test(pathname),
+          component: urls[key][key],
+        },
+      ];
+      return routeDispatcher(routes);
+    }
+  }
+
+  routes = [{ match: true, component: NotFound }];
+
+  // return loggedIn ? routeDispatcher(routes):<Main/>
+  return routeDispatcher(routes);
 };
 
 export default Routes;
