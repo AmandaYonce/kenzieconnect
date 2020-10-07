@@ -36,9 +36,66 @@ class CustomUser(AbstractUser):
     displayname = models.CharField(max_length=60, default="")
 
 class Survey(models.Model):
+    Dog = 'Dog'
+    Cat = 'Cat'
+    DogsandCats = 'Dogs and Cats'
+    Nopets = 'No Pets'
 
-    question_pet = models.CharField(max_length=30)
-    question_food = models.BooleanField()
+    pet_choices = [
+        (Dog, 'Dog'),
+        (Cat, 'Cat'),
+        (DogsandCats, 'Dogs and Cats'),
+        (Nopets, 'No Pets'),
+    ]
+
+    Latenight = 'Late-nighter'
+    Earlyevening = 'Early Evening'
+    Weekend = 'Weekend Afternoon'
+
+    date_choice = [
+        (Latenight, 'Late-nighter'),
+        (Earlyevening, 'Early Evening'),
+        (Weekend, 'Weekend'),
+    ]
+
+    PS5 = 'PS5'
+    D&D = 'Dungeons and Dragons '
+    Hackathon = 'Hackathon'
+    Dinner = 'Dinner'
+
+    activity_choice = [
+        (PS5, 'PS5'),
+        (D&D, 'Dungeons and Dragons'),
+        (Hackathon, 'Hackathon'),
+        (Dinner, 'Dinner'),
+    ]
+
+    Darthvader = 'Darth Vader'
+    Lukeskywalker = 'LukeSky Walker'
+    Hansolo = 'Han Solo'
+    Princessleia = 'Princess Leia'
+    Padmeamidala = 'Padme Amidala'
+    Jynersp = 'Jyn Ersp'
+    Yoda = 'Yoda'
+    Chewbacca = 'Chewbacca'
+    Jarjarbinks = 'Jar Jar Binks'
+
+    starwars_choice = [
+        (Darthvader, 'Darth Vader'),
+        (Lukeskywalker, 'Luke Skywalker'),
+        (Hansolo, 'Han Solo'),
+        (Princessleia, 'Princess Leia'),
+        (Padmeamidala, 'Padme Amidala'),
+        (Jynersp, 'Jyn Ersp'),
+        (Yoda, 'Yoda'),
+        (Chewbacca, 'Chewbacca'),
+        (Jarjarbinks, 'Jar Jar Binks'),
+
+
+
+
+    question_pet = models.CharField(max_length=20, choices=pet_choices, default=Nopets)
+    question_food = models.BooleanField(default=True)
     question_date = models.CharField(max_length=30)
     question_activity = models.CharField(max_length=30)
     question_star = models.CharField(max_length=30)
@@ -53,8 +110,8 @@ class Survey(models.Model):
 
 class Penpal(models.Model):
     penpal_message = models.CharField(max_length=500)
-    from_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    to_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    from_user = models.ForeignKey(CustomUser, related_name="from_user_fk", on_delete=models.CASCADE)
+    to_user = models.ForeignKey(CustomUser,related_name="to_user_fk", on_delete=models.CASCADE)
 
 
     def __str__(self):

@@ -23,12 +23,13 @@ Survey:
 5. What Star Wars character are you most like?
 - Darth Vader
 - Luke Skywalker
-- Hans Solo
+- Han Solo
 - Princess Leia
 - Padme Amidala
 - Jyn Erso
 - Yoda
-- Chubacka
+- Chewbacca
+- Jar Jar Binks
 
 
 6. do you like beer, wine or cocktails?
