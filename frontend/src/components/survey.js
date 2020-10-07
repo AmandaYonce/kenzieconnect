@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 import { receiveSurvey } from "./actions";
 import { StateContext } from "../App";
 
-const NewUserReg = (props) => {
+const Survey = (props) => {
   const history = useHistory();
   const { dispatch } = React.useContext(StateContext);
   const handleSignup = async (data) => {
@@ -301,4 +301,4 @@ const NewUserReg = (props) => {
   );
 };
 
-export default NewUserReg;
+export default Survey;

@@ -23,7 +23,7 @@
 .bottomLeft{
     background-color: #232839;
     position: absolute;
-    top: 70vh;
+    top: 60vh;
     right: 50vw;
     left: 0;
     bottom: 0;
@@ -62,7 +62,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 25%;
+    margin-top: 5%;
     box-shadow: 5px 10px #888888;
 }
 
@@ -71,8 +71,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10%;
-    text-align: center;
+    margin-top: 20%;
     box-shadow: 2px 5px whitesmoke
 }
 

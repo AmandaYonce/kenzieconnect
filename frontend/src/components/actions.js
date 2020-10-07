@@ -23,6 +23,7 @@ const receiveList = (list) => (dispatch) => dispatch(getList(list));
 const receiveSurvey = (surveyData) => (dispatch) =>
   dispatch(getSurvey(surveyData));
 
+
 const loggingIn = (dispatch) => dispatch(login());
 const loggingOut = (dispatch) => dispatch(logout());
 

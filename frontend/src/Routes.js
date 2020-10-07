@@ -4,7 +4,7 @@ import PenPal from "./components/penpal";
 import Profile from "./components/profile";
 // import Auth from "./components/loginSignup";
 import Main from "./components/main";
-import NewUserReg from "./components/newUserReg";
+import Survey from "./components/survey";
 import { Redirect, useLocation, useRouteMatch } from "react-router-dom";
 import { routeDispatcher } from "./components/helpers";
 import NotFound from "./components/notfound";
@@ -24,7 +24,7 @@ const Routes = () => {
   let urls = {
     PenPal: { path: /^\/messages\/\w+$/, PenPal },
     Home: { path: /\/home\//, Home: Landing },
-    NewUserReg: { path: /\/signup\/$/, NewUserReg },
+    Survey: { path: /\/signup\/$/, Survey },
     Profile: {
       path: /\/profile\/\w+$/,
       Profile: Profile,
