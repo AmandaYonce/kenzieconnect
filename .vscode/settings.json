@@ -1,4 +1,6 @@
 {
-    "python.pythonPath": "/Users/ruthmayodi/Kenzie_Assesments/kenzieconnect/.venv/bin/python3",
-    "git.ignoreLimitWarning": true
+    "python.pythonPath": "/usr/bin/python3",
+    "git.ignoreLimitWarning": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
 }

@@ -10,7 +10,7 @@ import {
   Input,
 } from "reactstrap";
 import { StateContext } from "../App";
-import { loggingIn } from "./actions";
+import { loginOrOut } from "./actions";
 
 const Auth = (props) => {
   const { dispatch } = React.useContext(StateContext);
@@ -21,11 +21,22 @@ const Auth = (props) => {
 
   //   //might need to reach out to backend to make sure that the user is authenticated
   // };
+  const formGroups = ["Username", "Password"].map((value, index) => (
+    <FormGroup key={index}>
+      <Label for="username">{value}</Label>
+      <Input
+        type="text"
+        name={value.toLowerCase()}
+        id={value.toLowerCase()}
+        placeholder={value.toLowerCase()}
+      />
+    </FormGroup>
+  ));
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    loggingIn(dispatch);
+    dispatch(loginOrOut());
     history.push("/home/");
   };
   return (
@@ -33,24 +44,7 @@ const Auth = (props) => {
       <Card style={{ width: "300px" }}>
         <CardBody>
           <Form onSubmit={handleLogin}>
-            <FormGroup>
-              <Label for="username">Username</Label>
-              <Input
-                type="text"
-                name="username"
-                id="username"
-                placeholder="username"
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="password">Password</Label>
-              <Input
-                type="text"
-                name="password"
-                id="password"
-                placeholder="password"
-              />
-            </FormGroup>
+            {formGroups}
             <Button>Login</Button>
           </Form>
         </CardBody>

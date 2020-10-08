@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, Button, CardText, Modal } from "reactstrap";
+import { Button } from "reactstrap";
 import HeaderMain from "./headerMain";
-import UserRegistration from './userRegistration'
+// import UserRegistration from "./userRegistration";
 import Auth from "./loginSignup";
 import FullLogo from "../images/fullLogo.png";
 import one from "../images/beachcouple.jpeg";
@@ -12,14 +12,21 @@ import five from "../images/relaxcouple.jpeg";
 import six from "../images/sexycouple.png";
 import seven from "../images/streetcouple.jpeg";
 import eight from "../images/weddingcouple.jpeg";
+import { StateContext } from "../App";
+import { toggleModal } from "./actions";
+import ModalRegistration from "../Modal";
 
 const Main = (props) => {
+  const { state, dispatch } = React.useContext(StateContext);
+  const openModal = () => {
+    // e.preventDefault();
 
-  const openModal = (e) => {
+    console.log("working");
     // not sure we need this but we need some way to change the state of the Modal
     // on the child component UserRegistration to isOpen=true so the modal will display
+    dispatch(toggleModal());
   };
- 
+
   return (
     <React.Fragment>
       <HeaderMain />
@@ -27,9 +34,11 @@ const Main = (props) => {
       <div className="mainContainer">
         <div className="topLeft">
           <div className="reg">
-            <h1 class="regFont">Register Here to Get Connected!</h1>
-                <Button size="lg" onClick={openModal}>Register</Button>
-              <UserRegistration />
+            <h1 className="regFont">Register Here to Get Connected!</h1>
+            <Button size="lg" onClick={() => openModal()}>
+              Register
+            </Button>
+            <ModalRegistration show={state.modal} onHide={() => openModal()} />
           </div>
         </div>
         <div className="right">
