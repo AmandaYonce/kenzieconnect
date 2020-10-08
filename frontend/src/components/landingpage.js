@@ -21,19 +21,35 @@ const Landing = (props) => {
       <Row style={{ margin: "2em" }} row-12>
         
         <Col col-3>
-          <Card style={{ width: "20em", margin: "0 auto", boxShadow: "5px 10px 2px #4a5066"}}>
-            <CardBody>
-              <Row style={{ textAlign: "center" }}>
-                <img alt="prfoilepic" src={placeholder} style={{width: '10em', paddingRight: "1em"}}/>
-                <h1 style={{fontFamily: 'Montserrat', fontSize: "2.5em"}}>90% <br/>Match</h1>
-              </Row>
-              <CardText>Name:</CardText>
-              <CardText>Age:</CardText>
-              <CardText>Gender:</CardText>
-              <CardText>Sexual Preference:</CardText>
-              <CardText>Bio:</CardText>
-            </CardBody>
-          </Card>
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-back">
+                <Card style={{ width: "20em", margin: "0 auto", boxShadow: "5px 10px 2px #4a5066"}}>
+                  <CardBody>
+                    <Row style={{ textAlign: "center" }}>
+                      <img alt="prfoilepic" src={placeholder} style={{width: '10em', paddingRight: "1em"}}/>
+                      <h1 style={{fontFamily: 'Montserrat', fontSize: "2.5em"}}>90% <br/>Match</h1>
+                    </Row>
+                    <CardText>Name:</CardText>
+                    <CardText>Age:</CardText>
+                    <CardText>Gender:</CardText>
+                    <CardText>Sexual Preference:</CardText>
+                    <CardText>Bio:</CardText>
+                  </CardBody>
+                </Card>
+                </div>
+              <div class="flip-card-front">
+              {/* <Card style={{ width: "20em", height: "100%", margin: "0 auto"}}>
+                  <CardBody>
+                    <Row style={{ textAlign: "center" }}>
+                      <h1 style={{fontFamily: 'Montserrat', fontSize: "2.5em"}}>Hover To Connect With Your 90% Match</h1>
+                    </Row>
+                  </CardBody>
+                </Card> */}
+
+              </div>
+          </div>
+          </div>
         </Col>
         <Col col-3>
           <Card style={{ width: "20em", margin: "0 auto", boxShadow: "5px 10px 2px #4a5066"}}>
