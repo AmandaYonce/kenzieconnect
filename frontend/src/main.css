@@ -193,3 +193,19 @@ font-family: 'Montserrat', sans-serif;  */
     -moz-transform:rotate(-30deg);
     -webkit-transform:rotate(-30deg);
 }
+
+#notifCard{
+    width: 28em;
+    height: 4em;
+    text-align: center;
+    border: 4px solid #888888;
+    border-radius: 10% 5% 10% 5%;
+    background-color: #4a5066;
+}
+
+.notifText{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.7em;
+    padding: 0.3em;
+    color: white;
+}
