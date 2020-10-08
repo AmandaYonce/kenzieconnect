@@ -35,4 +35,4 @@ const Landing = (props) => {
     </React.Fragment>
   );
 };
-export default Landing;
+export {Landing as Home};

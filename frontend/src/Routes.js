@@ -1,5 +1,5 @@
 import React from "react";
-import Landing from "./components/landingpage";
+import { Home } from "./components/landingpage";
 import PenPal from "./components/penpal";
 import Profile from "./components/profile";
 // import Auth from "./components/loginSignup";
@@ -23,7 +23,7 @@ const Routes = () => {
 
   let urls = {
     PenPal: { path: /^\/messages\/\w+$/, PenPal },
-    Home: { path: /\/home\//, Home: Landing },
+    Home: { path: /\/home\//, Home },
     NewUserReg: { path: /\/signup\/$/, NewUserReg },
     Profile: {
       path: /\/profile\/\w+$/,
