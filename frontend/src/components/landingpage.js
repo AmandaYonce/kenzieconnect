@@ -15,48 +15,52 @@ const Landing = (props) => {
         </Card>
       </Row>
 
-{/* Once we have data coming in we will delete all but 1 of the col/cards below and use map
-to display 3 random matches from the list of potentials */}
       <Row style={{ justifyContent: "center" }} row-12>
-          <h1 style={{fontFamily: 'Montserrat', fontSize: "2.5em"}}>Your Daily Matches</h1>
+          <h1 style={{fontFamily: 'Montserrat', fontSize: "3.5em", color: "whitesmoke"}}>Your Daily Matches</h1>
       </Row>
       <Row style={{ margin: "2em" }} row-12>
         
         <Col col-3>
-          <Card style={{ width: "20em", margin: "0 auto"}}>
+          <Card style={{ width: "20em", margin: "0 auto", boxShadow: "5px 10px 2px #4a5066"}}>
             <CardBody>
-              <img alt="prfoilepic" src={placeholder} style={{width: '15em'}}/>
+              <Row style={{ textAlign: "center" }}>
+                <img alt="prfoilepic" src={placeholder} style={{width: '10em', paddingRight: "1em"}}/>
+                <h1 style={{fontFamily: 'Montserrat', fontSize: "2.5em"}}>90% <br/>Match</h1>
+              </Row>
               <CardText>Name:</CardText>
               <CardText>Age:</CardText>
               <CardText>Gender:</CardText>
               <CardText>Sexual Preference:</CardText>
-              <CardText>Percentage Match:</CardText>
               <CardText>Bio:</CardText>
             </CardBody>
           </Card>
         </Col>
         <Col col-3>
-          <Card style={{ width: "20em", margin: "0 auto"}}>
+          <Card style={{ width: "20em", margin: "0 auto", boxShadow: "5px 10px 2px #4a5066"}}>
             <CardBody>
-            <img alt="prfoilepic" src={placeholder} style={{width: '15em'}}/>
+              <Row style={{ textAlign: "center" }}>
+                <img alt="prfoilepic" src={placeholder} style={{width: '10em', paddingRight: "1em"}}/>
+                <h1 style={{fontFamily: 'Montserrat', fontSize: "2.5em"}}>80% <br/>Match</h1>
+              </Row>
               <CardText>Name:</CardText>
               <CardText>Age:</CardText>
               <CardText>Gender:</CardText>
               <CardText>Sexual Preference:</CardText>
-              <CardText>Percentage Match:</CardText>
               <CardText>Bio:</CardText>
             </CardBody>
           </Card>
         </Col>
         <Col col-3>
-          <Card style={{ width: "20em", margin: "0 auto" }}>
+          <Card style={{ width: "20em", margin: "0 auto", boxShadow: "5px 10px 2px #4a5066" }}>
             <CardBody>
-            <img alt="prfoilepic" src={placeholder} style={{width: '15em'}}/>
+              <Row style={{ textAlign: "center" }}>
+                <img alt="prfoilepic" src={placeholder} style={{width: '10em', paddingRight: "1em"}}/>
+                <h1 style={{fontFamily: 'Montserrat', fontSize: "2.5em"}}>70% <br/>Match</h1>
+              </Row>
               <CardText>Name:</CardText>
               <CardText>Age:</CardText>
               <CardText>Gender:</CardText>
               <CardText>Sexual Preference:</CardText>
-              <CardText>Percentage Match:</CardText>
               <CardText>Bio:</CardText>
             </CardBody>
           </Card>
