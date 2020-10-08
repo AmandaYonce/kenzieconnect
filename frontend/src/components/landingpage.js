@@ -9,13 +9,13 @@ const Landing = (props) => {
       <div style={{backgroundColor: "#888888", height: "1000px"}}>
       <Header />
 
-      <Row style={{ margin: '1em' }}>
-        <Card id="notifCard">
+      <Row style={{ margin: '0.5em' }}>
+        <Card id="slide">
           <a class="notifText" href="/messagefeed/:username">You have 4 New Messages</a>
         </Card>
       </Row>
 
-      <Row style={{ justifyContent: "center" }} row-12>
+      <Row style={{ justifyContent: "center", marginTop: "3.5em"}} row-12>
           <h1 style={{fontFamily: 'Montserrat', fontSize: "3.5em", color: "whitesmoke", textShadow: '-3px 1px 0 #000'}}>Your Daily Matches</h1>
       </Row>
       <Row style={{ margin: "2em" }} row-12>

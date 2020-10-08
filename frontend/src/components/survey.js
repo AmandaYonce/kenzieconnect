@@ -53,7 +53,7 @@ const Survey = (props) => {
       <Row row-12 style={{justifyContent: "center", fontFamily: 'Dosis'}}>
       
       <Card style={{ width: "1000px", marginLeft: "30px", marginTop: "30px", fontSize: '1.5em', }}>
-        <CardBody>
+        <CardBody style={{border: '4px solid #4a5066'}}>
           <Form onSubmit={handleSubmit}>
             <FormGroup row>
               <Label for="survey1" sm={5}>

@@ -208,6 +208,29 @@ font-family: 'Montserrat', sans-serif; */
 .notifText{
     font-family: 'Montserrat', sans-serif;
     font-size: 1.7em;
-    padding: 0.3em;
+    padding: 0.2em;
     color: white;
+}
+
+#slide {
+    width: 26em;
+    height: 4em;
+    text-align: center;
+    border: 4px solid #888888;
+    border-radius: 10% 5% 10% 5%;
+    background-color: #4a5066;
+    position: absolute;
+    left: -600px;
+    -webkit-animation: slide 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: slide 0.5s forwards;
+    animation-delay: 2s;
+}
+
+@-webkit-keyframes slide {
+    100% { left: 0; }
+}
+
+@keyframes slide {
+    100% { left: 0; }
 }
