@@ -9,6 +9,7 @@ import {
   Label,
   Input,
   Col,
+  Row
 } from "reactstrap";
 // import { postData } from "./helpers";
 import { useHistory } from "react-router-dom";
@@ -44,17 +45,21 @@ const Survey = (props) => {
   };
 
   return (
-    <div>
+    <div style={{backgroundColor: "#888888", height: "1400px"}}>
       <Header />
-      <h1>New User Registration Page</h1>
-      <Card style={{ width: "1000px", marginLeft: "30px", marginTop: "30px" }}>
+      <Row row-12 style={{marginTop: '1em', textAlign: "center", justifyContent: "center", fontFamily: 'Dosis'}}>
+        <h1 style={{fontFamily: 'Montserrat', fontSize: "3em", color: "whitesmoke", textShadow: '-3px 1px 0 #000'}}>Complete The Survey To Find Your Connections!</h1>
+      </Row>
+      <Row row-12 style={{justifyContent: "center", fontFamily: 'Dosis'}}>
+      
+      <Card style={{ width: "1000px", marginLeft: "30px", marginTop: "30px", fontSize: '1.5em', }}>
         <CardBody>
           <Form onSubmit={handleSubmit}>
             <FormGroup row>
-              <Label for="survey1" sm={2}>
-                Do you have pets:
+              <Label for="survey1" sm={5}>
+                Do you have pets?
               </Label>
-              <Col sm={10}>
+              <Col sm={7}>
                 <Input
                   type="select"
                   name="survey1"
@@ -70,10 +75,10 @@ const Survey = (props) => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="survey2" sm={2}>
-                Do you like spicey food:
+              <Label for="survey2" sm={5}>
+                Do you like spicey food?
               </Label>
-              <Col sm={10}>
+              <Col sm={7}>
                 <Input
                   type="select"
                   name="survey2"
@@ -87,10 +92,10 @@ const Survey = (props) => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="survey3" sm={2}>
+              <Label for="survey3" sm={5}>
                 What is your perfect date?
               </Label>
-              <Col sm={10}>
+              <Col sm={7}>
                 <Input
                   type="select"
                   name="survey3"
@@ -105,10 +110,10 @@ const Survey = (props) => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="survey4" sm={2}>
+              <Label for="survey4" sm={5}>
                 Which date activity do you prefer?
               </Label>
-              <Col sm={10}>
+              <Col sm={7}>
                 <Input
                   type="select"
                   name="survey4"
@@ -124,10 +129,10 @@ const Survey = (props) => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="survey5" sm={2}>
+              <Label for="survey5" sm={5}>
                 Which star wars character are you most like?
               </Label>
-              <Col sm={10}>
+              <Col sm={7}>
                 <Input
                   type="select"
                   name="survey5"
@@ -147,10 +152,10 @@ const Survey = (props) => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="survey6" sm={2}>
+              <Label for="survey6" sm={5}>
                 Do you prefer Beer, Wine or Cocktails?
               </Label>
-              <Col sm={10}>
+              <Col sm={7}>
                 <Input
                   type="select"
                   name="survey6"
@@ -166,10 +171,10 @@ const Survey = (props) => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="survey7" sm={2}>
+              <Label for="survey7" sm={5}>
                 Hand on Heart, are you wearing Pjs right now?
               </Label>
-              <Col sm={10}>
+              <Col sm={7}>
                 <Input
                   type="select"
                   name="survey7"
@@ -185,10 +190,10 @@ const Survey = (props) => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="survey8" sm={2}>
+              <Label for="survey8" sm={5}>
                 Are you an Early Bird or Night Owl
               </Label>
-              <Col sm={10}>
+              <Col sm={7}>
                 <Input
                   type="select"
                   name="survey8"
@@ -202,10 +207,10 @@ const Survey = (props) => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="survey9" sm={2}>
+              <Label for="survey9" sm={5}>
                 If age is a state of mind, which category best describes you?
               </Label>
-              <Col sm={10}>
+              <Col sm={7}>
                 <Input
                   type="select"
                   name="survey9"
@@ -221,10 +226,10 @@ const Survey = (props) => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="survey10" sm={2}>
+              <Label for="survey10" sm={5}>
                 If you were a breed of dog, which would you be?{" "}
               </Label>
-              <Col sm={10}>
+              <Col sm={7}>
                 <Input
                   type="select"
                   name="survey10"
@@ -254,6 +259,7 @@ const Survey = (props) => {
           </Form>
         </CardBody>
       </Card>
+      </Row>
     </div>
   );
 };

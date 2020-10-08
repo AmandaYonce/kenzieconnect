@@ -87,6 +87,7 @@ font-family: 'Montserrat', sans-serif; */
 
 .regFont{
     font-size: 3em;
+    text-shadow: 2px -2px 0 #000
 }
 
 #collage-container{
