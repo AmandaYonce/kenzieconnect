@@ -4,6 +4,7 @@ import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from "reactstrap";
 import { StateContext } from "../App";
 import logo from "../images/logo.png";
 import { loggingOut } from "./actions";
+import "../nav.css"
 
 const Header = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
@@ -25,16 +26,16 @@ const Header = (props) => {
     <React.Fragment>
       <Navbar color="light" light expand="md">
         <img alt="logo" src={logo} style={{ width: "5em" }} />
-        <NavbarBrand href="/">Kenzie Connect</NavbarBrand>
+        <NavbarBrand style={{fontSize: "3em", color: '#232839', fontFamily: 'Lobster'}} href="/">Kenzie Connect</NavbarBrand>
         <Nav className="mr-auto" navbar>
-          <NavItem>
-            <NavLink href="/home/">Home</NavLink>
+          <NavItem style={{paddingLeft: '1em'}}>
+            <NavLink class="navlink" style={{fontSize: "2em", fontFamily: 'Dosis', color: '#232839'}} href="/home/">Home</NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink href={`/profile/${state.user}`}>Profile</NavLink>
+          <NavItem style={{paddingLeft: '1em'}}>
+            <NavLink style={{fontSize: "2em", fontFamily: 'Dosis', color: '#232839'}} href={`/profile/${state.user}`}>Profile</NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink href={`/messages/${state.user}`}>Pen Pal</NavLink>
+          <NavItem style={{paddingLeft: '1em'}}>
+            <NavLink style={{fontSize: "2em", fontFamily: 'Dosis', color: '#232839'}} href={`/messages/${state.user}`}>Pen Pal</NavLink>
           </NavItem>
         </Nav>
         <Button onClick={(e) => handleLogOut(e)}>Logout</Button>

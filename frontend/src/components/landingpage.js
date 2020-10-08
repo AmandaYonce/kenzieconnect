@@ -16,7 +16,7 @@ const Landing = (props) => {
       </Row>
 
       <Row style={{ justifyContent: "center" }} row-12>
-          <h1 style={{fontFamily: 'Montserrat', fontSize: "3.5em", color: "whitesmoke"}}>Your Daily Matches</h1>
+          <h1 style={{fontFamily: 'Montserrat', fontSize: "3.5em", color: "whitesmoke", textShadow: '-3px 1px 0 #000'}}>Your Daily Matches</h1>
       </Row>
       <Row style={{ margin: "2em" }} row-12>
         
