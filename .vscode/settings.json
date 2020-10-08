@@ -1,6 +1,9 @@
 {
-    "python.pythonPath": "/usr/bin/python3",
+    "python.pythonPath": "/home/knegley/.pyenv/shims/python",
     "git.ignoreLimitWarning": true,
     "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "python.languageServer": "Pylance",
+    "python.linting.pylintEnabled": false,
+    "python.formatting.provider": "autopep8"
 }

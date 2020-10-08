@@ -138,6 +138,8 @@ CORS_ALLOW_METHODS = [
     'PUT',
 ]
 
+ALLOWED_HOSTS=[]
+
 LOGIN_URL = '/login/'
 
 AUTH_USER_MODEL = "kenzie_connect.CustomUser"

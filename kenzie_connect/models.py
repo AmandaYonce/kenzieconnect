@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+# from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
@@ -34,6 +34,10 @@ class CustomUser(AbstractUser):
     sexual_preference = models.CharField(max_length=20, choices=sexual_preference_choices, default=Straight)
     email = models.URLField(blank=True, null=True)
     displayname = models.CharField(max_length=60, default="")
+    survey=models.OneToOneField('Survey',on_delete=models.CASCADE,primary_key=True)
+    
+    def __str__(self):
+        return self.id
 
 class Survey(models.Model):
 
