@@ -53,8 +53,8 @@ class Survey(models.Model):
 
 class Penpal(models.Model):
     penpal_message = models.CharField(max_length=500)
-    from_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    to_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    from_user = models.ForeignKey(CustomUser, related_name="from_user_fk", on_delete=models.CASCADE)
+    to_user = models.ForeignKey(CustomUser,related_name="to_user_fk", on_delete=models.CASCADE)
 
 
     def __str__(self):

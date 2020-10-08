@@ -72,6 +72,15 @@ const putData = (postUrl, item, dispatch) => async () => {
   }
 };
 
+const formData = (form) => {
+  let surveyData = {};
+  for (const fields of form) {
+    let { name, value } = fields;
+    surveyData[name] = value;
+  }
+  return surveyData;
+};
+
 export {
   createReducer,
   postData,
@@ -79,4 +88,5 @@ export {
   receiveList,
   putData,
   routeDispatcher,
+  formData,
 };

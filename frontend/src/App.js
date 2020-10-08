@@ -7,7 +7,7 @@ export const StateContext = React.createContext();
 
 const App = () => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
-  // console.log(state.loggedIn);
+  
   return (
     <StateContext.Provider value={{ state, dispatch }}>
       <Routes />

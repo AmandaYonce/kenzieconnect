@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, Button, CardText } from "reactstrap";
+import { Button } from "reactstrap";
 import HeaderMain from "./headerMain";
+// import UserRegistration from "./userRegistration";
 import Auth from "./loginSignup";
 import FullLogo from "../images/fullLogo.png";
 import one from "../images/beachcouple.jpeg";
@@ -11,16 +12,33 @@ import five from "../images/relaxcouple.jpeg";
 import six from "../images/sexycouple.png";
 import seven from "../images/streetcouple.jpeg";
 import eight from "../images/weddingcouple.jpeg";
+import { StateContext } from "../App";
+import { toggleModal } from "./actions";
+import ModalRegistration from "../Modal";
 
 const Main = (props) => {
+  const { state, dispatch } = React.useContext(StateContext);
+  const openModal = () => {
+    // e.preventDefault();
+
+    console.log("working");
+    // not sure we need this but we need some way to change the state of the Modal
+    // on the child component UserRegistration to isOpen=true so the modal will display
+    dispatch(toggleModal());
+  };
+
   return (
     <React.Fragment>
       <HeaderMain />
 
       <div className="mainContainer">
         <div className="topLeft">
-          <div className="auth">
-            <Auth />
+          <div className="reg">
+            <h1 className="regFont">Register Here to Get Connected!</h1>
+            <Button size="lg" onClick={() => openModal()}>
+              Register
+            </Button>
+            <ModalRegistration show={state.modal} onHide={() => openModal()} />
           </div>
         </div>
         <div className="right">
@@ -40,15 +58,8 @@ const Main = (props) => {
           </div>
         </div>
         <div className="bottomLeft">
-          <div className="reg">
-            <Card style={{ width: "300px", marginTop: "30px" }}>
-              <CardText>Join Now to Get Connected!</CardText>
-              <span>
-                <a href="/signup/">
-                  <Button>Signup</Button>
-                </a>
-              </span>
-            </Card>
+          <div className="auth">
+            <Auth />
           </div>
         </div>
       </div>

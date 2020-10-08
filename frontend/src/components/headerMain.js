@@ -6,7 +6,7 @@ const HeaderMain = (props) => (
   <React.Fragment>
     <Navbar color="light" light expand="md">
       <img alt="logo" src={logo} style={{ width: "5em" }} />
-      <NavbarBrand href="/">Kenzie Connect</NavbarBrand>
+      <NavbarBrand style={{fontSize: "3em", color: '#232839', fontFamily: 'Lobster'}} href="/">Kenzie Connect</NavbarBrand>
     </Navbar>
   </React.Fragment>
 );

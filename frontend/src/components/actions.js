@@ -10,20 +10,27 @@ const actions = {
   LIST: "LIST",
   SURVEY: "SURVEY",
   LOGIN: "LOGIN",
-  LOGOUT: "LOGOUT",
+  TOGGLELOGIN: "TOGGLELOGIN",
+  TOGGLEMODAL: "TOGGLEMODAL",
 };
 
 const getList = actionCreator(actions.LIST, "list");
 const getSurvey = actionCreator(actions.SURVEY, "survey");
-const login = actionCreator(actions.LOGIN);
-const logout = actionCreator(actions.LOGOUT);
+const loginOrOut = actionCreator(actions.TOGGLELOGIN);
+const toggleModal = actionCreator(actions.TOGGLEMODAL);
 
 const receiveList = (list) => (dispatch) => dispatch(getList(list));
 
 const receiveSurvey = (surveyData) => (dispatch) =>
   dispatch(getSurvey(surveyData));
 
-const loggingIn = (dispatch) => dispatch(login());
-const loggingOut = (dispatch) => dispatch(logout());
+// const loggingOut = (dispatch) => dispatch(logout());
 
-export { actions, getList, receiveList, receiveSurvey, loggingOut, loggingIn };
+export {
+  actions,
+  getList,
+  receiveList,
+  receiveSurvey,
+  loginOrOut,
+  toggleModal,
+};

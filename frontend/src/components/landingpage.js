@@ -1,38 +1,45 @@
 import React from "react";
 import Header from "./header";
-import { CardBody, Card, Col, Row, CardText } from "reactstrap";
+import { Card, Row } from "reactstrap";
+
+import LandingCards from "../LandingCards";
+import { StateContext } from "../App";
 
 const Landing = (props) => {
+  const { state } = React.useContext(StateContext);
   return (
     <React.Fragment>
-      <Header />
-      <Row style={{ width: "400px", margin: "5em" }}>
-        <a href="/messagefeed/:username">You have 4 New Messages</a>
-      </Row>
-      <Row style={{ width: "60em", margin: "5em" }}>
-        <Col>
-          <Card style={{ width: "25em", margin: "2em" }}>
-            <CardBody>
-              <CardText>Matched Profile</CardText>
-            </CardBody>
+      <div style={{ backgroundColor: "#888888", height: "1000px" }}>
+        <Header />
+
+        <Row style={{ margin: "0.5em" }}>
+          <Card id="slide">
+            <a className="notifText" href={`/messagefeed/${state.username}`}>
+              You have 4 New Messages
+            </a>
           </Card>
-        </Col>
-        <Col>
-          <Card style={{ width: "25em", margin: "2em" }}>
-            <CardBody>
-              <CardText>Matched Profile</CardText>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col>
-          <Card style={{ width: "25em", margin: "2em" }}>
-            <CardBody>
-              <CardText>Matched Profile</CardText>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
+        </Row>
+
+        <Row
+          style={{ justifyContent: "center", marginTop: "3.5em" }}
+          row-12="true"
+        >
+          <h1
+            style={{
+              fontFamily: "Montserrat",
+              fontSize: "3.5em",
+              color: "whitesmoke",
+              textShadow: "-3px 1px 0 #000",
+            }}
+          >
+            Your Daily Matches
+          </h1>
+        </Row>
+        <Row style={{ margin: "2em" }} row-12="true">
+          <LandingCards />
+        </Row>
+      </div>
     </React.Fragment>
   );
 };
-export {Landing as Home};
+export { Landing as Home };
