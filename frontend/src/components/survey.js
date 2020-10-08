@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./header";
+import HeaderMain from "./headerMain";
 import {
   CardBody,
   Card,
@@ -43,7 +43,7 @@ const Survey = (props) => {
 
   return (
     <div style={{ backgroundColor: "#888888", height: "1400px" }}>
-      <Header />
+      <HeaderMain />
       <Row
         row-12="true"
         style={{

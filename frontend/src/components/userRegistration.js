@@ -44,7 +44,8 @@ const UserRegistration = ({ modal }) => {
 
   const formGroups = formNames.map((value, index) => (
     <FormGroup key={index}>
-      <Label for={value}>{value}</Label>
+      <Label sm={4} for={value}>{value}</Label>
+      <Col sm={8}>
       <Input
         type={
           value === "Password"
@@ -60,21 +61,25 @@ const UserRegistration = ({ modal }) => {
         placeholder={value}
         required={true}
       />
+      </Col>
     </FormGroup>
   ));
 
   return (
     <React.Fragment>
       <Card style={{ width: "700px" }}>
-        <CardText>Join Now to Get Connected!</CardText>
+        <CardText style={{
+            textAlign: "center",
+            fontFamily: "Montserrat",
+            fontSize: "3em"}}>Join Now to Get Connected!</CardText>
         <CardBody>
-          <Form onSubmit={handleRegistration}>
+          <Form onSubmit={handleRegistration} style={{fontFamily: "Montserrat"}}>
             {formGroups}
             <FormGroup row>
-              <Label for="survey8" sm={2}>
+              <Label for="survey8" sm={4}>
                 Gender
               </Label>
-              <Col sm={10}>
+              <Col sm={8}>
                 <Input type="select" name="gender" id="gender" required={true}>
                   <option value="">------</option>
                   <option>Male</option>
@@ -85,10 +90,10 @@ const UserRegistration = ({ modal }) => {
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="sexual_preference" sm={2}>
+              <Label for="sexual_preference" sm={4}>
                 Sexual Preference
               </Label>
-              <Col sm={10}>
+              <Col sm={8}>
                 <Input
                   type="select"
                   name="sexual_preference"
