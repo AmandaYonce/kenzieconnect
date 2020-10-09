@@ -22,9 +22,13 @@ router = routers.DefaultRouter()
 router.register(r'customuser', views.CustomUserViewSet)
 # router.register(r'survey', views.SurveyViewSet)
 router.register(r'penpal', views.PenpalViewSet)
+# router.register(r'user/<pk>/',views.user_detail)
 
 
 urlpatterns = [
+
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('users/<int:pk>/', views.user_detail)
+    
 ]

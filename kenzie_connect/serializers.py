@@ -1,7 +1,7 @@
 
 from kenzie_connect.models import CustomUser, Survey, Penpal
 from rest_framework import serializers
-from uuid import uuid4
+
 
 
 class SurveySerializer(serializers.ModelSerializer):
@@ -30,6 +30,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         
         model = CustomUser
         fields = [
+            'pk',
+            "is_active",
             'username',
             'displayname',
             'email',
@@ -45,19 +47,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
     def create(self,validated_data):
-        print(validated_data)
         
         survey_data=validated_data.pop("survey")
-        
-        print(survey_data)
-        # user=CustomUser.objects.create(**validated_data)
         survey=Survey.objects.create(**survey_data)
-
-        
-    
-        
-        
-        
         user=CustomUser.objects.create(**validated_data,survey=survey)
         
         return user
