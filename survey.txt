@@ -28,7 +28,8 @@ Survey:
 - Padme Amidala
 - Jyn Erso
 - Yoda
-- Chubacka
+- Chewbacca
+- Jar Jar Binks
 
 
 6. do you like beer, wine or cocktails?
