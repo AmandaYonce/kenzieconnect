@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./header";
 import { Card, Row } from "reactstrap";
-
+import wink from "../images/wink.png"
 import LandingCards from "./LandingCards";
 import { StateContext } from "../App";
 
@@ -16,6 +16,12 @@ const Landing = (props) => {
             <a className="notifText" href={`/messagefeed/${state.username}`}>
               You have 4 New Messages
             </a>
+          </Card>
+        </Row>
+        <Row style={{ margin: "0.5em" }}>
+          <Card id="winkslide">
+              You have 3 winks
+              <img alt="wink" src={wink} style={{ width: "4em" }} />
           </Card>
         </Row>
         <Row style={{ justifyContent: "center", marginTop: "3.5em"}} row-12>

@@ -249,6 +249,29 @@ font-family: 'Montserrat', sans-serif; */
     100% { left: 0; }
 }
 
+#winkslide {
+    width: 6em;
+    height: 4em;
+    text-align: center;
+    border: 4px solid #888888;
+    border-radius: 10% 5% 10% 5%;
+    background-color: transparent;
+    position: absolute;
+    right: -600px;
+    -webkit-animation: winkslide 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: winkslide 0.5s forwards;
+    animation-delay: 2s;
+}
+
+@-webkit-keyframes winkslide {
+    100% { right: 0; }
+}
+
+@keyframes winkslide {
+    100% { right: 0; }
+}
+
 
 .flip-card {
     background-color: transparent;
