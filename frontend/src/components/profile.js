@@ -8,7 +8,7 @@ import Tips from "./tips";
 const Profile = (props) => {
   const { state } = React.useContext(StateContext);
   return (
-      <div style={{ backgroundColor: "#4a5066", height: "800px" }}>
+      <div style={{ backgroundColor: "#4a5066", height: "1000px" }}>
       <Header />
       <h1 class="profile">Your Profile</h1>
       <Row style={{ width: "60em", margin: "5em" }}>

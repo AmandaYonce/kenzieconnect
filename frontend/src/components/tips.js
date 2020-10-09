@@ -1,5 +1,6 @@
 import React from "react";
-import { CardBody, Card, Col, Row, CardText } from "reactstrap";
+import { CardBody, Card, CardText } from "reactstrap";
+import check from "../images/check.png"
 
 
 const Tips = (props) => {
@@ -8,7 +9,18 @@ const Tips = (props) => {
         <>
         <Card>
             <CardBody>
-                <CardText>Profile Helpful Hints</CardText>
+                <CardText style={{fontFamily: 'Dosis', fontSize: "3em"}}>Profile Hints & Tips</CardText>
+                <div style={{fontFamily: 'Dosis', fontSize: "1.5em"}}>
+                <CardText><img class="check" src={check} alt="check"/>Don't Leave Anything Blank.</CardText>
+                <CardText><img class="check" src={check} alt="check"/>Be honest. People LOVE it.</CardText>
+                <CardText><img class="check" src={check} alt="check"/>Don’t hide your face in your profile photo.</CardText>
+                <CardText><img class="check" src={check} alt="check"/>Don’t write a novel.</CardText>
+                <CardText><img class="check" src={check} alt="check"/>Feel free to talk about your kids. </CardText>
+                <CardText><img class="check" src={check} alt="check"/>Add details.</CardText>
+                <CardText><img class="check" src={check} alt="check"/>Don’t talk about dating.</CardText>
+                <CardText><img class="check" src={check} alt="check"/>Get a little romantic. </CardText>
+                <CardText><img class="check" src={check} alt="check"/>Be your wonderful, weird self. </CardText>
+                </div>
             </CardBody>
         </Card>
         </>
