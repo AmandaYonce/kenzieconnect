@@ -85,6 +85,15 @@ font-family: 'Montserrat', sans-serif; */
     color: whitesmoke;
 }
 
+.profile{
+    margin-top: 0.5em;
+    font-family: "Montserrat";
+    color: whitesmoke;
+    font-size: 5em;
+    text-align: center;
+    text-shadow: -3px 1px 0 #000
+}
+
 .regFont{
     font-size: 3em;
     text-shadow: 2px -2px 0 #000
