@@ -1,15 +1,14 @@
 
 from kenzie_connect.models import CustomUser, Survey, Penpal
 from rest_framework import serializers
+from uuid import uuid4
 
 
-
-class SurveySerializer(serializers.HyperlinkedModelSerializer):
+class SurveySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Survey
         fields = [
-            
             'question_pet',
             'question_food',
             'question_date',
@@ -20,15 +19,18 @@ class SurveySerializer(serializers.HyperlinkedModelSerializer):
             'question_sleep',
             'question_mind',
             'question_dog',
+            
+            
             ]
 
-class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
-    # survey = serializers.HyperlinkedRelatedField(view_name='survey',read_only=True)
+class CustomUserSerializer(serializers.ModelSerializer):
+    
     survey=SurveySerializer()
     class Meta:
         
         model = CustomUser
         fields = [
+            'username',
             'displayname',
             'email',
             'password',
@@ -38,6 +40,27 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
             'sexual_preference',
             "survey"
             ]
+        
+        
+
+
+    def create(self,validated_data):
+        print(validated_data)
+        
+        survey_data=validated_data.pop("survey")
+        
+        print(survey_data)
+        # user=CustomUser.objects.create(**validated_data)
+        survey=Survey.objects.create(**survey_data)
+
+        
+    
+        
+        
+        
+        user=CustomUser.objects.create(**validated_data,survey=survey)
+        
+        return user
 
 
 class PenpalSerializer(serializers.HyperlinkedModelSerializer):

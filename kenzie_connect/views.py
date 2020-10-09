@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .serializers import CustomUserSerializer, SurveySerializer, PenpalSerializer
 from kenzie_connect.models import CustomUser, Survey, Penpal
 from rest_framework import viewsets
+from rest_framework.decorators import api_view
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
@@ -18,3 +19,12 @@ class CustomUserViewSet(viewsets.ModelViewSet):
 class PenpalViewSet(viewsets.ModelViewSet):
     queryset = Penpal.objects.filter()
     serializer_class = PenpalSerializer
+
+
+@api_view(['GET'])
+def match_probability(request,user_id):
+    
+    if request.method=="GET":
+        user=CustomUser.get(id=request.user.id)
+        match=CustomUser.get(id=user_id)
+    

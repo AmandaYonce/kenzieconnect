@@ -1,6 +1,7 @@
 from django.db import models
-from django.utils import timezone
+# from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
+from rest_framework.serializers import ModelSerializer
 
 # Create your models here.
 class CustomUser(AbstractUser):
@@ -28,13 +29,17 @@ class CustomUser(AbstractUser):
     (Other, 'Other'),
     ]
 
-    age = models.IntegerField(default=18)
-    gender = models.CharField(max_length=20, choices=gender_choices, default=Male)
+    age = models.IntegerField()
+    gender = models.CharField(max_length=20, choices=gender_choices)
     bio = models.CharField(max_length=1000)
-    sexual_preference = models.CharField(max_length=20, choices=sexual_preference_choices, default=Straight)
-    email = models.URLField(blank=True, null=True)
-    displayname = models.CharField(max_length=60, default="")
-    
+    sexual_preference = models.CharField(max_length=20, choices=sexual_preference_choices)
+    email = models.EmailField(max_length=150)
+    displayname = models.CharField(max_length=60)
+    survey=models.OneToOneField('Survey',on_delete=models.CASCADE, related_name="survey_data",primary_key=True)
+    # survey=models.ForeignKey("Survey",on_delete=models.CASCADE, related_name='survey_data',null=True,blank=True)
+
+    def __str__(self):
+        return self.displayname
 
 class Survey(models.Model):
     Dog = 'Dog'
@@ -158,9 +163,9 @@ class Survey(models.Model):
 
 
 
-    survey_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=True, null=True)
-    question_pet = models.CharField(max_length=60, choices=pet_choices, default=Nopets)
-    question_food = models.BooleanField(default=True)
+    
+    question_pet = models.CharField(max_length=60, choices=pet_choices)
+    question_food = models.BooleanField()
     question_date = models.CharField(max_length=50, choices=date_choice)
     question_activity = models.CharField(max_length=50, choices=activity_choice)
     question_star = models.CharField(max_length=50, choices=starwars_choice)

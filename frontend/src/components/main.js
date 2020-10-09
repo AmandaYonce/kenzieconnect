@@ -19,11 +19,6 @@ import ModalRegistration from "../Modal";
 const Main = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
   const openModal = () => {
-    // e.preventDefault();
-
-    console.log("working");
-    // not sure we need this but we need some way to change the state of the Modal
-    // on the child component UserRegistration to isOpen=true so the modal will display
     dispatch(toggleModal());
   };
 
