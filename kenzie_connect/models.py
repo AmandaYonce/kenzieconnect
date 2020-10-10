@@ -35,8 +35,6 @@ class CustomUser(AbstractUser):
     sexual_preference = models.CharField(max_length=20, choices=sexual_preference_choices)
     email = models.EmailField(max_length=150)
     displayname = models.CharField(max_length=60)
-    survey=models.OneToOneField('Survey',on_delete=models.CASCADE, related_name="survey_data",primary_key=True)
-    # survey=models.ForeignKey("Survey",on_delete=models.CASCADE, related_name='survey_data',null=True,blank=True)
 
     def __str__(self):
         return self.displayname
@@ -161,9 +159,8 @@ class Survey(models.Model):
         (Labradoodle,  'Labradoodle – or some other cute hybrid')
 
     ]
-
+    username = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="survey_data")
     question_pet = models.CharField(max_length=60, choices=pet_choices)
-    question_food = models.BooleanField()
     question_date = models.CharField(max_length=50, choices=date_choice)
     question_activity = models.CharField(max_length=50, choices=activity_choice)
     question_star = models.CharField(max_length=50, choices=starwars_choice)
@@ -177,15 +174,20 @@ class Survey(models.Model):
 class Penpal(models.Model):
     penpal_message = models.CharField(max_length=500)
     from_user = models.ForeignKey(CustomUser, related_name="from_user_fk", on_delete=models.CASCADE)
-    to_user = models.ForeignKey(CustomUser,related_name="to_user_fk", on_delete=models.CASCADE)
+    to_user = models.ForeignKey(CustomUser, related_name="to_user_fk", on_delete=models.CASCADE)
+    CHOICES = ((True, True), (False, False))
+    message_read = models.BooleanField(choices=CHOICES, default=False)
 
     def __str__(self):
         return self.penpal_message
 
 
-class Notification(models.Model):
-    notification_tweet = models.ForeignKey(Penpal, on_delete=models.CASCADE)
-    notification_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+class Wink(models.Model):
+    CHOICES = ((True, True), (False, False))
+    wink_viewed = models.BooleanField(choices=CHOICES, default=False)
+    from_user = models.ForeignKey(CustomUser, related_name="from_user_wink", on_delete=models.CASCADE)
+    to_user = models.ForeignKey(CustomUser, related_name="to_user_wink", on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.notification_tweet.text
+        return self.penpal_message
+

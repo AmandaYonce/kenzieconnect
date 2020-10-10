@@ -20,8 +20,9 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'customuser', views.CustomUserViewSet)
-# router.register(r'survey', views.SurveyViewSet)
+router.register(r'survey', views.SurveyViewSet)
 router.register(r'penpal', views.PenpalViewSet)
+router.register(r'wink', views.WinkViewSet)
 # router.register(r'user/<pk>/',views.user_detail)
 
 

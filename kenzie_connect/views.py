@@ -3,35 +3,44 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 # from custom_users.settings import AUTH_USER_MODEL
 # from myuser.forms import LoginForm, SignupForm
-from .serializers import CustomUserSerializer, SurveySerializer, PenpalSerializer
-from kenzie_connect.models import CustomUser, Survey, Penpal
+from .serializers import CustomUserSerializer, SurveySerializer, PenpalSerializer, WinkSerializer
+from kenzie_connect.models import CustomUser, Survey, Penpal, Wink
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from rest_framework.decorators import api_view
+
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
-# class SurveyViewSet(viewsets.ModelViewSet):
-#     queryset = Survey.objects.all()
-#     serializer_class = SurveySerializer
+
+class SurveyViewSet(viewsets.ModelViewSet):
+    queryset = Survey.objects.all()
+    serializer_class = SurveySerializer
+
 
 class PenpalViewSet(viewsets.ModelViewSet):
     queryset = Penpal.objects.filter()
     serializer_class = PenpalSerializer
 
 
+class WinkViewSet(viewsets.ModelViewSet):
+    queryset = Wink.objects.all()
+    serializer_class = WinkSerializer
+
+
 @api_view(['GET'])
-def user_detail(request,pk):
-    
+def user_detail(request, pk):
+
     try:
-        user=CustomUser.objects.get(pk=pk)
+        user = CustomUser.objects.get(pk=pk)
     except CustomUser.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method=="GET":
-        serializer=CustomUserSerializer(user)
+    if request.method == "GET":
+        serializer = CustomUserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
