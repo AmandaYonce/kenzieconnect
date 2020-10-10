@@ -3,9 +3,8 @@ from kenzie_connect.models import CustomUser, Survey, Penpal
 from rest_framework import serializers
 
 
-
 class SurveySerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Survey
         fields = [
@@ -19,15 +18,15 @@ class SurveySerializer(serializers.ModelSerializer):
             'question_sleep',
             'question_mind',
             'question_dog',
-            
-            
             ]
 
+
 class CustomUserSerializer(serializers.ModelSerializer):
-    
-    survey=SurveySerializer()
+
+    survey = SurveySerializer()
+
     class Meta:
-        
+
         model = CustomUser
         fields = [
             'pk',
@@ -42,16 +41,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'sexual_preference',
             "survey"
             ]
-        
-        
 
-
-    def create(self,validated_data):
-        
-        survey_data=validated_data.pop("survey")
-        survey=Survey.objects.create(**survey_data)
-        user=CustomUser.objects.create(**validated_data,survey=survey)
-        
+    def create(self, validated_data):
+        survey_data = validated_data.pop("survey")
+        survey = Survey.objects.create(**survey_data)
+        user = CustomUser.objects.create(**validated_data, survey=survey)
         return user
 
 
@@ -63,4 +57,3 @@ class PenpalSerializer(serializers.HyperlinkedModelSerializer):
             'from_user',
             'to_user'
             ]
-

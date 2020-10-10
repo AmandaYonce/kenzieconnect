@@ -3,18 +3,18 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from rest_framework.serializers import ModelSerializer
 
-# Create your models here.
+
 class CustomUser(AbstractUser):
     Male = 'Male'
     Female = 'Female'
-    NonBinary ='NonBinary'
+    NonBinary = 'NonBinary'
     Other = 'Other'
-    
+
     gender_choices = [
-    (Male, 'Male'),
-    (Female, 'Female'),
-    (NonBinary, 'NonBinary'),
-    (Other, 'Other'),
+        (Male, 'Male'),
+        (Female, 'Female'),
+        (NonBinary, 'NonBinary'),
+        (Other, 'Other'),
     ]
 
     Straight = 'Straight'
@@ -23,10 +23,10 @@ class CustomUser(AbstractUser):
     Other = 'Other'
 
     sexual_preference_choices = [
-    (Straight, 'Straight'),
-    (Gay, 'Gay'),
-    (Bisexual, 'Bisexual'),
-    (Other, 'Other'),
+        (Straight, 'Straight'),
+        (Gay, 'Gay'),
+        (Bisexual, 'Bisexual'),
+        (Other, 'Other'),
     ]
 
     age = models.IntegerField()
@@ -40,6 +40,7 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.displayname
+
 
 class Survey(models.Model):
     Dog = 'Dog'
@@ -161,9 +162,6 @@ class Survey(models.Model):
 
     ]
 
-
-
-    
     question_pet = models.CharField(max_length=60, choices=pet_choices)
     question_food = models.BooleanField()
     question_date = models.CharField(max_length=50, choices=date_choice)
@@ -176,13 +174,10 @@ class Survey(models.Model):
     question_dog = models.CharField(max_length=60, choices=dogbreed_choice)
 
 
-
-
 class Penpal(models.Model):
     penpal_message = models.CharField(max_length=500)
     from_user = models.ForeignKey(CustomUser, related_name="from_user_fk", on_delete=models.CASCADE)
     to_user = models.ForeignKey(CustomUser,related_name="to_user_fk", on_delete=models.CASCADE)
-
 
     def __str__(self):
         return self.penpal_message
@@ -191,7 +186,6 @@ class Penpal(models.Model):
 class Notification(models.Model):
     notification_tweet = models.ForeignKey(Penpal, on_delete=models.CASCADE)
     notification_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-
 
     def __str__(self):
         return self.notification_tweet.text
