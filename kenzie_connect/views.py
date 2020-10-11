@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 
 from .serializers import (
@@ -13,11 +13,9 @@ from kenzie_connect.models import CustomUser, Survey, Penpal, Wink
 from rest_framework import viewsets, status, mixins, generics
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from rest_auth.registration.views import RegisterView
-from rest_auth.views import LoginView
-from allauth.account.adapter import get_adapter
 
 
 # This view is for registering a new user but right now is only creating the 

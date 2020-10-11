@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.conf.urls import url
 from kenzie_connect.views import (
     SurveyViewSet,
     PenpalViewSet,
@@ -25,12 +26,12 @@ from kenzie_connect.views import (
     UserMessageList,
     SendMessageView,
     UserWinkList,
-    SendWinkView
+    SendWinkView,
 )
-# from rest_framework import routers
 
-# router = routers.DefaultRouter()
-# router.register(r'users', CustomUserViewSet, basename='user-info')
+# please note the url for login is rest-auth/login
+# and requires the username and email which will both be the email and the password
+# the url for logout is rest-auth/logout
 
 urlpatterns = [
     path('survey/', SurveyViewSet.as_view()),
@@ -43,5 +44,6 @@ urlpatterns = [
     path('users/', CustomUserViewSet.as_view(), name='user-info'),
     path('user/<int:id>', SingleUserViewSet.as_view()),
     path('register/', CustomRegisterView.as_view()),
+    url(r'^rest-auth/', include('rest_auth.urls')),
     path('admin/', admin.site.urls),
 ]

@@ -149,8 +149,6 @@ ALLOWED_HOSTS = []
 
 LOGIN_URL = '/login/'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
@@ -164,9 +162,11 @@ ACCOUNT_LOGOUT_ON_GET = True
 AUTH_USER_MODEL = 'kenzie_connect.CustomUser'
 
 REST_AUTH_SERIALIZERS = {
-    # 'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
+    # 'LOGIN_SERIALIZER': 'rest_auth.serializers.LoginSerializer',
     "USER_DETAILS_SERIALIZER": "kenzie_connect.serializers.CustomUserDetailSerializer",
 }
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "kenzie_connect.serializers.CustomUserRegisterSerializer",
 }
+
+REST_SESSION_LOGIN = True
