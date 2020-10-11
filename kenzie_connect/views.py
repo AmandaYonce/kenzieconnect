@@ -69,8 +69,8 @@ class UserSurvey(generics.ListAPIView, mixins.CreateModelMixin,):
         user = self.request.user
         return Survey.objects.filter(user_profile=user)
     
-    def post(self, request, id=None):
-        return self.create(request, id)
+    def post(self, request):
+        return self.create(request)
 
 
 # this viewset is for viewing all messages for all users
