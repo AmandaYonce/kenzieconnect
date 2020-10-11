@@ -1,10 +1,43 @@
 from django.db import models
 # from django.utils import timezone
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from rest_framework.serializers import ModelSerializer
 
 
-class CustomUser(AbstractUser):
+class UserManager(BaseUserManager):
+
+    use_in_migrations = True
+
+    def create_user(self, age, gender, bio, sexual_preference, email, displayname, password=None):
+        user = self.model(
+            email=self.normalize_email(email),
+            age=age,
+            gender=gender,
+            bio=bio,
+            sexual_preference=sexual_preference,
+            displayname=displayname
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, displayname, password):
+        user = self.create_user(
+            email=self.normalize_email(email),
+            displayname=displayname,
+            age=1,
+            gender="Male",
+            bio="blah",
+            sexual_preference="Straight",
+        )
+        user.is_staff = True
+        user.is_admin = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     Male = 'Male'
     Female = 'Female'
     NonBinary = 'NonBinary'
@@ -29,15 +62,31 @@ class CustomUser(AbstractUser):
         (Other, 'Other'),
     ]
 
-    age = models.IntegerField()
-    gender = models.CharField(max_length=20, choices=gender_choices)
-    bio = models.CharField(max_length=1000)
-    sexual_preference = models.CharField(max_length=20, choices=sexual_preference_choices)
-    email = models.EmailField(max_length=150)
-    displayname = models.CharField(max_length=60)
+    username = None
+    age = models.IntegerField(null=True, blank=True)
+    gender = models.CharField(max_length=20, choices=gender_choices, null=True, blank=True)
+    bio = models.CharField(max_length=1000, null=True, blank=True)
+    sexual_preference = models.CharField(max_length=20, choices=sexual_preference_choices, null=True, blank=True)
+    email = models.EmailField(max_length=150, unique=True)
+    displayname = models.CharField(max_length=60, null=True, blank=True)
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['displayname']
 
     def __str__(self):
-        return self.displayname
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        return self.is_admin
+
+    def has_module_perms(self, app_label):
+        return True
 
 
 class Survey(models.Model):
@@ -159,7 +208,7 @@ class Survey(models.Model):
         (Labradoodle,  'Labradoodle – or some other cute hybrid')
 
     ]
-    username = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="survey_data")
+    user_profile = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="user_survey")
     question_pet = models.CharField(max_length=60, choices=pet_choices)
     question_date = models.CharField(max_length=50, choices=date_choice)
     question_activity = models.CharField(max_length=50, choices=activity_choice)
@@ -187,7 +236,4 @@ class Wink(models.Model):
     wink_viewed = models.BooleanField(choices=CHOICES, default=False)
     from_user = models.ForeignKey(CustomUser, related_name="from_user_wink", on_delete=models.CASCADE)
     to_user = models.ForeignKey(CustomUser, related_name="to_user_wink", on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.penpal_message
 

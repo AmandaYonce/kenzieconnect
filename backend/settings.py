@@ -38,9 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'django.contrib.sites',
+    'allauth.account',
+    'rest_auth.registration',
     'rest_framework',
+    'allauth',
+    'rest_framework.authtoken',
+    'rest_auth',
     'kenzie_connect',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -137,8 +145,28 @@ CORS_ALLOW_METHODS = [
     'PUT',
 ]
 
-ALLOWED_HOSTS=[]
+ALLOWED_HOSTS = []
 
 LOGIN_URL = '/login/'
 
-AUTH_USER_MODEL = "kenzie_connect.CustomUser"
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+ACCOUNT_EMAIL_VERIFICATION = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_EMAIL_FIELD = 'email'
+ACCOUNT_LOGOUT_ON_GET = True
+
+AUTH_USER_MODEL = 'kenzie_connect.CustomUser'
+
+REST_AUTH_SERIALIZERS = {
+    # 'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
+    "USER_DETAILS_SERIALIZER": "kenzie_connect.serializers.CustomUserDetailSerializer",
+}
+REST_AUTH_REGISTER_SERIALIZERS = {
+    "REGISTER_SERIALIZER": "kenzie_connect.serializers.CustomUserRegisterSerializer",
+}

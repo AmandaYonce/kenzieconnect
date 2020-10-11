@@ -14,22 +14,34 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from kenzie_connect import views
-from rest_framework import routers
+from django.urls import path, include, re_path
+from kenzie_connect.views import (
+    SurveyViewSet,
+    PenpalViewSet,
+    WinkViewSet,
+    CustomUserViewSet,
+    SingleUserViewSet,
+    CustomRegisterView,
+    UserMessageList,
+    SendMessageView,
+    UserWinkList,
+    SendWinkView
+)
+# from rest_framework import routers
 
-router = routers.DefaultRouter()
-router.register(r'customuser', views.CustomUserViewSet)
-router.register(r'survey', views.SurveyViewSet)
-router.register(r'penpal', views.PenpalViewSet)
-router.register(r'wink', views.WinkViewSet)
-# router.register(r'user/<pk>/',views.user_detail)
-
+# router = routers.DefaultRouter()
+# router.register(r'users', CustomUserViewSet, basename='user-info')
 
 urlpatterns = [
-
-    path('api/', include(router.urls)),
+    path('survey/', SurveyViewSet.as_view()),
+    path('penpal/', PenpalViewSet.as_view()),
+    path('sendmessage/', SendMessageView.as_view()),
+    path('inbox/<int:id>', UserMessageList),
+    path('wink/', WinkViewSet.as_view()),
+    path('sendwink/', SendWinkView.as_view()),
+    path('userwinks/', UserWinkList.as_view()),
+    path('users/', CustomUserViewSet.as_view(), name='user-info'),
+    path('user/<int:id>', SingleUserViewSet.as_view()),
+    path('register/', CustomRegisterView.as_view()),
     path('admin/', admin.site.urls),
-    path('users/<int:pk>/', views.user_detail)
-    
 ]
