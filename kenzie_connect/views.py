@@ -10,10 +10,8 @@ from .serializers import (
     WinkSerializer,
 )
 from kenzie_connect.models import CustomUser, Survey, Penpal, Wink
-from rest_framework import viewsets, status, mixins, generics
+from rest_framework import status, mixins, generics
 from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from rest_auth.registration.views import RegisterView
 
