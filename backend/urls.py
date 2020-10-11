@@ -27,6 +27,7 @@ from kenzie_connect.views import (
     SendMessageView,
     UserWinkList,
     SendWinkView,
+    UserSurvey,
 )
 
 # please note the url for login is rest-auth/login
@@ -45,5 +46,6 @@ urlpatterns = [
     path('user/', SingleUserViewSet.as_view()),
     path('register/', CustomRegisterView.as_view()),
     url(r'^rest-auth/', include('rest_auth.urls')),
+    path('usersurvey/', UserSurvey.as_view()),
     path('admin/', admin.site.urls),
 ]

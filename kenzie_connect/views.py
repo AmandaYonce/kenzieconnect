@@ -61,6 +61,18 @@ class SurveyViewSet(APIView):
         return Response(serializer.data)
 
 
+class UserSurvey(generics.ListAPIView, mixins.CreateModelMixin,):
+    serializer_class = SurveySerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Survey.objects.filter(user_profile=user)
+    
+    def post(self, request, id=None):
+        return self.create(request, id)
+
+
 # this viewset is for viewing all messages for all users
 class PenpalViewSet(APIView):
     @staticmethod
