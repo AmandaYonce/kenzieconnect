@@ -35,23 +35,21 @@ class CustomUserViewSet(APIView):
 
 
 # This view takes in the id of the user and allows you to get, edit/put or delete the user
-class SingleUserViewSet(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
+class SingleUserViewSet(generics.ListAPIView):
     serializer_class = CustomUserDetailSerializer
     queryset = CustomUser.objects.all()
 
     lookup_field = 'id'
 
-    def get(self, request, id=None):
-        if id:
-            return self.retrieve(request)
-        else:
-            return self.list(request)
+    def get_queryset(self):
+        user = self.request.user
+        return CustomUser.objects.filter(email=user)
 
-    def put(self, request, id=None):
-        return self.update(request, id)
+    # def put(self, request, id=None):
+    #     return self.update(request, id)
 
-    def delete(self, request, id):
-        return self.destroy(request, id)
+    # def delete(self, request, id):
+    #     return self.destroy(request, id)
 
 
 # this viewset is for viewing all survey results for all users

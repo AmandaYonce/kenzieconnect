@@ -42,7 +42,7 @@ urlpatterns = [
     path('sendwink/', SendWinkView.as_view()),
     path('userwinks/', UserWinkList.as_view()),
     path('users/', CustomUserViewSet.as_view(), name='user-info'),
-    path('user/<int:id>', SingleUserViewSet.as_view()),
+    path('user/', SingleUserViewSet.as_view()),
     path('register/', CustomRegisterView.as_view()),
     url(r'^rest-auth/', include('rest_auth.urls')),
     path('admin/', admin.site.urls),

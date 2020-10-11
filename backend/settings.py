@@ -162,7 +162,6 @@ ACCOUNT_LOGOUT_ON_GET = True
 AUTH_USER_MODEL = 'kenzie_connect.CustomUser'
 
 REST_AUTH_SERIALIZERS = {
-    # 'LOGIN_SERIALIZER': 'rest_auth.serializers.LoginSerializer',
     "USER_DETAILS_SERIALIZER": "kenzie_connect.serializers.CustomUserDetailSerializer",
 }
 REST_AUTH_REGISTER_SERIALIZERS = {
