@@ -43,8 +43,8 @@ urlpatterns = [
     path('sendwink/', SendWinkView.as_view()),
     path('userwinks/', UserWinkList.as_view()),
     path('users/', CustomUserViewSet.as_view(), name='user-info'),
-    path('user/', SingleUserViewSet.as_view()),
-    path('register/', CustomRegisterView.as_view()),
+    path('user/', SingleUserViewSet.as_view()), #you can use rest-auth/user to get the detail
+    path('register/', CustomRegisterView),
     url(r'^rest-auth/', include('rest_auth.urls')),
     path('usersurvey/', UserSurvey.as_view()),
     path('admin/', admin.site.urls),

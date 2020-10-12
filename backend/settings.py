@@ -169,3 +169,11 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 }
 
 REST_SESSION_LOGIN = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    
+
+}

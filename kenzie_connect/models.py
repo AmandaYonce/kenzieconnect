@@ -2,7 +2,10 @@ from django.db import models
 # from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from rest_framework.serializers import ModelSerializer
-
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
 class UserManager(BaseUserManager):
 
@@ -35,6 +38,7 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+    
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -87,6 +91,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_label):
         return True
+
+    
 
 
 class Survey(models.Model):
@@ -237,3 +243,11 @@ class Wink(models.Model):
     from_user = models.ForeignKey(CustomUser, related_name="from_user_wink", on_delete=models.CASCADE)
     to_user = models.ForeignKey(CustomUser, related_name="to_user_wink", on_delete=models.CASCADE)
 
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        print("fired")
+        Token.objects.create(user=instance)
+
+## https://www.django-rest-framework.org/api-guide/authentication/#api-reference

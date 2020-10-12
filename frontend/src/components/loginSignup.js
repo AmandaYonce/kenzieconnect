@@ -16,11 +16,12 @@ const Auth = (props) => {
   const { dispatch } = React.useContext(StateContext);
   const history = useHistory();
 
-  // const authenticateHandler = (data) => {
-  //   console.log(data);
+  const authenticateHandler = async (data) => {
+    console.log(data);
 
-  //   //might need to reach out to backend to make sure that the user is authenticated
-  // };
+    
+    //might need to reach out to backend to make sure that the user is authenticated
+  };
   const formGroups = ["Username", "Password"].map((value, index) => (
     <FormGroup key={index}>
       <Label for="username">{value}</Label>
@@ -36,6 +37,7 @@ const Auth = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
 
+    
     dispatch(loginOrOut());
     history.push("/home/");
   };

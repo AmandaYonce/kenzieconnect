@@ -1,7 +1,8 @@
+from os import stat
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-
+from rest_framework.decorators import api_view
 from .serializers import (
     CustomUserDetailSerializer,
     CustomUserRegisterSerializer,
@@ -13,20 +14,35 @@ from kenzie_connect.models import CustomUser, Survey, Penpal, Wink
 from rest_framework import status, mixins, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_auth.registration.views import RegisterView
-
-
+# from rest_auth.registration.views import RegisterView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.models import Token
 # This view is for registering a new user but right now is only creating the 
 # username/email and the password and is immediately authenticating the user so they are logged in
 # We will then need to take the rest of the registration form data and the id of the 
 # newly created user and hit the 
 # put on the endpoint for the SingleUserVewSet to update the user record with the remaining data
-class CustomRegisterView(RegisterView):
-    queryset = CustomUser.objects.all()
+# class CustomRegisterView(RegisterView):
+#     queryset = CustomUser.objects.all()
+
+@api_view(["POST"])
+def CustomRegisterView(request):
+    print(request.data)
+    if request.method=="POST":
+        serializer=CustomUserDetailSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            user=serializer.save()
+            token=Token.objects.get(user=user).key
+            post_data={"token":token,**serializer.data}
+            return Response(data=post_data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
 # this viewset is for viewing all users
 class CustomUserViewSet(APIView):
+  
     @staticmethod
     def get(request):
         users = CustomUser.objects.all()
@@ -36,6 +52,7 @@ class CustomUserViewSet(APIView):
 
 # This view takes in the id of the user and allows you to get, edit/put or delete the user
 class SingleUserViewSet(generics.ListAPIView):
+
     serializer_class = CustomUserDetailSerializer
     queryset = CustomUser.objects.all()
 
