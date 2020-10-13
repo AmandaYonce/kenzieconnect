@@ -30,7 +30,7 @@ from kenzie_connect.views import (
     UserSurvey,
 )
 
-
+from rest_framework.authtoken import views
 # please note the url for login is rest-auth/login
 # and requires the username and email which will both be the email and the password
 # the url for logout is rest-auth/logout
@@ -49,4 +49,5 @@ urlpatterns = [
     url(r'^rest-auth/', include('rest_auth.urls')),
     path('usersurvey/', UserSurvey.as_view()),
     path('admin/', admin.site.urls),
+    path('api-token-auth/', views.obtain_auth_token)
 ]

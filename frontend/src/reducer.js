@@ -12,9 +12,9 @@ const initialState = {
 
 const handlers = {};
 
-handlers[actions.Profile] = (state, action) => ({
+handlers[actions.PROFILE] = (state, action) => ({
   ...state,
-  list: action.profile,
+  profile: action.profile,
 });
 
 handlers[actions.SURVEY] = (state, action) => ({

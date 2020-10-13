@@ -1,5 +1,5 @@
 import React from "react";
-import { receiveProfile } from "./actions";
+import { receiveProfile,getProfile,getSurvey} from "./actions";
 
 const routeDispatcher = (list) =>
   list.map((element, index) => (
@@ -25,9 +25,9 @@ const postData = async (postUrl, data) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    const post_response=(await response.json());
-    if ("key" in post_response){
-      return post_response["key"]
+    const post_response = await response.json();
+    if ("key" in post_response) {
+      return post_response["key"];
     }
     // return response.json();
   } catch (error) {
@@ -35,7 +35,7 @@ const postData = async (postUrl, data) => {
   }
 };
 
-const getData = (url, dispatch,actionCallback) =>
+const getData = (url, dispatch, actionCallback) =>
   (async () => {
     try {
       // console.log("working");
@@ -50,24 +50,36 @@ const getData = (url, dispatch,actionCallback) =>
     }
   })();
 
-  const getAuthData=(url, dispatch,actionCallback,token) =>
+const getAuthData = (url, dispatch, actionCallback, token) =>
   (async () => {
     try {
       // console.log("working");
-      const response = await fetch(url,{
-        method:"GET",
-        headers:`Authorization: Token ${token}`
+      const response = await fetch(url, {
+        method: "GET",
+        headers: { Authorization: `Token ${token}` },
       });
       const data = await response.json();
       console.log(data);
       console.log("working");
-      
+
       actionCallback(data)(dispatch);
     } catch (error) {
       console.error(error);
     }
   })();
 
+const getProfileData=async(key,dispatch)=>{
+const profileUrl = "http://127.0.0.1:8000/rest-auth/user/";
+const response = await fetch(profileUrl, {
+  method: "GET",
+  headers: { Authorization: `Token ${key}` },
+});
+let result = await response.json();
+
+let {survey , ...profile}=result;
+dispatch(getProfile([profile]))
+dispatch(getSurvey([survey]))
+}
 const putData = (postUrl, item, dispatch) => async () => {
   const d = await fetch(postUrl);
   const response = await d.json();
@@ -110,5 +122,6 @@ export {
   putData,
   routeDispatcher,
   formData,
-  getAuthData
+  getAuthData,
+  getProfileData
 };

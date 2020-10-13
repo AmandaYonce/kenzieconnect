@@ -17,11 +17,16 @@ const Header = (props) => {
   //   console.log(data);
   // };
 
-  const handleLogOut = (e) => {
+  const handleLogOut = async(e) => {
     e.preventDefault();
     // console.log("fired");
-    dispatch(loginOrOut());
-    history.push("/");
+    const logoutURL= 'http://127.0.0.1:8000/rest-auth/logout/'
+    const response = await fetch(logoutURL)
+    if (response.ok){
+      dispatch(loginOrOut());
+      localStorage.clear();
+      history.push("/");
+    }
   };
   return (
     <React.Fragment>

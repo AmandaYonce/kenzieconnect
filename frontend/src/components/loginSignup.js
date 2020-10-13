@@ -32,15 +32,30 @@ const Auth = (props) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const loginUrl = "http://127.0.0.1:8000/rest-auth/login/";
-    // const profileUrl='http://127.0.0.1:8000/rest-auth/user/'
     let form = e.target;
     let data = { email: form.username.value, password: form.password.value };
-    
-    const key =await (postData(loginUrl, data))
-    if (key){
-      dispatch(getToken(key))
+
+    const key = await postData(loginUrl, data);
+    if (key) {
+      dispatch(getToken(key));
       dispatch(loginOrOut());
-      history.push("/home/");
+      // const profileUrl = "http://127.0.0.1:8000/rest-auth/user/";
+      // const response = await fetch(profileUrl, {
+      //   method: "GET",
+      //   headers: { Authorization: `Token ${key}` },
+      // });
+      // let result = await response.json();
+    
+      // let {survey , ...profile}=result;
+      // dispatch(getProfile([profile]))
+      // dispatch(getSurvey([survey]))
+      // console.log(profile)
+      window.localStorage.setItem("key",key)
+      
+      history.push("/home/")
+      // history.push({pathname:"/home/",state:{
+      //   profile,
+      // }});
     }
   };
   return (

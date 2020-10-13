@@ -4,9 +4,12 @@ import { Card, Row } from "reactstrap";
 import wink from "../images/wink.png"
 import LandingCards from "./LandingCards";
 import { StateContext } from "../App";
+// import { useLocation } from "react-router-dom";
 
 const Landing = (props) => {
   const { state } = React.useContext(StateContext);
+  
+  
   return (
     <React.Fragment>
       <div style={{ backgroundColor: "#888888", height: "1000px" }}>

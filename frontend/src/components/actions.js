@@ -34,5 +34,7 @@ export {
   receiveSurvey,
   loginOrOut,
   toggleModal,
-  getToken
+  getToken,
+  getSurvey,
+  getProfile
 };
