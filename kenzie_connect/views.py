@@ -26,19 +26,34 @@ from rest_framework.authtoken.models import Token
 # class CustomRegisterView(RegisterView):
 #     queryset = CustomUser.objects.all()
 
-@api_view(["POST"])
+@api_view(["GET","POST"])
 def CustomRegisterView(request):
-    print(request.data)
+    # print(request.data)
+    if request.method=="GET":
+        
+        serializer=CustomUserDetailSerializer()
+        return Response(serializer.data)
+    
     if request.method=="POST":
         serializer=CustomUserDetailSerializer(data=request.data)
         
-        if serializer.is_valid():
-            user=serializer.save()
-            token=Token.objects.get(user=user).key
-            post_data={"token":token,**serializer.data}
-            return Response(data=post_data,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
+        if serializer.is_valid():
+            # user=serializer.save()
+            data=serializer.data
+            survey=data.pop("survey")
+            survey_post=Survey.objects.create(**survey)
+            print(survey_post)
+            print(data)
+            
+            user=CustomUser.objects.create(**data,survey=survey_post)
+            # breakpoint()
+            # user=CustomUser.objects.create(**serializer.data,survey=survey)
+            token=Token.objects.get(user=user).key
+            post_data={"token":token, "survey":{**survey},**data}
+            
+            return Response(post_data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 # this viewset is for viewing all users
 class CustomUserViewSet(APIView):
@@ -47,8 +62,10 @@ class CustomUserViewSet(APIView):
     def get(request):
         users = CustomUser.objects.all()
         serializer = CustomUserDetailSerializer(users, many=True)
-        return Response(serializer.data)
-
+        # if request.auth:
+        if request:
+            return Response(serializer.data)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 # This view takes in the id of the user and allows you to get, edit/put or delete the user
 class SingleUserViewSet(generics.ListAPIView):

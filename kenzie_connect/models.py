@@ -11,20 +11,22 @@ class UserManager(BaseUserManager):
 
     use_in_migrations = True
 
-    def create_user(self, age, gender, bio, sexual_preference, email, displayname, password=None):
+    def create_user(self, age, gender, bio, sexual_preference, email,displayname,survey,password=None):
         user = self.model(
             email=self.normalize_email(email),
             age=age,
             gender=gender,
             bio=bio,
             sexual_preference=sexual_preference,
-            displayname=displayname
+            displayname=displayname,
+            survey=survey
         )
         user.set_password(password)
         user.save(using=self._db)
+        print("something...........")
         return user
 
-    def create_superuser(self, email, displayname, password):
+    def create_superuser(self, email, displayname, password=None):
         user = self.create_user(
             email=self.normalize_email(email),
             displayname=displayname,
@@ -77,7 +79,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-
+    survey=models.OneToOneField("Survey",primary_key=True,on_delete=models.CASCADE)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -214,7 +216,7 @@ class Survey(models.Model):
         (Labradoodle,  'Labradoodle – or some other cute hybrid')
 
     ]
-    user_profile = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="user_survey")
+    # user_profile = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="user_survey")
     question_pet = models.CharField(max_length=60, choices=pet_choices)
     question_date = models.CharField(max_length=50, choices=date_choice)
     question_activity = models.CharField(max_length=50, choices=activity_choice)

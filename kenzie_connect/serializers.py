@@ -5,13 +5,11 @@ from rest_auth.registration.serializers import RegisterSerializer
 
 
 class SurveySerializer(serializers.ModelSerializer):
-    user_profile = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
+    # user_profile = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
 
     class Meta:
         model = Survey
         fields = [
-            'id',
-            'user_profile',
             'question_pet',
             'question_date',
             'question_activity',
@@ -25,12 +23,13 @@ class SurveySerializer(serializers.ModelSerializer):
 
 
 class CustomUserDetailSerializer(serializers.ModelSerializer):
-
+    survey=SurveySerializer()
     class Meta:
         model = CustomUser
-        fields = ('id', 'email', 'displayname', 'age', 'gender', 'sexual_preference', 'bio', 'is_active')
-        read_only_fields = ('email',)
-
+        fields = ('email','password', 'displayname', 'age', 'gender', 'sexual_preference', 'bio', "survey")
+        # read_only_fields = ('email',)
+    
+    
 
 class CustomUserRegisterSerializer(RegisterSerializer):
 
