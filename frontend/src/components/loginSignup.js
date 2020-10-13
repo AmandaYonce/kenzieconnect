@@ -10,23 +10,18 @@ import {
   Input,
 } from "reactstrap";
 import { StateContext } from "../App";
-import { loginOrOut } from "./actions";
+import { getToken, loginOrOut} from "./actions";
+import { postData } from "./helpers";
 
 const Auth = (props) => {
   const { dispatch } = React.useContext(StateContext);
   const history = useHistory();
 
-  const authenticateHandler = async (data) => {
-    console.log(data);
-
-    
-    //might need to reach out to backend to make sure that the user is authenticated
-  };
   const formGroups = ["Username", "Password"].map((value, index) => (
     <FormGroup key={index}>
       <Label for="username">{value}</Label>
       <Input
-        type="text"
+        type={value === "Username" ? "email" : "password"}
         name={value.toLowerCase()}
         id={value.toLowerCase()}
         placeholder={value.toLowerCase()}
@@ -34,12 +29,19 @@ const Auth = (props) => {
     </FormGroup>
   ));
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
+    const loginUrl = "http://127.0.0.1:8000/rest-auth/login/";
+    // const profileUrl='http://127.0.0.1:8000/rest-auth/user/'
+    let form = e.target;
+    let data = { email: form.username.value, password: form.password.value };
     
-    dispatch(loginOrOut());
-    history.push("/home/");
+    const key =await (postData(loginUrl, data))
+    if (key){
+      dispatch(getToken(key))
+      dispatch(loginOrOut());
+      history.push("/home/");
+    }
   };
   return (
     <React.Fragment>

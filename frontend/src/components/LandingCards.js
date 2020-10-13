@@ -30,9 +30,9 @@ const LandingCards = (props) => {
   ];
   return test.map((value, index) => (
     <Col col-3="true" key={index}>
-      <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-back">
+      <div className="flip-card">
+          <div className="flip-card-inner">
+            <div className="flip-card-back">
       <Card
         style={{
           width: "20em",
@@ -64,7 +64,7 @@ const LandingCards = (props) => {
         </CardBody>
       </Card>
       </div>
-          <div class="flip-card-front">
+          <div className="flip-card-front">
           <Card style={{ width: "20em", height: "100%", margin: "0 auto"}}>
               <CardBody>
                 <Row style={{ alignItems: "center" }}>

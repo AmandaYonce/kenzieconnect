@@ -7,19 +7,21 @@ const actionCreator = (type, ...payloadNames) => (...args) => {
 };
 
 const actions = {
-  LIST: "LIST",
+  PROFILE: "PROFILE",
   SURVEY: "SURVEY",
   LOGIN: "LOGIN",
   TOGGLELOGIN: "TOGGLELOGIN",
   TOGGLEMODAL: "TOGGLEMODAL",
+  TOKEN:"TOKEN"
 };
 
-const getList = actionCreator(actions.LIST, "list");
+const getProfile = actionCreator(actions.PROFILE, "profile");
 const getSurvey = actionCreator(actions.SURVEY, "survey");
 const loginOrOut = actionCreator(actions.TOGGLELOGIN);
 const toggleModal = actionCreator(actions.TOGGLEMODAL);
+const getToken=actionCreator(actions.TOKEN, "token")
 
-const receiveList = (list) => (dispatch) => dispatch(getList(list));
+const receiveProfile = (list) => (dispatch) => dispatch(getProfile(list));
 
 const receiveSurvey = (surveyData) => (dispatch) =>
   dispatch(getSurvey(surveyData));
@@ -28,9 +30,9 @@ const receiveSurvey = (surveyData) => (dispatch) =>
 
 export {
   actions,
-  getList,
-  receiveList,
+  receiveProfile,
   receiveSurvey,
   loginOrOut,
   toggleModal,
+  getToken
 };

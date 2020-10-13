@@ -7,13 +7,14 @@ const initialState = {
   loggedIn: false,
   user: "kyle",
   modal: false,
+  token: null,
 };
 
 const handlers = {};
 
 handlers[actions.Profile] = (state, action) => ({
   ...state,
-  list: action.list,
+  list: action.profile,
 });
 
 handlers[actions.SURVEY] = (state, action) => ({
@@ -29,6 +30,11 @@ handlers[actions.TOGGLELOGIN] = (state, action) => ({
 handlers[actions.TOGGLEMODAL] = (state, action) => ({
   ...state,
   modal: state.modal ? false : true,
+});
+
+handlers[actions.TOKEN] = (state, action) => ({
+  ...state,
+  token: action.token,
 });
 
 const reducer = createReducer(initialState, handlers);

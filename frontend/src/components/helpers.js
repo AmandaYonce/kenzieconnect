@@ -1,5 +1,5 @@
 import React from "react";
-import { receiveList } from "./actions";
+import { receiveProfile } from "./actions";
 
 const routeDispatcher = (list) =>
   list.map((element, index) => (
@@ -25,14 +25,17 @@ const postData = async (postUrl, data) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    console.log(await response.json());
+    const post_response=(await response.json());
+    if ("key" in post_response){
+      return post_response["key"]
+    }
     // return response.json();
   } catch (error) {
     console.error(error);
   }
 };
 
-const getData = (url, dispatch) =>
+const getData = (url, dispatch,actionCallback) =>
   (async () => {
     try {
       // console.log("working");
@@ -41,7 +44,25 @@ const getData = (url, dispatch) =>
       // console.log(data);
       // console.log("working");
       // console.log(data);
-      receiveList(data)(dispatch);
+      actionCallback(data)(dispatch);
+    } catch (error) {
+      console.error(error);
+    }
+  })();
+
+  const getAuthData=(url, dispatch,actionCallback,token) =>
+  (async () => {
+    try {
+      // console.log("working");
+      const response = await fetch(url,{
+        method:"GET",
+        headers:`Authorization: Token ${token}`
+      });
+      const data = await response.json();
+      console.log(data);
+      console.log("working");
+      
+      actionCallback(data)(dispatch);
     } catch (error) {
       console.error(error);
     }
@@ -66,7 +87,7 @@ const putData = (postUrl, item, dispatch) => async () => {
     //enter more logic her to modify front end state if needed
 
     // console.log(items);
-    receiveList(items)(dispatch);
+    receiveProfile(items)(dispatch);
   } catch (error) {
     console.error(error);
   }
@@ -85,8 +106,9 @@ export {
   createReducer,
   postData,
   getData,
-  receiveList,
+  receiveProfile,
   putData,
   routeDispatcher,
   formData,
+  getAuthData
 };

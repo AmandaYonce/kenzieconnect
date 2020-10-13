@@ -39,16 +39,14 @@ def CustomRegisterView(request):
         
 
         if serializer.is_valid():
-            # user=serializer.save()
+            
             data=serializer.data
             survey=data.pop("survey")
             survey_post=Survey.objects.create(**survey)
-            print(survey_post)
-            print(data)
-            
+            password=data.get("password")
             user=CustomUser.objects.create(**data,survey=survey_post)
-            # breakpoint()
-            # user=CustomUser.objects.create(**serializer.data,survey=survey)
+            user.set_password(password)
+            user.save()
             token=Token.objects.get(user=user).key
             post_data={"token":token, "survey":{**survey},**data}
             

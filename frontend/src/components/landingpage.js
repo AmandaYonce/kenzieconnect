@@ -24,7 +24,7 @@ const Landing = (props) => {
               <img alt="wink" src={wink} style={{ width: "4em" }} />
           </Card>
         </Row>
-        <Row style={{ justifyContent: "center", marginTop: "3.5em"}} row-12>
+        <Row style={{ justifyContent: "center", marginTop: "3.5em"}} row-12="true">
           <h1 style={{fontFamily: 'Montserrat', fontSize: "3.5em", color: "whitesmoke", textShadow: '-3px 1px 0 #000'}}>Your Daily Matches</h1>
       </Row>
 

@@ -7,6 +7,7 @@ import Tips from "./tips";
 
 const Profile = (props) => {
   const { state } = React.useContext(StateContext);
+  
   return (
       <div style={{ backgroundColor: "#4a5066", height: "1000px"}}>
       <Header />

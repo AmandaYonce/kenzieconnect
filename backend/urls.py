@@ -30,6 +30,7 @@ from kenzie_connect.views import (
     UserSurvey,
 )
 
+
 # please note the url for login is rest-auth/login
 # and requires the username and email which will both be the email and the password
 # the url for logout is rest-auth/logout
