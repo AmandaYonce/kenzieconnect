@@ -14,15 +14,16 @@ const Routes = () => {
   // console.log(pathname);
 
   const logOutMatch = useRouteMatch({ path: "/logout/", exact: true });
-
+  
   if (logOutMatch) {
     return <Redirect to="/" />;
   }
+  
 
   let routes = [];
 
   let urls = {
-    PenPal: { path: /^\/messages\/\w+$/, PenPal },
+    PenPal: { path: /\/messages\/\w+$/, PenPal },
     Home: { path: /\/home\//, Home },
     Survey: { path: /\/survey\/$/, Survey },
     Profile: {

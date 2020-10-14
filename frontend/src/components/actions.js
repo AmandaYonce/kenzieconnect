@@ -12,19 +12,23 @@ const actions = {
   LOGIN: "LOGIN",
   TOGGLELOGIN: "TOGGLELOGIN",
   TOGGLEMODAL: "TOGGLEMODAL",
-  TOKEN:"TOKEN"
+  TOKEN: "TOKEN",
+  USERS: "USERS",
 };
 
 const getProfile = actionCreator(actions.PROFILE, "profile");
 const getSurvey = actionCreator(actions.SURVEY, "survey");
 const loginOrOut = actionCreator(actions.TOGGLELOGIN);
 const toggleModal = actionCreator(actions.TOGGLEMODAL);
-const getToken=actionCreator(actions.TOKEN, "token")
+const getToken = actionCreator(actions.TOKEN, "token");
+const getUsers = actionCreator(actions.USERS, "users");
 
 const receiveProfile = (list) => (dispatch) => dispatch(getProfile(list));
 
 const receiveSurvey = (surveyData) => (dispatch) =>
   dispatch(getSurvey(surveyData));
+
+const receiveUsers = (usersData) => (dispatch) => dispatch(getUsers(usersData));
 
 // const loggingOut = (dispatch) => dispatch(logout());
 
@@ -36,5 +40,6 @@ export {
   toggleModal,
   getToken,
   getSurvey,
-  getProfile
+  getProfile,
+  receiveUsers,
 };

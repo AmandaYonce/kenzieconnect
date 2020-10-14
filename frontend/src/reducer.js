@@ -8,6 +8,7 @@ const initialState = {
   user: "kyle",
   modal: false,
   token: null,
+  users:[]
 };
 
 const handlers = {};
@@ -36,6 +37,10 @@ handlers[actions.TOKEN] = (state, action) => ({
   ...state,
   token: action.token,
 });
+
+handlers[actions.USERS]=(state,action)=>({
+  ...state, users:action.users
+})
 
 const reducer = createReducer(initialState, handlers);
 
