@@ -5,7 +5,7 @@ const initialState = {
   profile: [],
   survey: [],
   loggedIn: false,
-  user: "kyle",
+  user: "",
   modal: false,
   token: null,
   users:[]

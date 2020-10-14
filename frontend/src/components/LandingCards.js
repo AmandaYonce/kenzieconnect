@@ -37,7 +37,9 @@ const LandingCards = ({page}) => {
   //     bio: "i love dogs",
   //   },
   // ];
-  return  state.users && state.users.slice(page).map((value, index) => (
+  console.log(page.start,page.end)
+
+  const users=state.users.map((value, index) => (
     <Col col-3="true" key={index}>
       <div className="flip-card">
         <div className="flip-card-inner">
@@ -85,6 +87,9 @@ const LandingCards = ({page}) => {
       </div>
     </Col>
   ));
+
+  
+  return users.slice(page.start,page.end)
 };
 
 export default LandingCards;

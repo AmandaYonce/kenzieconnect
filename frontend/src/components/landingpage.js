@@ -9,18 +9,18 @@ import { StateContext } from "../App";
 
 const Landing = (props) => {
   const { state } = React.useContext(StateContext);
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState({ start: 0, end: 6 });
   const navigate = (value) => {
-    if (page + value <= state.users.length && page + value>=0) {
-      setPage(page + value);
+    if (page.start + value <= state.users.length && page.start + value >= 0) {
+      setPage({...page,start:page.start+value, end:page.end+value});
     }
   };
   return (
     <React.Fragment>
-      <input type="button" value="Back" onClick={() => navigate(-6)} />
-      <input type="button" value="Next" onClick={() => navigate(6)} />
       <div style={{ backgroundColor: "#888888", height: "1000px" }}>
         <Header />
+    <input type="button" value="Back" onClick={() => navigate(-6)} />
+    <input type="button" value="Next" onClick={() => navigate(6)} />
         <Row style={{ margin: "0.5em" }}>
           <Card id="slide">
             <a className="notifText" href={`/messagefeed/${state.username}`}>
