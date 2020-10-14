@@ -16,11 +16,13 @@ import { StateContext } from "../App";
 import { toggleModal } from "./actions";
 import ModalRegistration from "../Modal";
 
+
 const Main = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
   const openModal = () => {
     dispatch(toggleModal());
   };
+  
 
   return (
     <React.Fragment>

@@ -14,6 +14,7 @@ const actions = {
   TOGGLEMODAL: "TOGGLEMODAL",
   TOKEN: "TOKEN",
   USERS: "USERS",
+  NAVIGATE:"NAVIGATE"
 };
 
 const getProfile = actionCreator(actions.PROFILE, "profile");
@@ -22,7 +23,7 @@ const loginOrOut = actionCreator(actions.TOGGLELOGIN);
 const toggleModal = actionCreator(actions.TOGGLEMODAL);
 const getToken = actionCreator(actions.TOKEN, "token");
 const getUsers = actionCreator(actions.USERS, "users");
-
+const navigate=actionCreator(actions.NAVIGATE,"value");
 const receiveProfile = (list) => (dispatch) => dispatch(getProfile(list));
 
 const receiveSurvey = (surveyData) => (dispatch) =>
@@ -42,4 +43,5 @@ export {
   getSurvey,
   getProfile,
   receiveUsers,
+  navigate
 };

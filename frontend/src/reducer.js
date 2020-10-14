@@ -8,7 +8,8 @@ const initialState = {
   user: "",
   modal: false,
   token: null,
-  users:[]
+  users: [],
+  page: { start: 0, end: 6 },
 };
 
 const handlers = {};
@@ -38,9 +39,26 @@ handlers[actions.TOKEN] = (state, action) => ({
   token: action.token,
 });
 
-handlers[actions.USERS]=(state,action)=>({
-  ...state, users:action.users
-})
+handlers[actions.USERS] = (state, action) => ({
+  ...state,
+  users: action.users,
+});
+
+handlers[actions.NAVIGATE] = (state, action) => {
+  if (
+    state.page.start + action.value <= state.users.length &&
+    state.page.start + action.value >= 0
+  ) {
+    return {
+      ...state,
+      page: {
+        ...state.page,
+        start: state.page.start + action.value,
+        end: state.page.end + action.value,
+      },
+    };
+  }
+};
 
 const reducer = createReducer(initialState, handlers);
 

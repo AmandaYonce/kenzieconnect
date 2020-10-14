@@ -3,17 +3,33 @@ import { CardBody, Card, Col, Row, CardText } from "reactstrap";
 import placeholder from "../images/placeholder.png";
 import logo from "../images/logo.png";
 import wink from "../images/wink.png";
-import { getData } from "./helpers";
+import { getData,getProfileData } from "./helpers";
 import { receiveUsers } from "./actions";
 import { StateContext } from "../App";
-const LandingCards = ({page}) => {
+const LandingCards = (props) => {
   
   //map three random mathes here from fetch
   const {state,dispatch}=React.useContext(StateContext)
   const usersUrl = "http://127.0.0.1:8000/users/";
+  const key=window.localStorage.getItem("key")
+  
+  const matchMaker=async(a,b)=>{
+    const users = await a
+    const {survey}=await b
+    console.log(survey)
+    console.log(users)
+
+  }
+  
+  
   React.useEffect(() => {
-    getData(usersUrl, dispatch, receiveUsers);
-  }, [dispatch]);
+    let a =(getData(usersUrl, dispatch, receiveUsers));
+    let b=getProfileData(key,dispatch)
+    matchMaker(a,b)
+    
+  }, [key,dispatch]);
+
+
   // const test = [
   //   {
   //     name: "bob",
@@ -37,7 +53,7 @@ const LandingCards = ({page}) => {
   //     bio: "i love dogs",
   //   },
   // ];
-  console.log(page.start,page.end)
+  // console.log(page.start,page.end)
 
   const users=state.users.map((value, index) => (
     <Col col-3="true" key={index}>
@@ -89,7 +105,7 @@ const LandingCards = ({page}) => {
   ));
 
   
-  return users.slice(page.start,page.end)
+  return users.slice(state.page.start,state.page.end)
 };
 
 export default LandingCards;

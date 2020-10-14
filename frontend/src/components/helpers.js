@@ -45,6 +45,7 @@ const getData = (url, dispatch, actionCallback) =>
       // console.log("working");
       // console.log(data);
       actionCallback(data)(dispatch);
+      return data
     } catch (error) {
       console.error(error);
     }
@@ -79,6 +80,7 @@ let result = await response.json();
 let {survey , ...profile}=result;
 dispatch(getProfile([profile]))
 dispatch(getSurvey([survey]))
+return result
 }
 const putData = (postUrl, item, dispatch) => async () => {
   const d = await fetch(postUrl);
@@ -114,6 +116,9 @@ const formData = (form) => {
   return surveyData;
 };
 
+
+
+
 export {
   createReducer,
   postData,
@@ -123,5 +128,6 @@ export {
   routeDispatcher,
   formData,
   getAuthData,
-  getProfileData
+  getProfileData,
+  
 };

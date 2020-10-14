@@ -4,26 +4,38 @@ import { Card, Row } from "reactstrap";
 import wink from "../images/wink.png";
 import LandingCards from "./LandingCards";
 import { StateContext } from "../App";
-
-// import { useLocation } from "react-router-dom";
-
+import { navigate } from "./actions";
+import {getProfileData} from "./helpers"
 const Landing = (props) => {
-  const { state } = React.useContext(StateContext);
-  const [page, setPage] = React.useState({ start: 0, end: 6 });
-  const navigate = (value) => {
-    if (page.start + value <= state.users.length && page.start + value >= 0) {
-      setPage({...page,start:page.start+value, end:page.end+value});
-    }
-  };
+  const { state, dispatch } = React.useContext(StateContext);
+
+  const key = window.localStorage.getItem("key");
+
+  React.useEffect(() => {
+    getProfileData(key, dispatch);
+  }, [key, dispatch]);
+
+
   return (
     <React.Fragment>
       <div style={{ backgroundColor: "#888888", height: "1000px" }}>
         <Header />
-    <input type="button" value="Back" onClick={() => navigate(-6)} />
-    <input type="button" value="Next" onClick={() => navigate(6)} />
+        <input
+          type="button"
+          value="Back"
+          onClick={() => dispatch(navigate(-6))}
+        />
+        <input
+          type="button"
+          value="Next"
+          onClick={() => dispatch(navigate(6))}
+        />
         <Row style={{ margin: "0.5em" }}>
           <Card id="slide">
-            <a className="notifText" href={`/messagefeed/${state.username}`}>
+            <a
+              className="notifText"
+              href={`/messagefeed/${state.profile[0]?.displayname ?? "no name"}`}
+            >
               You have 4 New Messages
             </a>
           </Card>
@@ -51,7 +63,7 @@ const Landing = (props) => {
         </Row>
 
         <Row style={{ margin: "4em" }} row-12="true">
-          <LandingCards page={page} />
+          <LandingCards />
         </Row>
       </div>
     </React.Fragment>

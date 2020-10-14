@@ -11,23 +11,24 @@ import NotFound from "./components/notfound";
 
 const Routes = () => {
   let { pathname } = useLocation();
+  const loggedIn = window.localStorage.getItem("key");
+
   // console.log(pathname);
 
   const logOutMatch = useRouteMatch({ path: "/logout/", exact: true });
-  
+
   if (logOutMatch) {
     return <Redirect to="/" />;
   }
-  
 
   let routes = [];
 
   let urls = {
-    PenPal: { path: /\/messages\/\w+$/, PenPal },
+    PenPal: { path: /\/messages\//, PenPal },
     Home: { path: /\/home\//, Home },
     Survey: { path: /\/survey\/$/, Survey },
     Profile: {
-      path: /\/profile\/\w+$/,
+      path: /\/profile\//,
       Profile,
     },
     Main: { path: /^\/$/, Main },
@@ -35,6 +36,8 @@ const Routes = () => {
 
   for (const key in urls) {
     // console.log(urls[key][key]);
+    // console.log(urls[key].path);
+    // console.log(urls[key].path.test(pathname));
 
     if (urls[key].path.test(pathname)) {
       routes = [
@@ -44,14 +47,14 @@ const Routes = () => {
           component: urls[key][key],
         },
       ];
-      return routeDispatcher(routes);
+      return loggedIn? routeDispatcher(routes):<Main/>
     }
   }
 
   routes = [{ match: true, component: NotFound }];
 
-  // return loggedIn ? routeDispatcher(routes):<Main/>
   return routeDispatcher(routes);
+  // return routeDispatcher(routes);
 };
 
 export default Routes;
