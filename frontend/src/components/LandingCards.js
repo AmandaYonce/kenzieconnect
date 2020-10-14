@@ -3,32 +3,69 @@ import { CardBody, Card, Col, Row, CardText } from "reactstrap";
 import placeholder from "../images/placeholder.png";
 import logo from "../images/logo.png";
 import wink from "../images/wink.png";
-import { getData,getProfileData } from "./helpers";
+import { getData, getProfileData } from "./helpers";
 import { receiveUsers } from "./actions";
 import { StateContext } from "../App";
 const LandingCards = (props) => {
-  
   //map three random mathes here from fetch
-  const {state,dispatch}=React.useContext(StateContext)
+  const { state, dispatch } = React.useContext(StateContext);
   const usersUrl = "http://127.0.0.1:8000/users/";
-  const key=window.localStorage.getItem("key")
-  
-  const matchMaker=async(a,b)=>{
-    const users = await a
-    const {survey}=await b
-    console.log(survey)
-    console.log(users)
+  const key = window.localStorage.getItem("key");
 
-  }
-  
-  
+  const matchMaker = async (a, b) => {
+    const users = await a;
+    const { survey } = await b;
+    console.log(survey);
+    console.log(users);
+    let profileAnswers = Object.values(survey);
+    let answers = [];
+    users.forEach((user) => {
+      let { survey: s } = user;
+      answers = [...answers, Object.values(s)];
+      // console.log(answers)
+      // console.log(profileAnswers)
+      // console.log(s)
+    });
+    const formatAnswers = (answers) => {
+      let output = [];
+      answers.forEach((userAnswer) => {
+        output = userAnswer.map((a, index) => {
+          // console.log(a)
+          let pAnswer = profileAnswers[index];
+          // console.log(a===profileAnswers[index])
+          return pAnswer === a ? 1 : 0;
+        });
+      });
+      return output
+    };
+    console.log(formatAnswers(answers));
+
+    // answers.reduce((acc,curr,index)=>{
+    //   console.log(index)
+    // },0)
+    // console.log(answers)
+
+    // const test = (acc = 0, cur) => {
+    //   let scores = [];
+    //   // console.log(cur[index])
+    //   cur.forEach((value, index) => {
+    //     // console.log(value)
+    //     if (value === profileAnswers[index]) return acc += 1;
+    //   });
+
+    //   scores.push(acc);
+    //   // console.log(scores)
+    //   return
+    // };
+    // let results = answers.reduce(test, 0);
+    // console.log(results)
+  };
+
   React.useEffect(() => {
-    let a =(getData(usersUrl, dispatch, receiveUsers));
-    let b=getProfileData(key,dispatch)
-    matchMaker(a,b)
-    
-  }, [key,dispatch]);
-
+    let a = getData(usersUrl, dispatch, receiveUsers);
+    let b = getProfileData(key, dispatch);
+    matchMaker(a, b);
+  }, [key, dispatch]);
 
   // const test = [
   //   {
@@ -55,7 +92,7 @@ const LandingCards = (props) => {
   // ];
   // console.log(page.start,page.end)
 
-  const users=state.users.map((value, index) => (
+  const users = state.users.map((value, index) => (
     <Col col-3="true" key={index}>
       <div className="flip-card">
         <div className="flip-card-inner">
@@ -104,8 +141,7 @@ const LandingCards = (props) => {
     </Col>
   ));
 
-  
-  return users.slice(state.page.start,state.page.end)
+  return users.slice(state.page.start, state.page.end);
 };
 
 export default LandingCards;

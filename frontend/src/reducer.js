@@ -9,7 +9,7 @@ const initialState = {
   modal: false,
   token: null,
   users: [],
-  page: { start: 0, end: 6 },
+  page: { start: 0, end: 3 },
 };
 
 const handlers = {};

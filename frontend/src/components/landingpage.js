@@ -23,18 +23,18 @@ const Landing = (props) => {
         <input
           type="button"
           value="Back"
-          onClick={() => dispatch(navigate(-6))}
+          onClick={() => dispatch(navigate(-3))}
         />
         <input
           type="button"
           value="Next"
-          onClick={() => dispatch(navigate(6))}
+          onClick={() => dispatch(navigate(3))}
         />
         <Row style={{ margin: "0.5em" }}>
           <Card id="slide">
             <a
               className="notifText"
-              href={`/messagefeed/${state.profile[0]?.displayname ?? "no name"}`}
+              href={`/messagefeed/${state?.profile[0]?.displayname ?? "no name"}`}
             >
               You have 4 New Messages
             </a>
