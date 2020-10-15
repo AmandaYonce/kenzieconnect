@@ -5,7 +5,7 @@ import wink from "../images/wink.png";
 import LandingCards from "./LandingCards";
 import { StateContext } from "../App";
 import { navigate } from "./actions";
-import {getProfileData} from "./helpers"
+import { getProfileData } from "./helpers";
 const Landing = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
 
@@ -15,27 +15,27 @@ const Landing = (props) => {
     getProfileData(key, dispatch);
   }, [key, dispatch]);
 
-
   return (
     <React.Fragment>
       <div style={{ backgroundColor: "#888888", height: "1000px" }}>
         <Header />
-        <input
-          type="button"
-          value="Back"
-          onClick={() => dispatch(navigate(-3))}
-        />
-        <input
-          type="button"
-          value="Next"
-          onClick={() => dispatch(navigate(3))}
-        />
+        {state.page.start !== 0 && (
+          <input
+            type="button"
+            value="Back"
+            onClick={() => dispatch(navigate(-3))}
+          />
+        )}
+        {state.page.end <= state.users.length && (
+          <input
+            type="button"
+            value="Next"
+            onClick={() => dispatch(navigate(3))}
+          />
+        )}
         <Row style={{ margin: "0.5em" }}>
           <Card id="slide">
-            <a
-              className="notifText"
-              href={`/messagefeed/${state?.profile[0]?.displayname ?? "no name"}`}
-            >
+            <a className="notifText" href={`/messagefeed/`}>
               You have 4 New Messages
             </a>
           </Card>

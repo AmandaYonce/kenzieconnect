@@ -27,18 +27,28 @@ const LandingCards = (props) => {
       // console.log(s)
     });
     const formatAnswers = (answers) => {
-      let output = [];
+      // let output = [];
+      let result = [];
       answers.forEach((userAnswer) => {
-        output = userAnswer.map((a, index) => {
+        let output = userAnswer.map((a, index) => {
           // console.log(a)
           let pAnswer = profileAnswers[index];
           // console.log(a===profileAnswers[index])
           return pAnswer === a ? 1 : 0;
         });
+        result.push(output);
+        // console.log(output);
+        // console.log(abc);
       });
-      return output
+
+      // console.log(output);
+      return result;
     };
-    console.log(formatAnswers(answers));
+    // console.log(formatAnswers(answers));
+
+    let formattedAnswers=formatAnswers(answers)
+
+    console.log(formattedAnswers)
 
     // answers.reduce((acc,curr,index)=>{
     //   console.log(index)
