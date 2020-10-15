@@ -11,12 +11,13 @@ import {
   CardText,
   Col,
 } from "reactstrap";
+import { loginOrOut } from "./actions";
 import { formData } from "./helpers";
-// import { StateContext } from "../App";
+import { StateContext } from "../App";
 // import { toggleModal } from "./actions";
 
 const UserRegistration = ({ modal }) => {
-  // const { dispatch } = React.useContext(StateContext);
+  const { dispatch } = React.useContext(StateContext);
   const history = useHistory();
 
   // const authenticateHandler = (data) => {
@@ -30,6 +31,7 @@ const UserRegistration = ({ modal }) => {
     const form = e.target;
     let regData = formData(form);
     console.log(regData);
+    dispatch(loginOrOut())
     history.push({pathname:"/survey/",state:{profile:regData}});
   };
 

@@ -5,15 +5,19 @@ import { StateContext } from "../App";
 import placeholder from "../images/placeholder.png";
 import Tips from "./tips";
 import { getProfileData } from "./helpers";
+import { useHistory } from "react-router-dom";
 
 const Profile = (props) => {
-  const { state ,dispatch} = React.useContext(StateContext);
-  const key=window.localStorage.getItem("key")
+  const { state, dispatch } = React.useContext(StateContext);
+  const key = window.localStorage.getItem("key");
+  const history = useHistory();
 
-  React.useEffect(()=>{
-    getProfileData(key,dispatch)
-  },[key,dispatch])
-  
+  React.useEffect(() => {
+    if (history.action === "PUSH" || history.action === "POP") {
+      getProfileData(key, dispatch);
+    }
+  }, [key, dispatch, history]);
+
   return (
     <div style={{ backgroundColor: "#4a5066", height: "1000px" }}>
       <Header />
@@ -47,12 +51,14 @@ const Profile = (props) => {
                 />
               </Row>
               {state.profile &&
-                state.profile.map((value,index) => (
+                state.profile.map((value, index) => (
                   <React.Fragment key={index}>
                     <CardText>Name:{value.displayname}</CardText>
                     <CardText>Age:{value.age}</CardText>
                     <CardText>Gender:{value.gender}</CardText>
-                    <CardText>Sexual Preference:{value.sexual_preference}</CardText>
+                    <CardText>
+                      Sexual Preference:{value.sexual_preference}
+                    </CardText>
                     <CardText>Bio:{value.bio}</CardText>
                   </React.Fragment>
                 ))}

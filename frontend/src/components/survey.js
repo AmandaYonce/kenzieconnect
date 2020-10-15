@@ -13,26 +13,43 @@ import {
 } from "reactstrap";
 // import { postData } from "./helpers";
 import { useHistory, useLocation } from "react-router-dom";
-import { receiveSurvey } from "./actions";
+import { receiveSurvey, getToken, loginOrOut } from "./actions";
 import { StateContext } from "../App";
-import { formData } from "./helpers";
+import { formData, postData } from "./helpers";
 
 const Survey = (props) => {
   const history = useHistory();
   // const {state:{profile}}=useLocation()??"undefined"
-  const state=useLocation()
-  const profile =state.state?.profile ?? "undefined"
-  console.log(profile)
+  const state = useLocation();
+  const profile = state.state?.profile ?? "undefined";
+  console.log(profile);
   const { dispatch } = React.useContext(StateContext);
-  const handleSignup = async (data) => {
-    console.log(data);
+
+  const register = async (data) => {
+    const registerUrl = "http://127.0.0.1:8000/register/";
+
+    const key = await postData(registerUrl, data);
+    if (key) {
+      dispatch(getToken(key));
+      dispatch(loginOrOut());
+
+      window.localStorage.setItem("key", key);
+
+      history.push("/home/");
+    }
+  };
+
+  const handleSignup = async (survey) => {
+    console.log(survey);
     //const{username,password}=data
     // await postData(url, {username,password})  need to post a new user and also new survey data and have it match with models
-    const postData={...profile,data}
-    console.log(postData)
-    let surveyArray = Object.values(data).slice(2);
-    console.log(surveyArray)
+    const postData = { ...profile, survey };
+
+    console.log(postData);
+    let surveyArray = Object.values(survey).slice(0, -1);
+    console.log(surveyArray);
     receiveSurvey(surveyArray)(dispatch);
+    register(postData);
   };
 
   const handleSubmit = (event) => {
@@ -41,7 +58,7 @@ const Survey = (props) => {
     let form = event.target;
     // console.log(form);
     let surveyData = formData(form);
-    console.log(surveyData)
+    console.log(surveyData);
     handleSignup(surveyData);
     form.reset();
     history.push(`/profile/`);
@@ -91,26 +108,26 @@ const Survey = (props) => {
                 <Col sm={7}>
                   <Input
                     type="select"
-                    name="survey1"
+                    name="question_pet"
                     id="survey1"
                     required={true}
                   >
                     <option value="">------</option>
-                    <option>Dogs</option>
-                    <option>Cats</option>
+                    <option>Dog</option>
+                    <option>Cat</option>
                     <option>Dogs and Cats</option>
-                    <option>no pets</option>
+                    <option>No Pets</option>
                   </Input>
                 </Col>
               </FormGroup>
-              <FormGroup row>
+              {/* <FormGroup row>
                 <Label for="survey2" sm={5}>
                   Do you like spicey food?
                 </Label>
                 <Col sm={7}>
                   <Input
                     type="select"
-                    name="survey2"
+                    name="question_date"
                     id="survey2"
                     required={true}
                   >
@@ -119,7 +136,7 @@ const Survey = (props) => {
                     <option>no</option>
                   </Input>
                 </Col>
-              </FormGroup>
+              </FormGroup> */}
               <FormGroup row>
                 <Label for="survey3" sm={5}>
                   What is your perfect date?
@@ -127,14 +144,14 @@ const Survey = (props) => {
                 <Col sm={7}>
                   <Input
                     type="select"
-                    name="survey3"
+                    name="question_date"
                     id="survey3"
                     required={true}
                   >
                     <option value="">------</option>
-                    <option>late nighter</option>
-                    <option>early evening</option>
-                    <option>weekend afternoon</option>
+                    <option>Late-nighter</option>
+                    <option>Early Evening</option>
+                    <option>Weekend Afternoon</option>
                   </Input>
                 </Col>
               </FormGroup>
@@ -145,15 +162,15 @@ const Survey = (props) => {
                 <Col sm={7}>
                   <Input
                     type="select"
-                    name="survey4"
+                    name="question_activity"
                     id="survey4"
                     required={true}
                   >
                     <option value="">------</option>
-                    <option>Dancing</option>
-                    <option>Movies</option>
-                    <option>Fine Dining Dinner</option>
-                    <option>Picnic</option>
+                    <option>PS5</option>
+                    <option>Dungeons and Dragons</option>
+                    <option>Dinner</option>
+                    <option>Hackathon</option>
                   </Input>
                 </Col>
               </FormGroup>
@@ -164,19 +181,20 @@ const Survey = (props) => {
                 <Col sm={7}>
                   <Input
                     type="select"
-                    name="survey5"
+                    name="question_star"
                     id="survey5"
                     required={true}
                   >
                     <option value="">------</option>
                     <option>Darth Vader</option>
-                    <option>Luke Skywalker</option>
-                    <option>Hans Solo</option>
+                    <option>LukeSky Walker</option>
+                    <option>Han Solo</option>
                     <option>Princess Leia</option>
                     <option>Padme Amidala</option>
-                    <option>Jyn Erso</option>
+                    <option>Jyn Ersp</option>
                     <option>Yoda</option>
-                    <option>Chubacka</option>
+                    <option>Chewbacca</option>
+                    <option>Jar Jar Binks</option>
                   </Input>
                 </Col>
               </FormGroup>
@@ -187,7 +205,7 @@ const Survey = (props) => {
                 <Col sm={7}>
                   <Input
                     type="select"
-                    name="survey6"
+                    name="question_booze"
                     id="survey6"
                     required={true}
                   >
@@ -195,7 +213,7 @@ const Survey = (props) => {
                     <option>Beer</option>
                     <option>Wine</option>
                     <option>Cocktails</option>
-                    <option>No Alcohol</option>
+                    <option>No Alcohol Please</option>
                   </Input>
                 </Col>
               </FormGroup>
@@ -206,14 +224,14 @@ const Survey = (props) => {
                 <Col sm={7}>
                   <Input
                     type="select"
-                    name="survey7"
+                    name="question_pjs"
                     id="survey7"
                     required={true}
                   >
                     <option value="">------</option>
                     <option>Never</option>
-                    <option>100% yes</option>
-                    <option>Business on top, Pjs on bottom</option>
+                    <option>100% Yes</option>
+                    <option>Business on top, pjs on bottom</option>
                     <option>Literally took them off 1 minute ago</option>
                   </Input>
                 </Col>
@@ -225,7 +243,7 @@ const Survey = (props) => {
                 <Col sm={7}>
                   <Input
                     type="select"
-                    name="survey8"
+                    name="question_sleep"
                     id="survey8"
                     required={true}
                   >
@@ -242,7 +260,7 @@ const Survey = (props) => {
                 <Col sm={7}>
                   <Input
                     type="select"
-                    name="survey9"
+                    name="question_mind"
                     id="survey9"
                     required={true}
                   >
@@ -261,7 +279,7 @@ const Survey = (props) => {
                 <Col sm={7}>
                   <Input
                     type="select"
-                    name="survey10"
+                    name="question_dog"
                     id="survey10"
                     required={true}
                   >

@@ -8,13 +8,14 @@ import Survey from "./components/survey";
 import { useLocation } from "react-router-dom";
 import { routeDispatcher } from "./components/helpers";
 import NotFound from "./components/notfound";
+import { StateContext } from "./App";
 
 const Routes = () => {
   let path = useLocation();
-
-  let {pathname}=path
-  const loggedIn = window.localStorage.getItem("key");
-  
+  const { state } = React.useContext(StateContext);
+  let { pathname } = path;
+  const loggedIn = window.localStorage.getItem("key") || state.loggedIn;
+  // console.log(loggedIn?"true":"false")
   // console.log(pathname);
 
   // const logOutMatch = useRouteMatch({ path: "/logout/", exact: true });

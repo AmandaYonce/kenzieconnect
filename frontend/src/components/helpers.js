@@ -35,11 +35,13 @@ const postData = async (postUrl, data) => {
   }
 };
 
-const getData = (url, dispatch, actionCallback) =>
+const getData = (url, dispatch, actionCallback, signal) =>
   (async () => {
     try {
       // console.log("working");
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        signal: signal,
+      });
       const data = await response.json();
       // console.log(data);
       // console.log("working");
@@ -48,6 +50,10 @@ const getData = (url, dispatch, actionCallback) =>
       return data;
     } catch (error) {
       console.error(error);
+      console.log(error.name);
+      if (error.name === "AbortError") {
+        console.log("aborted");
+      }
     }
   })();
 
@@ -66,17 +72,17 @@ const getAuthData = (url, dispatch, actionCallback, token) =>
       actionCallback(data)(dispatch);
     } catch (error) {
       console.error(error);
+      console.log(error.name);
     }
   })();
 
-const getProfileData = async (key, dispatch) => {
+const getProfileData = async (key, dispatch, signal) => {
   const profileUrl = "http://127.0.0.1:8000/rest-auth/user/";
-  // const controller = new AbortController();
   try {
     const response = await fetch(profileUrl, {
       method: "GET",
       headers: { Authorization: `Token ${key}` },
-      // signal: controller.signal,
+      signal: signal,
     });
     let result = await response.json();
 
@@ -87,6 +93,9 @@ const getProfileData = async (key, dispatch) => {
   } catch (error) {
     console.error(error);
     console.log(error.name);
+    if (error.name === "AbortError") {
+      console.log("aborted");
+    }
   }
 };
 const putData = (postUrl, item, dispatch) => async () => {
@@ -124,9 +133,19 @@ const formData = (form) => {
 };
 
 const matchMaker = async (a, b) => {
+  if (((await b)===undefined)|| null){
+    console.log("pepperoni")
+    return
+  }
   const { survey, email: e } = await b;
-
-  let users = (await a).filter(({ email }) => email !== e);
+  // console.log(survey??"cheese")
+  
+  if (survey ?? true){
+    console.log("fireee")
+  }
+console.log((await a).filter(a=>a.email))
+  // let users=(await a).filter(user=>user.email===null|| user.email ===undefined)
+  let users=(await a).filter(({ email }) => email !== e);
   // console.log(email)
   // console.log(survey);
   // console.log(users);
@@ -163,7 +182,6 @@ const matchMaker = async (a, b) => {
   console.log(matchResults(formattedAnswers));
   return matchResults(formattedAnswers);
 };
-
 
 export {
   createReducer,
