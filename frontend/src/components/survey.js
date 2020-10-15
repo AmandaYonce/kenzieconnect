@@ -11,7 +11,6 @@ import {
   Col,
   Row,
 } from "reactstrap";
-// import { postData } from "./helpers";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { receiveSurvey, getToken, loginOrOut } from "./actions";
 import { StateContext } from "../App";
@@ -21,12 +20,16 @@ const Survey = (props) => {
   const { dispatch } = React.useContext(StateContext);
   const history = useHistory();
   const state = useLocation();
-  if (state.state?.profile ?? true){
-    return <Redirect to="/"/>
+  if (localStorage.getItem("key")) {
+    history.go(-1);
+    return <Redirect to={"/"} />;
   }
-  const {state:{profile}}=state
-  console.log(profile)
-  
+  console.log(state);
+  const {
+    state: { profile },
+  } = state;
+  console.log(profile);
+  console.log(Object.keys(profile));
 
   const register = async (data) => {
     const registerUrl = "http://127.0.0.1:8000/register/";
@@ -41,8 +44,9 @@ const Survey = (props) => {
       window.localStorage.setItem("key", key);
 
       history.push("/home/");
+    } else {
+      return <Redirect to="/" />;
     }
-    return <Redirect to="/" />;
   };
 
   const handleSignup = async (survey) => {
@@ -60,8 +64,8 @@ const Survey = (props) => {
     let form = event.target;
     let surveyData = formData(form);
     // console.log(surveyData);
-    form.reset();
     handleSignup(surveyData);
+    form.reset();
   };
 
   return (

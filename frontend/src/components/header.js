@@ -23,8 +23,8 @@ const Header = (props) => {
     const logoutURL= 'http://127.0.0.1:8000/rest-auth/logout/'
     const response = await fetch(logoutURL)
     if (response.ok){
+      localStorage.clear()
       dispatch(loginOrOut());
-      localStorage.clear();
       history.push("/");
     }
   };

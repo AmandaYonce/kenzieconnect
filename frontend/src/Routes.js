@@ -17,7 +17,7 @@ const Routes = () => {
   const loggedIn = window.localStorage.getItem("key") || state.loggedIn;
   // console.log(loggedIn?"true":"false")
   // console.log(pathname);
-
+  pathname==="/logout/"&& localStorage.clear()
   // const logOutMatch = useRouteMatch({ path: "/logout/", exact: true });
 
   let routes = [];
