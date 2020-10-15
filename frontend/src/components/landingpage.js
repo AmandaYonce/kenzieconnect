@@ -32,7 +32,7 @@ const Landing = (props) => {
             onClick={() => dispatch(navigate(-3))}
           />
         )}
-        {state.page.end <= state.users.length && (
+        {state.page.end < state.users.length && (
           <input
             type="button"
             value="Next"

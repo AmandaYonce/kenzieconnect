@@ -34,7 +34,7 @@ const LandingCards = (props) => {
     return () => controller.abort();
   }, [key, dispatch, history]);
 
-  const users = state.users.map((value, index) => {
+  const users = state.users.filter(e=>e.email !== state.profile[0].email).map((value, index) => {
     // console.log(value);
     // let email = value?.email ?? undefined;
 
@@ -48,7 +48,8 @@ const LandingCards = (props) => {
       
     // }
     return (
-      value.email !== state.profile[0].email && (
+      // value.email !== state.profile[0].email && 
+      (
         <Col col-3="true" key={index}>
           <div className="flip-card">
             <div className="flip-card-inner">
@@ -70,7 +71,7 @@ const LandingCards = (props) => {
                       <h1
                         style={{ fontFamily: "Montserrat", fontSize: "2.5em" }}
                       >
-                        {(state.matchScores[index] / 9).toFixed(2) * 100}% <br />
+                        {((state.matchScores[index]/9)*100).toFixed(2)}% <br />
                         Match
                         <br />
                         {/* when the user clicks on this icon it should trigger a wink */}
