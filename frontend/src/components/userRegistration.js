@@ -57,7 +57,7 @@ const UserRegistration = ({ modal }) => {
             ? "number"
             : "text"
         }
-        name={value.toLowerCase().replace(" ","")}
+        name={value.replaceAll(" ","").toLowerCase()}
         id={value}
         placeholder={value}
         required={true}

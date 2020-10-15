@@ -32,7 +32,6 @@ const postData = async (postUrl, data) => {
     if ("token" in post_response){
       return post_response["token"]
     }
-    console.log(response.json())
     return response.json();
   } catch (error) {
     console.error(error);
