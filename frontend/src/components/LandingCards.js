@@ -71,7 +71,7 @@ const LandingCards = (props) => {
                       <h1
                         style={{ fontFamily: "Montserrat", fontSize: "2.5em" }}
                       >
-                        {((state.matchScores[index]/9)*100).toFixed(2)}% <br />
+                        {((state.matchScores[index]/9)*100).toFixed(1)}% <br />
                         Match
                         <br />
                         {/* when the user clicks on this icon it should trigger a wink */}
