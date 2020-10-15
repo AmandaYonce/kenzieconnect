@@ -118,6 +118,48 @@ const formData = (form) => {
 
 
 
+const matchMaker = async (a, b) => {
+  let users = await a;
+  const { survey, email: e } = await b;
+
+  users = users.filter(({ email }) => email !== e);
+  // console.log(email)
+  // console.log(survey);
+  // console.log(users);
+  let profileAnswers = Object.values(survey);
+  let answers = [];
+  users.forEach((user) => {
+    let { survey: s } = user;
+    answers = [...answers, Object.values(s)];
+    // console.log(answers)
+    // console.log(profileAnswers)
+    // console.log(s)
+  });
+  const formatAnswers = (answers) => {
+    let result = [];
+    answers.forEach((userAnswer) => {
+      let output = userAnswer.map((a, index) => {
+        let pAnswer = profileAnswers[index];
+
+        return pAnswer === a ? 1 : 0;
+      });
+      result.push(output);
+    });
+    return result;
+  };
+
+  let formattedAnswers = formatAnswers(answers);
+
+  console.log(formattedAnswers);
+
+  const matchResults = (results) => {
+    let output = results.map((r) => r.reduce((acc, curr) => acc + curr));
+    return output;
+  };
+  console.log(matchResults(formattedAnswers));
+};
+
+
 
 export {
   createReducer,
@@ -129,5 +171,6 @@ export {
   formData,
   getAuthData,
   getProfileData,
+  matchMaker
   
 };

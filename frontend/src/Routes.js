@@ -5,7 +5,7 @@ import Profile from "./components/profile";
 // import Auth from "./components/loginSignup";
 import Main from "./components/main";
 import Survey from "./components/survey";
-import { Redirect, useLocation, useRouteMatch } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { routeDispatcher } from "./components/helpers";
 import NotFound from "./components/notfound";
 
@@ -15,11 +15,7 @@ const Routes = () => {
 
   // console.log(pathname);
 
-  const logOutMatch = useRouteMatch({ path: "/logout/", exact: true });
-
-  if (logOutMatch) {
-    return <Redirect to="/" />;
-  }
+  // const logOutMatch = useRouteMatch({ path: "/logout/", exact: true });
 
   let routes = [];
 
@@ -31,7 +27,7 @@ const Routes = () => {
       path: /\/profile\//,
       Profile,
     },
-    Main: { path: /^\/$/, Main },
+    Main: { path: /^\/$|\/logout\//, Main },
   };
 
   for (const key in urls) {
@@ -47,7 +43,7 @@ const Routes = () => {
           component: urls[key][key],
         },
       ];
-      return loggedIn? routeDispatcher(routes):<Main/>
+      return loggedIn ? routeDispatcher(routes) : <Main />;
     }
   }
 

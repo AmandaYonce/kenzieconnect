@@ -30,7 +30,7 @@ const UserRegistration = ({ modal }) => {
     const form = e.target;
     let regData = formData(form);
     console.log(regData);
-    history.push("/survey/");
+    history.push({pathname:"/survey/",state:{profile:regData}});
   };
 
   const formNames = [

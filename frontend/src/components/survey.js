@@ -12,21 +12,25 @@ import {
   Row,
 } from "reactstrap";
 // import { postData } from "./helpers";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { receiveSurvey } from "./actions";
 import { StateContext } from "../App";
 import { formData } from "./helpers";
 
 const Survey = (props) => {
   const history = useHistory();
+  // const {state:{profile}}=useLocation()??"undefined"
+  const state=useLocation()
+  
   const { dispatch } = React.useContext(StateContext);
   const handleSignup = async (data) => {
     console.log(data);
     //const{username,password}=data
     // await postData(url, {username,password})  need to post a new user and also new survey data and have it match with models
-
+    // const postData={...profile,data}
+    // console.log(postData)
     let surveyArray = Object.values(data).slice(2);
-
+    console.log(surveyArray)
     receiveSurvey(surveyArray)(dispatch);
   };
 
@@ -34,11 +38,12 @@ const Survey = (props) => {
     event.preventDefault();
 
     let form = event.target;
-    console.log(form);
+    // console.log(form);
     let surveyData = formData(form);
+    console.log(surveyData)
     handleSignup(surveyData);
     form.reset();
-    history.push(`/profile/${surveyData.username}`);
+    history.push(`/profile/`);
   };
 
   return (
