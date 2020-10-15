@@ -3,23 +3,24 @@ import { CardBody, Card, Col, Row, CardText } from "reactstrap";
 import placeholder from "../images/placeholder.png";
 import logo from "../images/logo.png";
 import wink from "../images/wink.png";
-import { getData, getProfileData,matchMaker } from "./helpers";
+import { getData, getProfileData, matchMaker } from "./helpers";
 import { receiveUsers } from "./actions";
 import { StateContext } from "../App";
+import { useHistory } from "react-router-dom";
 const LandingCards = (props) => {
   //map three random mathes here from fetch
   const { state, dispatch } = React.useContext(StateContext);
   const usersUrl = "http://127.0.0.1:8000/users/";
   const key = window.localStorage.getItem("key");
-
-
-
+  const history = useHistory();
   React.useEffect(() => {
-    let a = getData(usersUrl, dispatch, receiveUsers);
-    let b = getProfileData(key, dispatch);
+    if (history.action === "PUSH" || history.action === "POP") {
+      let a = getData(usersUrl, dispatch, receiveUsers);
+      let b = getProfileData(key, dispatch);
 
-    matchMaker(a, b);
-  }, [key, dispatch]);
+      matchMaker(a, b);
+    }
+  }, [key, dispatch, history]);
 
   const users = state.users.map(
     (value, index) =>

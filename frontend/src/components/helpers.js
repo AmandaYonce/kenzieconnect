@@ -1,5 +1,5 @@
 import React from "react";
-import { receiveProfile,getProfile,getSurvey} from "./actions";
+import { receiveProfile, getProfile, getSurvey } from "./actions";
 
 const routeDispatcher = (list) =>
   list.map((element, index) => (
@@ -45,7 +45,7 @@ const getData = (url, dispatch, actionCallback) =>
       // console.log("working");
       // console.log(data);
       actionCallback(data)(dispatch);
-      return data
+      return data;
     } catch (error) {
       console.error(error);
     }
@@ -69,19 +69,26 @@ const getAuthData = (url, dispatch, actionCallback, token) =>
     }
   })();
 
-const getProfileData=async(key,dispatch)=>{
-const profileUrl = "http://127.0.0.1:8000/rest-auth/user/";
-const response = await fetch(profileUrl, {
-  method: "GET",
-  headers: { Authorization: `Token ${key}` },
-});
-let result = await response.json();
+const getProfileData = async (key, dispatch) => {
+  const profileUrl = "http://127.0.0.1:8000/rest-auth/user/";
+  // const controller = new AbortController();
+  try {
+    const response = await fetch(profileUrl, {
+      method: "GET",
+      headers: { Authorization: `Token ${key}` },
+      // signal: controller.signal,
+    });
+    let result = await response.json();
 
-let {survey , ...profile}=result;
-dispatch(getProfile([profile]))
-dispatch(getSurvey([survey]))
-return result
-}
+    let { survey, ...profile } = result;
+    dispatch(getProfile([profile]));
+    dispatch(getSurvey([survey]));
+    return result;
+  } catch (error) {
+    console.error(error);
+    console.log(error.name);
+  }
+};
 const putData = (postUrl, item, dispatch) => async () => {
   const d = await fetch(postUrl);
   const response = await d.json();
@@ -116,13 +123,10 @@ const formData = (form) => {
   return surveyData;
 };
 
-
-
 const matchMaker = async (a, b) => {
-  let users = await a;
   const { survey, email: e } = await b;
 
-  users = users.filter(({ email }) => email !== e);
+  let users = (await a).filter(({ email }) => email !== e);
   // console.log(email)
   // console.log(survey);
   // console.log(users);
@@ -157,9 +161,8 @@ const matchMaker = async (a, b) => {
     return output;
   };
   console.log(matchResults(formattedAnswers));
+  return matchResults(formattedAnswers);
 };
-
-
 
 export {
   createReducer,
@@ -171,6 +174,5 @@ export {
   formData,
   getAuthData,
   getProfileData,
-  matchMaker
-  
+  matchMaker,
 };
