@@ -21,14 +21,15 @@ const Survey = (props) => {
   const history = useHistory();
   // const {state:{profile}}=useLocation()??"undefined"
   const state=useLocation()
-  
+  const profile =state.state?.profile ?? "undefined"
+  console.log(profile)
   const { dispatch } = React.useContext(StateContext);
   const handleSignup = async (data) => {
     console.log(data);
     //const{username,password}=data
     // await postData(url, {username,password})  need to post a new user and also new survey data and have it match with models
-    // const postData={...profile,data}
-    // console.log(postData)
+    const postData={...profile,data}
+    console.log(postData)
     let surveyArray = Object.values(data).slice(2);
     console.log(surveyArray)
     receiveSurvey(surveyArray)(dispatch);

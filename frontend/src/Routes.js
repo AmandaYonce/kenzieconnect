@@ -10,9 +10,11 @@ import { routeDispatcher } from "./components/helpers";
 import NotFound from "./components/notfound";
 
 const Routes = () => {
-  let { pathname } = useLocation();
-  const loggedIn = window.localStorage.getItem("key");
+  let path = useLocation();
 
+  let {pathname}=path
+  const loggedIn = window.localStorage.getItem("key");
+  
   // console.log(pathname);
 
   // const logOutMatch = useRouteMatch({ path: "/logout/", exact: true });
@@ -20,11 +22,11 @@ const Routes = () => {
   let routes = [];
 
   let urls = {
-    PenPal: { path: /\/messages\//, PenPal },
-    Home: { path: /\/home\//, Home },
-    Survey: { path: /\/survey\/$/, Survey },
+    PenPal: { path: /^\/messages\//, PenPal },
+    Home: { path: /^\/home\//, Home },
+    Survey: { path: /^\/survey\/$/, Survey },
     Profile: {
-      path: /\/profile\//,
+      path: /^\/profile\//,
       Profile,
     },
     Main: { path: /^\/$|\/logout\//, Main },

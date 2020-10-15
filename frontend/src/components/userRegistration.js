@@ -34,10 +34,9 @@ const UserRegistration = ({ modal }) => {
   };
 
   const formNames = [
-    "Username",
-    "Password",
-    "Display Name",
     "Email",
+    "Display Name",
+    "Password",
     "Bio",
     "Age",
   ];
