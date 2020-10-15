@@ -8,22 +8,20 @@ import { receiveUsers, getMatchScores } from "./actions";
 import { StateContext } from "../App";
 import { useHistory } from "react-router-dom";
 const LandingCards = (props) => {
-  //map three random mathes here from fetch
   const { state, dispatch } = React.useContext(StateContext);
   const usersUrl = "http://127.0.0.1:8000/users/";
   const key = window.localStorage.getItem("key");
   const history = useHistory();
 
   React.useEffect(() => {
-    // console.log(history.action)
     const controller = new AbortController();
     const signal = controller.signal;
     if (history.action === "POP" || history.action === "PUSH") {
       (async () => {
-        let a = getData(usersUrl, dispatch, receiveUsers, signal);
-        let b = getProfileData(key, dispatch, signal);
+        let b = await getProfileData(key, dispatch, signal);
+        let a = await getData(usersUrl, dispatch, receiveUsers, signal);
         const matchScores = await matchMaker(a, b);
-        // console.log(matchScores)
+
         try {
           dispatch(getMatchScores(matchScores));
         } catch (error) {
@@ -34,22 +32,10 @@ const LandingCards = (props) => {
     return () => controller.abort();
   }, [key, dispatch, history]);
 
-  const users = state.users.filter(e=>e.email !== state.profile[0].email).map((value, index) => {
-    // console.log(value);
-    // let email = value?.email ?? undefined;
-
-    // if (email === "" || undefined) {
-    //   console.log(value);
-    //   return [];
-    // }
-    // // console.log(state.profile[0]?.email ?? "cheese");
-    // if(state.profile[0]?.email ?? true){
-    //   console.log("issues")
-      
-    // }
-    return (
-      // value.email !== state.profile[0].email && 
-      (
+  const users = state.users
+    .filter((e) => e.email !== state.profile[0].email)
+    .map((value, index) => {
+      return (
         <Col col-3="true" key={index}>
           <div className="flip-card">
             <div className="flip-card-inner">
@@ -71,7 +57,8 @@ const LandingCards = (props) => {
                       <h1
                         style={{ fontFamily: "Montserrat", fontSize: "2.5em" }}
                       >
-                        {((state.matchScores[index]/9)*100).toFixed(1)}% <br />
+                        {((state.matchScores[index] / 9) * 100).toFixed(1)}%{" "}
+                        <br />
                         Match
                         <br />
                         {/* when the user clicks on this icon it should trigger a wink */}
@@ -102,9 +89,8 @@ const LandingCards = (props) => {
             </div>
           </div>
         </Col>
-      )
-    );
-  });
+      );
+    });
 
   return users.slice(state.page.start, state.page.end);
 };

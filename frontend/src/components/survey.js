@@ -12,23 +12,28 @@ import {
   Row,
 } from "reactstrap";
 // import { postData } from "./helpers";
-import { useHistory, useLocation } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { receiveSurvey, getToken, loginOrOut } from "./actions";
 import { StateContext } from "../App";
 import { formData, postData } from "./helpers";
 
 const Survey = (props) => {
-  const history = useHistory();
-  // const {state:{profile}}=useLocation()??"undefined"
-  const state = useLocation();
-  const profile = state.state?.profile ?? "undefined";
-  console.log(profile);
   const { dispatch } = React.useContext(StateContext);
+  const history = useHistory();
+  const state = useLocation();
+  if (state.state?.profile ?? true){
+    return <Redirect to="/"/>
+  }
+  const {state:{profile}}=state
+  console.log(profile)
+  
 
   const register = async (data) => {
     const registerUrl = "http://127.0.0.1:8000/register/";
 
     const key = await postData(registerUrl, data);
+    console.log(key);
+
     if (key) {
       dispatch(getToken(key));
       dispatch(loginOrOut());
@@ -37,31 +42,26 @@ const Survey = (props) => {
 
       history.push("/home/");
     }
+    return <Redirect to="/" />;
   };
 
   const handleSignup = async (survey) => {
     console.log(survey);
-    //const{username,password}=data
-    // await postData(url, {username,password})  need to post a new user and also new survey data and have it match with models
     const postData = { ...profile, survey };
-
     console.log(postData);
     let surveyArray = Object.values(survey).slice(0, -1);
-    console.log(surveyArray);
+    // console.log(surveyArray);
     receiveSurvey(surveyArray)(dispatch);
     register(postData);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     let form = event.target;
-    // console.log(form);
     let surveyData = formData(form);
-    console.log(surveyData);
-    handleSignup(surveyData);
+    // console.log(surveyData);
     form.reset();
-    history.push(`/profile/`);
+    handleSignup(surveyData);
   };
 
   return (

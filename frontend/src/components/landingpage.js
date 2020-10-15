@@ -5,21 +5,9 @@ import wink from "../images/wink.png";
 import LandingCards from "./LandingCards";
 import { StateContext } from "../App";
 import { navigate } from "./actions";
-import { getProfileData } from "./helpers";
-import { useHistory } from "react-router-dom";
 const Landing = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
-
-  const key = window.localStorage.getItem("key");
-  const history = useHistory();
-  React.useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    if (history.action === "PUSH" || history.action === "POP") {
-      getProfileData(key, dispatch, signal);
-    }
-    return () => controller.abort();
-  }, [key, dispatch, history]);
+  
 
   return (
     <React.Fragment>
@@ -32,7 +20,7 @@ const Landing = (props) => {
             onClick={() => dispatch(navigate(-3))}
           />
         )}
-        {state.page.end < state.users.length && (
+        {state.page.end < (state.users.length -1) && (
           <input
             type="button"
             value="Next"

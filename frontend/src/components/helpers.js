@@ -29,7 +29,11 @@ const postData = async (postUrl, data) => {
     if ("key" in post_response) {
       return post_response["key"];
     }
-    // return response.json();
+    if ("token" in post_response){
+      return post_response["token"]
+    }
+    console.log(response.json())
+    return response.json();
   } catch (error) {
     console.error(error);
   }
@@ -89,7 +93,8 @@ const getProfileData = async (key, dispatch, signal) => {
     let { survey, ...profile } = result;
     dispatch(getProfile([profile]));
     dispatch(getSurvey([survey]));
-    return result;
+    // console.log(result)
+    return result
   } catch (error) {
     console.error(error);
     console.log(error.name);
