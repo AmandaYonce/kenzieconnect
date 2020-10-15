@@ -4,7 +4,7 @@ import placeholder from "../images/placeholder.png";
 import logo from "../images/logo.png";
 import wink from "../images/wink.png";
 import { getData, getProfileData, matchMaker } from "./helpers";
-import { receiveUsers } from "./actions";
+import { receiveUsers,getMatchScores } from "./actions";
 import { StateContext } from "../App";
 import { useHistory } from "react-router-dom";
 const LandingCards = (props) => {
@@ -13,12 +13,17 @@ const LandingCards = (props) => {
   const usersUrl = "http://127.0.0.1:8000/users/";
   const key = window.localStorage.getItem("key");
   const history = useHistory();
+  
   React.useEffect(() => {
     if (history.action === "PUSH" || history.action === "POP") {
       let a = getData(usersUrl, dispatch, receiveUsers);
       let b = getProfileData(key, dispatch);
 
-      matchMaker(a, b);
+      (async () => {
+        const matchScores= await matchMaker(a, b);
+        console.log(matchScores)
+        dispatch(getMatchScores(matchScores))
+      })();
     }
   }, [key, dispatch, history]);
 
@@ -46,7 +51,7 @@ const LandingCards = (props) => {
                       <h1
                         style={{ fontFamily: "Montserrat", fontSize: "2.5em" }}
                       >
-                        90% <br />
+                        {(state.matchScores[index]/9)*100}% <br />
                         Match
                         <br />
                         {/* when the user clicks on this icon it should trigger a wink */}

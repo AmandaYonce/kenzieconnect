@@ -5,7 +5,7 @@ import wink from "../images/wink.png";
 import LandingCards from "./LandingCards";
 import { StateContext } from "../App";
 import { navigate } from "./actions";
-import { getProfileData } from "./helpers";
+import { getProfileData} from "./helpers";
 const Landing = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
 
