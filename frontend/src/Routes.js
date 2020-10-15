@@ -46,7 +46,8 @@ const Routes = () => {
           component: urls[key][key],
         },
       ];
-      return loggedIn ? routeDispatcher(routes) : <Main />;
+      // return loggedIn ? routeDispatcher(routes) : <Main />;
+      return routeDispatcher(routes)
     }
   }
 
