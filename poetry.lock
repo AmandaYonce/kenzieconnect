@@ -51,6 +51,14 @@ Django = ">=2.2"
 
 [[package]]
 category = "main"
+description = "foreman reads from .env. manage.py doesn't. Let's fix that."
+name = "django-dotenv"
+optional = false
+python-versions = "*"
+version = "1.4.2"
+
+[[package]]
+category = "main"
 description = "Tiny, lightweight, blazing fast REST library for django"
 name = "django-rest"
 optional = false
@@ -142,7 +150,7 @@ python-versions = "*"
 version = "0.10.1"
 
 [metadata]
-content-hash = "a4bf9f11d14d261736bd86b89da94baf5ad2eadf4ee579c706d7d90f7dd3d6a0"
+content-hash = "cffaad40b02edc258932730e2400c7d9880cf61b27291e955e262d081b41147f"
 lock-version = "1.0"
 python-versions = "^3.8"
 
@@ -161,6 +169,10 @@ django = [
 django-cors-headers = [
     {file = "django-cors-headers-3.5.0.tar.gz", hash = "sha256:db82b2840f667d47872ae3e4a4e0a0d72fbecb42779b8aa233fa8bb965f7836a"},
     {file = "django_cors_headers-3.5.0-py3-none-any.whl", hash = "sha256:9322255c296d5f75089571f29e520c83ff9693df17aa3cf9f6a4bea7c6740169"},
+]
+django-dotenv = [
+    {file = "django-dotenv-1.4.2.tar.gz", hash = "sha256:3812bb0f4876cf31f902aad140f0645e120e51ee30eb7c40c22050f58a0e4adb"},
+    {file = "django_dotenv-1.4.2-py2.py3-none-any.whl", hash = "sha256:a9b1b40a70bd321acd231926acedb9bd2c5e873e33a1873b34a7276d196a765e"},
 ]
 django-rest = [
     {file = "django-rest-0.8.6.tar.gz", hash = "sha256:94e0ef7794e1b23ab4dacbce4e210d1f24a2e7542a22921e4ed4bfc378f0dc5d"},
