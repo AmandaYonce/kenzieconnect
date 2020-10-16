@@ -7,7 +7,8 @@ import { StateContext } from "../App";
 import { navigate } from "./actions";
 const Landing = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
-  
+  const winks = { href: `/winks/${state.user}`, name: "Winks" };
+
 
   return (
     <React.Fragment>
@@ -34,11 +35,17 @@ const Landing = (props) => {
             </a>
           </Card>
         </Row>
-        <Row style={{ margin: "0.5em" }}>
-          <Card id="winkslide">
+        <Row  style={{ margin: "0.5em" }}>
+          <a href={winks.href}>
+          <Card style={{
+              fontFamily: "Montserrat",
+              color: "black",
+              fontSize: "1.5em"}} 
+              id="winkslide">
             You have 3 winks
             <img alt="wink" src={wink} style={{ width: "4em" }} />
           </Card>
+          </a>
         </Row>
         <Row
           style={{ justifyContent: "center", marginTop: "3.5em" }}

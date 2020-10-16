@@ -5,6 +5,7 @@ import Profile from "./components/profile";
 // import Auth from "./components/loginSignup";
 import Main from "./components/main";
 import Survey from "./components/survey";
+import Winks from './components/winks'
 import { useLocation } from "react-router-dom";
 import { routeDispatcher } from "./components/helpers";
 import NotFound from "./components/notfound";
@@ -26,6 +27,7 @@ const Routes = () => {
     PenPal: { path: /^\/messages\//, PenPal },
     Home: { path: /^\/home\//, Home },
     Survey: { path: /^\/survey\/$/, Survey },
+    Winks: {path: /^\/winks\/$/, Winks },
     Profile: {
       path: /^\/profile\//,
       Profile,
@@ -46,7 +48,8 @@ const Routes = () => {
           component: urls[key][key],
         },
       ];
-      return loggedIn ? routeDispatcher(routes) : <Main />;
+      // return loggedIn ? routeDispatcher(routes) : <Main />;
+      return routeDispatcher(routes)
     }
   }
 

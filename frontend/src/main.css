@@ -3,6 +3,34 @@
 font-family: 'Lobster', cursive;
 font-family: 'Montserrat', sans-serif; */
 
+
+.postcard{
+    background-image: url('./images/postcard.jpeg');
+    background-size: cover;
+    opacity: 0.9;
+    width: 75%;
+    margin: 2em;
+    height: 20em;
+}
+
+.postcardBody{
+    width: 75%;
+    height: 10em;
+    margin-top: 3em;
+    margin-left: 7em;
+    font-family: 'Dosis', sans-serif;
+    font-size: 1.5em;
+}
+
+.penpalTitle{
+    text-align: center;
+    color: lightgrey;
+    text-shadow: 2px -2px 0 #000;
+    font-family: 'Montserrat';
+    font-size: 3em;
+    margin-top: 1em;
+}
+
 .mainContainer{
     background-color: whitesmoke;
     top: 0;

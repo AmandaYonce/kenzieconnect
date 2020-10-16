@@ -6,12 +6,17 @@ import placeholder from "../images/placeholder.png";
 import Tips from "./tips";
 import { getProfileData } from "./helpers";
 import { useHistory } from "react-router-dom";
+import EditProfileModal from './editProfileModal'
+import { toggleModal } from "./actions";
 
 const Profile = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
   const key = window.localStorage.getItem("key");
   const history = useHistory();
 
+  const openModal = () => {
+    dispatch(toggleModal());
+  };
   React.useEffect(() => {
     if (history.action === "PUSH" || history.action === "POP") {
       getProfileData(key, dispatch);
@@ -64,11 +69,9 @@ const Profile = (props) => {
                 ))}
             </CardBody>
           </Card>
-          {/* I don't know how we exactly we want to handle this but I definitely 
-        think it would be nice if we had some way to for the user to edit their profile */}
-          <Button size="lg" style={{ marginTop: "2em" }}>
-            Edit Profile
-          </Button>
+         
+          <Button size="lg" style={{ marginTop: "2em" }} onClick={() => openModal()}>Edit Profile</Button>
+          <EditProfileModal show={state.modal} onHide={() => openModal()} />
         </Col>
         <Col col-6="true">
           <Tips />
