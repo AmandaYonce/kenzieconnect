@@ -15,6 +15,7 @@ const WinkCards = (props) => {
 
 //   I copied this from the landingCards component so it needs to be modified to pull 
 //   the profiles from the users that have winked at this user
+
   React.useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -39,9 +40,6 @@ const WinkCards = (props) => {
     .map((value, index) => {
       return (
         <Col col-3="true" key={index}>
-          <div className="flip-card">
-            <div className="flip-card-inner">
-              <div className="flip-card-back">
                 <Card
                   style={{
                     width: "20em",
@@ -76,20 +74,6 @@ const WinkCards = (props) => {
                     <CardText>Bio:{value.bio}</CardText>
                   </CardBody>
                 </Card>
-              </div>
-              <div className="flip-card-front">
-                <Card
-                  style={{ width: "20em", height: "100%", margin: "0 auto" }}
-                >
-                  <CardBody>
-                    <Row style={{ alignItems: "center" }}>
-                      <img alt="logo" src={logo} style={{ width: "19.7em" }} />
-                    </Row>
-                  </CardBody>
-                </Card>
-              </div>
-            </div>
-          </div>
         </Col>
       );
     });
