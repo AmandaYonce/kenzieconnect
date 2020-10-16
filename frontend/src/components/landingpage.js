@@ -37,7 +37,11 @@ const Landing = (props) => {
         </Row>
         <Row  style={{ margin: "0.5em" }}>
           <a href={winks.href}>
-          <Card  id="winkslide">
+          <Card style={{
+              fontFamily: "Montserrat",
+              color: "black",
+              fontSize: "1.5em"}} 
+              id="winkslide">
             You have 3 winks
             <img alt="wink" src={wink} style={{ width: "4em" }} />
           </Card>

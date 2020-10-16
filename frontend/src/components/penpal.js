@@ -11,13 +11,13 @@ const PenPal = (props) => {
   const openModal = () => {
     dispatch(toggleModal());
   };
-  const messages = ["testing", "testing", "testing"].map((value, index) => (
+  const messages = ["Message text here", "Message text here", "Message text here"].map((value, index) => (
 
       <Card key={index} className="postcard" >
         <CardBody className="postcardBody">
           <CardText>From:</CardText>
           <CardText>{value}</CardText>
-          <CardText>Date:</CardText>
+          <CardText>Recevied:</CardText>
           {/* This button needs to be wired up to bring up the replyModal 
           to send a message back to the user you are replying to */}
           <Button size="lg" onClick={() => openModal()}>Reply</Button>
