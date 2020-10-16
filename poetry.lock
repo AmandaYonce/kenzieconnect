@@ -229,7 +229,7 @@ secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "pyOpenSSL (>=0
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 
 [metadata]
-content-hash = "cffaad40b02edc258932730e2400c7d9880cf61b27291e955e262d081b41147f"
+content-hash = "e9d4597ce9e24b4438983961c07a92733a4fd1e782c6aee2760cb935cfc68830"
 lock-version = "1.0"
 python-versions = "^3.8"
 
