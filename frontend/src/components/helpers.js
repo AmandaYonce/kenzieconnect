@@ -19,20 +19,23 @@ const createReducer = (initialState, handlers) => (
 
 const postData = async (postUrl, data) => {
   // console.log(data);
+
   try {
     const response = await fetch(postUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+
     const post_response = await response.json();
+    console.log(post_response);
     if ("key" in post_response) {
       return post_response["key"];
     }
-    if ("token" in post_response){
-      return post_response["token"]
+    if ("token" in post_response) {
+      return post_response["token"];
     }
-    return response.json();
+    // return post_response
   } catch (error) {
     console.error(error);
   }
@@ -45,6 +48,8 @@ const getData = (url, dispatch, actionCallback, signal) =>
       const response = await fetch(url, {
         signal: signal,
       });
+
+      response.ok && console.log("okay");
       const data = await response.json();
       // console.log(data);
       // console.log("working");
@@ -80,6 +85,7 @@ const getAuthData = (url, dispatch, actionCallback, token) =>
   })();
 
 const getProfileData = async (key, dispatch, signal) => {
+  console.log("key= " + key);
   const profileUrl = "http://127.0.0.1:8000/rest-auth/user/";
   try {
     const response = await fetch(profileUrl, {
@@ -93,7 +99,7 @@ const getProfileData = async (key, dispatch, signal) => {
     dispatch(getProfile([profile]));
     dispatch(getSurvey([survey]));
     // console.log(result)
-    return result
+    return result;
   } catch (error) {
     console.error(error);
     console.log(error.name);
@@ -102,30 +108,29 @@ const getProfileData = async (key, dispatch, signal) => {
     }
   }
 };
-const putData = (postUrl, item, dispatch) => async () => {
-  const d = await fetch(postUrl);
-  const response = await d.json();
+const putData = (postUrl, item, dispatch) =>
+  (async () => {
+    // enter logic here to update
+    const token = localStorage.getItem("key");
 
-  // enter logic here to update
-  let post = {};
-  try {
-    const postData = await fetch(postUrl, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(post),
-    });
-    let postDataResponse = await postData.json();
-
-    let items = item.list.filter(({ id }) => id !== response.id);
-    items = [...items, postDataResponse];
-    //enter more logic her to modify front end state if needed
-
-    // console.log(items);
-    receiveProfile(items)(dispatch);
-  } catch (error) {
-    console.error(error);
-  }
-};
+    try {
+      const postData = await fetch(postUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
+        body: JSON.stringify(item),
+      });
+      let { survey, ...profile } = await postData.json();
+      console.log(survey);
+      console.log(profile);
+      dispatch(getProfile([profile]));
+      dispatch(getSurvey([survey]));
+    } catch (error) {
+      console.error(error);
+    }
+  })();
 
 const formData = (form) => {
   let surveyData = {};
@@ -137,19 +142,20 @@ const formData = (form) => {
 };
 
 const matchMaker = async (a, b) => {
-  if (((await b)===undefined)|| null){
-    console.log("pepperoni")
-    return
+  if ((await b) === undefined || null) {
+    console.log("pepperoni");
+    return;
   }
   const { survey, email: e } = await b;
   // console.log(survey??"cheese")
-  
-  if (survey ?? true){
-    console.log("fireee")
+
+  if (survey ?? true) {
+    console.log("fireee");
+    return [0];
   }
-console.log((await a).filter(a=>a.email))
+  console.log((await a).filter((a) => a.email));
   // let users=(await a).filter(user=>user.email===null|| user.email ===undefined)
-  let users=(await a).filter(({ email }) => email !== e);
+  let users = (await a).filter(({ email }) => email !== e);
   // console.log(email)
   // console.log(survey);
   // console.log(users);
@@ -181,6 +187,7 @@ console.log((await a).filter(a=>a.email))
 
   const matchResults = (results) => {
     let output = results.map((r) => r.reduce((acc, curr) => acc + curr));
+    
     return output;
   };
   console.log(matchResults(formattedAnswers));

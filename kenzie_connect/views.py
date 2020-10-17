@@ -18,45 +18,75 @@ from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
-# This view is for registering a new user but right now is only creating the 
+# This view is for registering a new user but right now is only creating the
 # username/email and the password and is immediately authenticating the user so they are logged in
-# We will then need to take the rest of the registration form data and the id of the 
-# newly created user and hit the 
+# We will then need to take the rest of the registration form data and the id of the
+# newly created user and hit the
 # put on the endpoint for the SingleUserVewSet to update the user record with the remaining data
 # class CustomRegisterView(RegisterView):
 #     queryset = CustomUser.objects.all()
 
-@api_view(["GET","POST"])
+
+@api_view(["GET", "POST", "PUT"])
 def CustomRegisterView(request):
-    # print(request.data)
-    if request.method=="GET":
-        
-        serializer=CustomUserDetailSerializer()
+    # print(request)
+    if request.method == "GET":
+
+        serializer = CustomUserDetailSerializer()
         return Response(serializer.data)
-    
-    if request.method=="POST":
-        serializer=CustomUserDetailSerializer(data=request.data)
-        
+
+    if request.method == "POST":
+        serializer = CustomUserDetailSerializer(data=request.data)
 
         if serializer.is_valid():
-            
-            data=serializer.data
-            survey=data.pop("survey")
-            survey_post=Survey.objects.create(**survey)
-            password=data.get("password")
-            user=CustomUser.objects.create(**data,survey=survey_post)
+
+            data = serializer.data
+            survey = data.pop("survey")
+            survey_post = Survey.objects.create(**survey)
+            password = data.get("password")
+            user = CustomUser.objects.create(**data, survey=survey_post)
             user.set_password(password)
             user.save()
-            token=Token.objects.get(user=user).key
-            post_data={"token":token, "survey":{**survey},**data}
-            
-            return Response(post_data,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            token = Token.objects.get(user=user).key
+            post_data = {"token": token, "survey": {**survey}, **data}
+
+            return Response(post_data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    if request.method == "PUT":
+        if request.auth:
+            user = request.auth.user
+            survey = request.auth.user.survey
+            survey_data = request.data["survey"]
+            serializer = CustomUserDetailSerializer(
+                instance=user, data=request.data)
+
+            survey_serializer = SurveySerializer(
+                instance=survey, data=survey_data)
+
+            breakpoint()
+
+            if serializer.is_valid() and survey_serializer.is_valid():
+                request.data.pop("survey")
+                for field in survey_data:
+                    survey.__setattr__(field, survey_data[field])
+                survey.save()
+
+                for field in request.data:
+                    user.__setattr__(field, request.data[field])
+
+                user.save()
+
+                return Response(data=serializer.data, status=status.HTTP_202_ACCEPTED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 # this viewset is for viewing all users
+
+
 class CustomUserViewSet(APIView):
-  
-    @staticmethod
+
+    @ staticmethod
     def get(request):
         users = CustomUser.objects.all()
         serializer = CustomUserDetailSerializer(users, many=True)
@@ -66,6 +96,8 @@ class CustomUserViewSet(APIView):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 # This view takes in the id of the user and allows you to get, edit/put or delete the user
+
+
 class SingleUserViewSet(generics.ListAPIView):
 
     serializer_class = CustomUserDetailSerializer
@@ -86,7 +118,7 @@ class SingleUserViewSet(generics.ListAPIView):
 
 # this viewset is for viewing all survey results for all users
 class SurveyViewSet(APIView):
-    @staticmethod
+    @ staticmethod
     def get(request):
         users = Survey.objects.all()
         serializer = SurveySerializer(users, many=True)
@@ -100,14 +132,14 @@ class UserSurvey(generics.ListAPIView, mixins.CreateModelMixin,):
     def get_queryset(self):
         user = self.request.user
         return Survey.objects.filter(user_profile=user)
-    
+
     def post(self, request):
         return self.create(request)
 
 
 # this viewset is for viewing all messages for all users
 class PenpalViewSet(APIView):
-    @staticmethod
+    @ staticmethod
     def get(request):
         users = Penpal.objects.all()
         serializer = PenpalSerializer(users, many=True)
@@ -137,7 +169,7 @@ class UserMessageList(generics.ListAPIView):
 
 # this viewset is for viewing all winks for all users
 class WinkViewSet(APIView):
-    @staticmethod
+    @ staticmethod
     def get(request):
         winks = Wink.objects.all()
         serializer = WinkSerializer(winks, many=True)

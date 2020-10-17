@@ -19,17 +19,18 @@ class SurveySerializer(serializers.ModelSerializer):
             'question_sleep',
             'question_mind',
             'question_dog',
-            ]
+        ]
 
 
 class CustomUserDetailSerializer(serializers.ModelSerializer):
-    survey=SurveySerializer()
+    survey = SurveySerializer()
+
     class Meta:
         model = CustomUser
-        fields = ('email','password', 'displayname', 'age', 'gender', 'sexual_preference', 'bio', "survey")
+        fields = ('email', 'password', 'displayname', 'age',
+                  'gender', 'sexual_preference', 'bio', "survey")
         # read_only_fields = ('email',)
-    
-    
+
 
 class CustomUserRegisterSerializer(RegisterSerializer):
 
@@ -56,8 +57,10 @@ class CustomUserRegisterSerializer(RegisterSerializer):
 
 
 class PenpalSerializer(serializers.HyperlinkedModelSerializer):
-    from_user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
-    to_user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
+    from_user = serializers.PrimaryKeyRelatedField(
+        queryset=CustomUser.objects.all())
+    to_user = serializers.PrimaryKeyRelatedField(
+        queryset=CustomUser.objects.all())
 
     class Meta:
         model = Penpal
@@ -67,12 +70,14 @@ class PenpalSerializer(serializers.HyperlinkedModelSerializer):
             'from_user',
             'to_user',
             'message_read'
-            ]
+        ]
 
 
 class WinkSerializer(serializers.ModelSerializer):
-    from_user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
-    to_user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
+    from_user = serializers.PrimaryKeyRelatedField(
+        queryset=CustomUser.objects.all())
+    to_user = serializers.PrimaryKeyRelatedField(
+        queryset=CustomUser.objects.all())
 
     class Meta:
         model = Wink
@@ -81,4 +86,4 @@ class WinkSerializer(serializers.ModelSerializer):
             'wink_viewed',
             'from_user',
             'to_user'
-            ]
+        ]

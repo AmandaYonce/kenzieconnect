@@ -6,14 +6,14 @@ import { toggleModal } from "./actions";
 
 const EditProfileModal = (props) => {
     const { state, dispatch } = React.useContext(StateContext);
+    
 
   const toggle = () => {
     dispatch(toggleModal());
   };
   
-    const myref = React.createRef();
   return (
-    <div ref={myref}>
+    <div>
       <Modal isOpen={state.modal} toggle={toggle}>
         <EditProfile />
       </Modal>

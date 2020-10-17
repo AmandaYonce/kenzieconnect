@@ -1,56 +1,77 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import { StateContext } from "../App";
 import { toggleModal } from "./actions";
-import { CardBody, Card, Col, Row, CardText, Button, FormGroup, Label, Input, Form } from "reactstrap";
+import {
+  CardBody,
+  Card,
+  Col,
+  Row,
+  Button,
+  FormGroup,
+  Label,
+  Input,
+  Form,
+} from "reactstrap";
+import { formData, putData } from "./helpers";
+import Profile from "./profile";
+import { useRouteMatch } from "react-router-dom";
 
-const EditProfile= (props) => {
-    const { state, dispatch } = React.useContext(StateContext);
-    const openModal = () => {
-      dispatch(toggleModal());
-    };
-    const handleEdit = (e) => {
-        // Need to complete this
-      };
+const EditProfile = (props) => {
+  const { state, dispatch } = React.useContext(StateContext);
 
-      
-    const formNames = [
-        "Email",
-        "Display Name",
-        "Password",
-        "Bio",
-        "Age",
-      ];
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    const registerUrl = "http://127.0.0.1:8000/register/";
+    const form = e.target;
+    // console.log(form);
+    let data = formData(form);
+
+    let { email,age,bio,gender,displayname,sexual_preference,password, ...dirtySurvey } = data;
+    let survey={}
+    for (const field in dirtySurvey){
+      field && (survey[field]=dirtySurvey[field])
+    }
     
-      const formGroups = formNames.map((value, index) => (
-        <FormGroup key={index}>
-          <Label sm={4} for={value}>{value}</Label>
-          <Col sm={8}>
-          <Input
-            type={
-              value === "Password"
-                ? "password"
-                : value === "Email"
-                ? "email"
-                : value === "Age"
-                ? "number"
-                : "text"
-            }
-            name={value.replaceAll(" ","").toLowerCase()}
-            id={value}
-            placeholder={value}
-            required={true}
-          />
-          </Col>
-        </FormGroup>
-        ));
+    let submitData={email,age,gender,bio,displayname,sexual_preference,password,survey}
+    // console.log(submitData)
+    await putData(registerUrl, submitData,dispatch);
+    dispatch(toggleModal())
+  };
+
+  const formNames = ["Email", "Display Name", "Password", "Bio", "Age"];
+
+  const formGroups = formNames.map((value, index) => (
+    <FormGroup key={index}>
+      <Label sm={4} for={value}>
+        {value}
+      </Label>
+      <Col sm={8}>
+        <Input
+          type={
+            value === "Password"
+              ? "password"
+              : value === "Email"
+              ? "email"
+              : value === "Age"
+              ? "number"
+              : "text"
+          }
+          name={value.replaceAll(" ", "").toLowerCase()}
+          id={value}
+          placeholder={value}
+          required={true}
+        />
+      </Col>
+    </FormGroup>
+  ));
   return (
-    <div >
-        <Row
+    <div>
+      <Row
         row-12="true"
         style={{ justifyContent: "center", fontFamily: "Dosis" }}
       >
-      <Card
+        <Card
           style={{
             width: "1000px",
             fontSize: "1.5em",
@@ -58,43 +79,47 @@ const EditProfile= (props) => {
         >
           <CardBody style={{ border: "4px solid #4a5066" }}>
             {/* This will need to populate with the user's existing information*/}
-            <Form onSubmit={handleEdit} style={{fontFamily: "Montserrat"}}>
-            {formGroups}
-            <FormGroup row>
-              <Label for="survey8" sm={4}>
-                Gender
-              </Label>
-              <Col sm={8}>
-                <Input type="select" name="gender" id="gender" required={true}>
-                  <option value="">------</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>NonBinary</option>
-                  <option>Other</option>
-                </Input>
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Label for="sexual_preference" sm={4}>
-                Sexual Preference
-              </Label>
-              <Col sm={8}>
-                <Input
-                  type="select"
-                  name="sexual_preference"
-                  id="sexual_preference"
-                  required={true}
-                >
-                  <option value="">------</option>
-                  <option>Straight</option>
-                  <option>Gay</option>
-                  <option>Bisexual</option>
-                  <option>Other</option>
-                </Input>
-              </Col>
-            </FormGroup>
-          </Form> 
-            <Form onSubmit={handleEdit}>
+            <Form onSubmit={handleEdit} style={{ fontFamily: "Montserrat" }}>
+              {formGroups}
+              <FormGroup row>
+                <Label for="survey8" sm={4}>
+                  Gender
+                </Label>
+                <Col sm={8}>
+                  <Input
+                    type="select"
+                    name="gender"
+                    id="gender"
+                    required={true}
+                  >
+                    <option value="">------</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>NonBinary</option>
+                    <option>Other</option>
+                  </Input>
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label for="sexual_preference" sm={4}>
+                  Sexual Preference
+                </Label>
+                <Col sm={8}>
+                  <Input
+                    type="select"
+                    name="sexual_preference"
+                    id="sexual_preference"
+                    required={true}
+                  >
+                    <option value="">------</option>
+                    <option>Straight</option>
+                    <option>Gay</option>
+                    <option>Bisexual</option>
+                    <option>Other</option>
+                  </Input>
+                </Col>
+              </FormGroup>
+
               <FormGroup row>
                 <Label for="survey1" sm={5}>
                   Do you have pets?
@@ -114,23 +139,7 @@ const EditProfile= (props) => {
                   </Input>
                 </Col>
               </FormGroup>
-              {/* <FormGroup row>
-                <Label for="survey2" sm={5}>
-                  Do you like spicey food?
-                </Label>
-                <Col sm={7}>
-                  <Input
-                    type="select"
-                    name="question_date"
-                    id="survey2"
-                    required={true}
-                  >
-                    <option value="">------</option>
-                    <option>yes</option>
-                    <option>no</option>
-                  </Input>
-                </Col>
-              </FormGroup> */}
+
               <FormGroup row>
                 <Label for="survey3" sm={5}>
                   What is your perfect date?

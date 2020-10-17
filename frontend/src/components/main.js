@@ -16,28 +16,32 @@ import { StateContext } from "../App";
 import { toggleModal } from "./actions";
 import ModalRegistration from "../Modal";
 
-
 const Main = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
   const openModal = () => {
     dispatch(toggleModal());
   };
-  
+
+  const key = localStorage.getItem("key");
 
   return (
     <React.Fragment>
       <HeaderMain />
-
       <div className="mainContainer">
-        <div className="topLeft">
-          <div className="reg">
-            <h1 className="regFont">Register Here to Get Connected!</h1>
-            <Button size="lg" onClick={() => openModal()}>
-              Register
-            </Button>
-            <ModalRegistration show={state.modal} onHide={() => openModal()} />
+        {!key && (
+          <div className="topLeft">
+            <div className="reg">
+              <h1 className="regFont">Register Here to Get Connected!</h1>
+              <Button size="lg" onClick={() => openModal()}>
+                Register
+              </Button>
+              <ModalRegistration
+                show={state.modal}
+                onHide={() => openModal()}
+              />
+            </div>
           </div>
-        </div>
+        )}
         <div className="right">
           <div id="collage-container">
             <img src={one} id="collage-one" alt="collage-one" />
