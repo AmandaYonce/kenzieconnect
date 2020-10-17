@@ -10,10 +10,10 @@ import { useHistory } from "react-router-dom";
 const LandingCards = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
   const usersUrl = "http://127.0.0.1:8000/users/";
-  const key = window.localStorage.getItem("key");
+  let key = window.localStorage.getItem("key");
   const history = useHistory();
 
-  console.log(state.users ?? "noboby")
+  // console.log(state.users ?? "noboby")
   React.useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -22,7 +22,7 @@ const LandingCards = (props) => {
         let b = await getProfileData(key, dispatch, signal);
         let a = await getData(usersUrl, dispatch, receiveUsers, signal);
         const matchScores = await matchMaker(a, b);
-        console.log(matchScores)
+        // console.log(matchScores);
         try {
           dispatch(getMatchScores(matchScores));
         } catch (error) {

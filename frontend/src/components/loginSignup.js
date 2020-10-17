@@ -10,7 +10,7 @@ import {
   Input,
 } from "reactstrap";
 import { StateContext } from "../App";
-import { getToken, loginOrOut} from "./actions";
+import { getToken, loginOrOut } from "./actions";
 import { postData } from "./helpers";
 
 const Auth = (props) => {
@@ -37,25 +37,11 @@ const Auth = (props) => {
 
     const key = await postData(loginUrl, data);
     if (key) {
+      console.log(key);
       dispatch(getToken(key));
       dispatch(loginOrOut());
-      // const profileUrl = "http://127.0.0.1:8000/rest-auth/user/";
-      // const response = await fetch(profileUrl, {
-      //   method: "GET",
-      //   headers: { Authorization: `Token ${key}` },
-      // });
-      // let result = await response.json();
-    
-      // let {survey , ...profile}=result;
-      // dispatch(getProfile([profile]))
-      // dispatch(getSurvey([survey]))
-      // console.log(profile)
-      window.localStorage.setItem("key",key)
-      
-      history.push("/home/")
-      // history.push({pathname:"/home/",state:{
-      //   profile,
-      // }});
+      window.localStorage.setItem("key", key);
+      history.push("/home/");
     }
   };
   return (

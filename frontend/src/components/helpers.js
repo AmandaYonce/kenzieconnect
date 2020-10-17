@@ -85,7 +85,6 @@ const getAuthData = (url, dispatch, actionCallback, token) =>
   })();
 
 const getProfileData = async (key, dispatch, signal) => {
-  console.log("key= " + key);
   const profileUrl = "http://127.0.0.1:8000/rest-auth/user/";
   try {
     const response = await fetch(profileUrl, {
@@ -123,8 +122,10 @@ const putData = (postUrl, item, dispatch) =>
         body: JSON.stringify(item),
       });
       let { survey, ...profile } = await postData.json();
-      console.log(survey);
-      console.log(profile);
+      // console.log(survey);
+      // console.log(profile);
+      
+  
       dispatch(getProfile([profile]));
       dispatch(getSurvey([survey]));
     } catch (error) {
@@ -151,7 +152,6 @@ const matchMaker = async (a, b) => {
 
   if (survey ?? true) {
     console.log("fireee");
-    return [0];
   }
   console.log((await a).filter((a) => a.email));
   // let users=(await a).filter(user=>user.email===null|| user.email ===undefined)
@@ -164,7 +164,7 @@ const matchMaker = async (a, b) => {
   users.forEach((user) => {
     let { survey: s } = user;
     answers = [...answers, Object.values(s)];
-    // console.log(answers)
+    console.log(answers);
     // console.log(profileAnswers)
     // console.log(s)
   });
@@ -187,7 +187,7 @@ const matchMaker = async (a, b) => {
 
   const matchResults = (results) => {
     let output = results.map((r) => r.reduce((acc, curr) => acc + curr));
-    
+
     return output;
   };
   console.log(matchResults(formattedAnswers));

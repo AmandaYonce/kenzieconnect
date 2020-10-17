@@ -10,21 +10,14 @@ import HeaderLinks from "./HeaderLinks";
 const Header = (props) => {
   const { dispatch } = React.useContext(StateContext);
   const history = useHistory();
-  // const handleAuth = (data) => {
-  //   console.log(data);
-  //   //backend call to possibly logout
-
-  //   console.log(data);
-  // };
 
   const handleLogOut = async(e) => {
     e.preventDefault();
-    // console.log("fired");
     const logoutURL= 'http://127.0.0.1:8000/rest-auth/logout/'
     const response = await fetch(logoutURL)
     if (response.ok){
-      localStorage.clear()
       dispatch(loginOrOut());
+      localStorage.clear()
       history.push("/");
     }
   };

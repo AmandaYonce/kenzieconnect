@@ -24,12 +24,12 @@ const Survey = (props) => {
     history.go(-1);
     return <Redirect to={"/"} />;
   }
-  console.log(state);
+  // console.log(state);
   const {
     state: { profile },
   } = state;
-  console.log(profile);
-  console.log(Object.keys(profile));
+  // console.log(profile);
+  // console.log(Object.keys(profile));
 
   const register = async (data) => {
     const registerUrl = "http://127.0.0.1:8000/register/";
