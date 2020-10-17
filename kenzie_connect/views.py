@@ -64,8 +64,6 @@ def CustomRegisterView(request):
             survey_serializer = SurveySerializer(
                 instance=survey, data=survey_data)
 
-            breakpoint()
-
             if serializer.is_valid() and survey_serializer.is_valid():
                 request.data.pop("survey")
                 for field in survey_data:
