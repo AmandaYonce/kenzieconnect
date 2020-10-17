@@ -5,7 +5,7 @@ import Profile from "./components/profile";
 // import Auth from "./components/loginSignup";
 import Main from "./components/main";
 import Survey from "./components/survey";
-import Winks from './components/winks'
+import Winks from "./components/winks";
 import { useLocation } from "react-router-dom";
 import { routeDispatcher } from "./components/helpers";
 import NotFound from "./components/notfound";
@@ -18,7 +18,7 @@ const Routes = () => {
   const loggedIn = window.localStorage.getItem("key") || state.loggedIn;
   // console.log(loggedIn?"true":"false")
   // console.log(pathname);
-  pathname==="/logout/"&& localStorage.clear()
+  pathname === "/logout/" && localStorage.clear();
   // const logOutMatch = useRouteMatch({ path: "/logout/", exact: true });
 
   let routes = [];
@@ -27,7 +27,7 @@ const Routes = () => {
     PenPal: { path: /^\/messages\//, PenPal },
     Home: { path: /^\/home\//, Home },
     Survey: { path: /^\/survey\/$/, Survey },
-    Winks: {path: /^\/winks\/$/, Winks },
+    Winks: { path: /^\/winks\/$/, Winks },
     Profile: {
       path: /^\/profile\//,
       Profile,
@@ -48,8 +48,8 @@ const Routes = () => {
           component: urls[key][key],
         },
       ];
-      // return loggedIn ? routeDispatcher(routes) : <Main />;
-      return routeDispatcher(routes)
+      return loggedIn ? routeDispatcher(routes) : <Main />;
+      // return routeDispatcher(routes)
     }
   }
 

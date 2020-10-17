@@ -37,12 +37,13 @@ const Auth = (props) => {
 
     const key = await postData(loginUrl, data);
     if (key) {
-      console.log(key);
+      // console.log(key);
       dispatch(getToken(key));
       dispatch(loginOrOut());
       window.localStorage.setItem("key", key);
       history.push("/home/");
     }
+    form.reset();
   };
   return (
     <React.Fragment>

@@ -1,5 +1,4 @@
-import React, { useRef } from "react";
-
+import React from "react";
 import { StateContext } from "../App";
 import { toggleModal } from "./actions";
 import {
@@ -14,12 +13,12 @@ import {
   Form,
 } from "reactstrap";
 import { formData, putData } from "./helpers";
-import Profile from "./profile";
-import { useRouteMatch } from "react-router-dom";
 
 const EditProfile = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
+  let [survey, profile] = [state.survey[0], state.profile[0]];
 
+  console.log(survey);
   const handleEdit = async (e) => {
     e.preventDefault();
     const registerUrl = "http://127.0.0.1:8000/register/";
@@ -27,16 +26,34 @@ const EditProfile = (props) => {
     // console.log(form);
     let data = formData(form);
 
-    let { email,age,bio,gender,displayname,sexual_preference,password, ...dirtySurvey } = data;
-    let survey={}
-    for (const field in dirtySurvey){
-      field && (survey[field]=dirtySurvey[field])
+    let {
+      email,
+      age,
+      bio,
+      gender,
+      displayname,
+      sexual_preference,
+      password,
+      ...dirtySurvey
+    } = data;
+    let survey = {};
+    for (const field in dirtySurvey) {
+      field && (survey[field] = dirtySurvey[field]);
     }
-    
-    let submitData={email,age,gender,bio,displayname,sexual_preference,password,survey}
+
+    let submitData = {
+      email,
+      age,
+      gender,
+      bio,
+      displayname,
+      sexual_preference,
+      password,
+      survey,
+    };
     // console.log(submitData)
-    await putData(registerUrl, submitData,dispatch);
-    dispatch(toggleModal())
+    await putData(registerUrl, submitData, dispatch);
+    dispatch(toggleModal());
   };
 
   const formNames = ["Email", "Display Name", "Password", "Bio", "Age"];
@@ -57,10 +74,18 @@ const EditProfile = (props) => {
               ? "number"
               : "text"
           }
+          min={value === "Age" && 18}
           name={value.replaceAll(" ", "").toLowerCase()}
           id={value}
           placeholder={value}
           required={true}
+          value={
+            profile[
+              value === "Password"
+                ? null
+                : value.replaceAll(" ", "").toLowerCase()
+            ]
+          }
         />
       </Col>
     </FormGroup>
@@ -92,7 +117,7 @@ const EditProfile = (props) => {
                     id="gender"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{profile.gender}</option>
                     <option>Male</option>
                     <option>Female</option>
                     <option>NonBinary</option>
@@ -111,7 +136,7 @@ const EditProfile = (props) => {
                     id="sexual_preference"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{profile.sexual_preference}</option>
                     <option>Straight</option>
                     <option>Gay</option>
                     <option>Bisexual</option>
@@ -131,7 +156,7 @@ const EditProfile = (props) => {
                     id="survey1"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{survey.question_pet}</option>
                     <option>Dog</option>
                     <option>Cat</option>
                     <option>Dogs and Cats</option>
@@ -151,7 +176,7 @@ const EditProfile = (props) => {
                     id="survey3"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{survey.question_date}</option>
                     <option>Late-nighter</option>
                     <option>Early Evening</option>
                     <option>Weekend Afternoon</option>
@@ -169,7 +194,7 @@ const EditProfile = (props) => {
                     id="survey4"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{survey.question_activity}</option>
                     <option>PS5</option>
                     <option>Dungeons and Dragons</option>
                     <option>Dinner</option>
@@ -188,7 +213,7 @@ const EditProfile = (props) => {
                     id="survey5"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{survey.question_star}</option>
                     <option>Darth Vader</option>
                     <option>LukeSky Walker</option>
                     <option>Han Solo</option>
@@ -212,7 +237,7 @@ const EditProfile = (props) => {
                     id="survey6"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{survey.question_booze}</option>
                     <option>Beer</option>
                     <option>Wine</option>
                     <option>Cocktails</option>
@@ -231,7 +256,7 @@ const EditProfile = (props) => {
                     id="survey7"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{survey.question_pjs}</option>
                     <option>Never</option>
                     <option>100% Yes</option>
                     <option>Business on top, pjs on bottom</option>
@@ -250,7 +275,7 @@ const EditProfile = (props) => {
                     id="survey8"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{survey.question_sleep}</option>
                     <option>Early Bird</option>
                     <option>Night Owl</option>
                   </Input>
@@ -267,7 +292,7 @@ const EditProfile = (props) => {
                     id="survey9"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{survey.question_mind}</option>
                     <option>Cheeky Child</option>
                     <option>Tormented Teenager</option>
                     <option>Mad Mid-lifer</option>
@@ -286,7 +311,7 @@ const EditProfile = (props) => {
                     id="survey10"
                     required={true}
                   >
-                    <option value="">------</option>
+                    <option>{survey.question_dog}</option>
                     <option>Jack Russell – small, tough, opinionated</option>
                     <option>
                       Tibetan Mastiff – or some other very rare breed

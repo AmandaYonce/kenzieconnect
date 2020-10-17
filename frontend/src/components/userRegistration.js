@@ -31,37 +31,34 @@ const UserRegistration = ({ modal }) => {
     const form = e.target;
     let regData = formData(form);
     console.log(regData);
-    dispatch(loginOrOut())
-    history.push({pathname:"/survey/",state:{profile:regData}});
+    dispatch(loginOrOut());
+    history.push({ pathname: "/survey/", state: { profile: regData } });
   };
 
-  const formNames = [
-    "Email",
-    "Display Name",
-    "Password",
-    "Bio",
-    "Age",
-  ];
+  const formNames = ["Email", "Display Name", "Password", "Bio", "Age"];
 
   const formGroups = formNames.map((value, index) => (
     <FormGroup key={index}>
-      <Label sm={4} for={value}>{value}</Label>
+      <Label sm={4} for={value}>
+        {value}
+      </Label>
       <Col sm={8}>
-      <Input
-        type={
-          value === "Password"
-            ? "password"
-            : value === "Email"
-            ? "email"
-            : value === "Age"
-            ? "number"
-            : "text"
-        }
-        name={value.replaceAll(" ","").toLowerCase()}
-        id={value}
-        placeholder={value}
-        required={true}
-      />
+        <Input
+          type={
+            value === "Password"
+              ? "password"
+              : value === "Email"
+              ? "email"
+              : value === "Age"
+              ? "number"
+              : "text"
+          }
+          name={value.replaceAll(" ", "").toLowerCase()}
+          id={value}
+          placeholder={value}
+          required={true}
+          min={value === "Age" && 18}
+        />
       </Col>
     </FormGroup>
   ));
@@ -69,12 +66,20 @@ const UserRegistration = ({ modal }) => {
   return (
     <React.Fragment>
       <Card style={{ width: "700px" }}>
-        <CardText style={{
+        <CardText
+          style={{
             textAlign: "center",
             fontFamily: "Montserrat",
-            fontSize: "3em"}}>Join Now to Get Connected!</CardText>
+            fontSize: "3em",
+          }}
+        >
+          Join Now to Get Connected!
+        </CardText>
         <CardBody>
-          <Form onSubmit={handleRegistration} style={{fontFamily: "Montserrat"}}>
+          <Form
+            onSubmit={handleRegistration}
+            style={{ fontFamily: "Montserrat" }}
+          >
             {formGroups}
             <FormGroup row>
               <Label for="survey8" sm={4}>
