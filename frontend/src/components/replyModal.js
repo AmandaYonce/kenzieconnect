@@ -4,20 +4,27 @@ import { Modal } from "reactstrap";
 import { StateContext } from "../App";
 import { toggleModal } from "./actions";
 
-const ReplyModal = (props) => {
-    const { state, dispatch } = React.useContext(StateContext);
+const ReplyModal = ({ inbox, index, email, read, id, penpal_message }) => {
+  const { state, dispatch } = React.useContext(StateContext);
 
   const toggle = () => {
     dispatch(toggleModal());
   };
   
-    const myref = React.createRef();
+
   return (
-    <div ref={myref}>
+    <React.Fragment>
       <Modal isOpen={state.modal} toggle={toggle}>
-        <MessageReply />
+        <MessageReply
+          inbox={inbox}
+          index={index}
+          email={email}
+          read={read}
+          id={id}
+          penpal_message={penpal_message}
+        />
       </Modal>
-    </div>
+    </React.Fragment>
   );
 };
 

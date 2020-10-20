@@ -11,6 +11,7 @@ const initialState = {
   users: [],
   page: { start: 0, end: 3 },
   matchScores: [],
+  inbox:[]
 };
 
 const handlers = {};
@@ -64,6 +65,11 @@ handlers[actions.NAVIGATE] = (state, action) => {
 handlers[actions.MATCHSCORES] = (state, action) => ({
   ...state,
   matchScores: action.matchScores,
+});
+
+handlers[actions.INBOX] = (state, action) => ({
+  ...state,
+  inbox: action.inbox,
 });
 
 const reducer = createReducer(initialState, handlers);

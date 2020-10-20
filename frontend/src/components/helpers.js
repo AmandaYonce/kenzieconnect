@@ -97,7 +97,8 @@ const getProfileData = async (key, dispatch, signal) => {
     let { survey, ...profile } = result;
     dispatch(getProfile([profile]));
     dispatch(getSurvey([survey]));
-    // console.log(result)
+    console.log(result)
+
     return result;
   } catch (error) {
     console.error(error);

@@ -7,11 +7,12 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
+
 class UserManager(BaseUserManager):
 
     use_in_migrations = True
 
-    def create_user(self, age, gender, bio, sexual_preference, email,displayname,survey,password=None):
+    def create_user(self, age, gender, bio, sexual_preference, email, displayname, survey, password=None):
         user = self.model(
             email=self.normalize_email(email),
             age=age,
@@ -23,7 +24,7 @@ class UserManager(BaseUserManager):
         )
         user.set_password(password)
         user.save(using=self._db)
-    
+
         return user
 
     def create_superuser(self, email, displayname, password=None):
@@ -40,7 +41,6 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
-    
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -70,16 +70,19 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     username = None
     age = models.IntegerField(null=True, blank=True)
-    gender = models.CharField(max_length=20, choices=gender_choices, null=True, blank=True)
+    gender = models.CharField(
+        max_length=20, choices=gender_choices, null=True, blank=True)
     bio = models.CharField(max_length=1000, null=True, blank=True)
-    sexual_preference = models.CharField(max_length=20, choices=sexual_preference_choices, null=True, blank=True)
+    sexual_preference = models.CharField(
+        max_length=20, choices=sexual_preference_choices, null=True, blank=True)
     email = models.EmailField(max_length=150, unique=True)
     displayname = models.CharField(max_length=60, null=True, blank=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    survey=models.OneToOneField("Survey",primary_key=True,on_delete=models.CASCADE)
+    survey = models.OneToOneField(
+        "Survey", primary_key=True, on_delete=models.CASCADE)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -93,8 +96,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_label):
         return True
-
-    
 
 
 class Survey(models.Model):
@@ -219,7 +220,8 @@ class Survey(models.Model):
     # user_profile = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="user_survey")
     question_pet = models.CharField(max_length=60, choices=pet_choices)
     question_date = models.CharField(max_length=50, choices=date_choice)
-    question_activity = models.CharField(max_length=50, choices=activity_choice)
+    question_activity = models.CharField(
+        max_length=50, choices=activity_choice)
     question_star = models.CharField(max_length=50, choices=starwars_choice)
     question_booze = models.CharField(max_length=50, choices=drink_choice)
     question_pjs = models.CharField(max_length=50, choices=pj_choice)
@@ -230,8 +232,10 @@ class Survey(models.Model):
 
 class Penpal(models.Model):
     penpal_message = models.CharField(max_length=500)
-    from_user = models.ForeignKey(CustomUser, related_name="from_user_fk", on_delete=models.CASCADE)
-    to_user = models.ForeignKey(CustomUser, related_name="to_user_fk", on_delete=models.CASCADE)
+    from_user = models.ForeignKey(
+        CustomUser, related_name="from_user_fk", on_delete=models.CASCADE)
+    to_user = models.ForeignKey(
+        CustomUser, related_name="to_user_fk", on_delete=models.CASCADE)
     CHOICES = ((True, True), (False, False))
     message_read = models.BooleanField(choices=CHOICES, default=False)
 
@@ -242,8 +246,10 @@ class Penpal(models.Model):
 class Wink(models.Model):
     CHOICES = ((True, True), (False, False))
     wink_viewed = models.BooleanField(choices=CHOICES, default=False)
-    from_user = models.ForeignKey(CustomUser, related_name="from_user_wink", on_delete=models.CASCADE)
-    to_user = models.ForeignKey(CustomUser, related_name="to_user_wink", on_delete=models.CASCADE)
+    from_user = models.ForeignKey(
+        CustomUser, related_name="from_user_wink", on_delete=models.CASCADE)
+    to_user = models.ForeignKey(
+        CustomUser, related_name="to_user_wink", on_delete=models.CASCADE)
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -252,4 +258,4 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         print("fired")
         Token.objects.create(user=instance)
 
-## https://www.django-rest-framework.org/api-guide/authentication/#api-reference
+# https://www.django-rest-framework.org/api-guide/authentication/#api-reference

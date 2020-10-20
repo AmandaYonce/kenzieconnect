@@ -20,12 +20,6 @@ const UserRegistration = ({ modal }) => {
   const { dispatch } = React.useContext(StateContext);
   const history = useHistory();
 
-  // const authenticateHandler = (data) => {
-  //   console.log(data);
-
-  //   //might need to reach out to backend to make sure that the user is authenticated
-  // };
-
   const handleRegistration = (e) => {
     e.preventDefault();
     const form = e.target;

@@ -18,7 +18,6 @@ const EditProfile = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
   let [survey, profile] = [state.survey[0], state.profile[0]];
 
-  console.log(survey);
   const handleEdit = async (e) => {
     e.preventDefault();
     const registerUrl = "http://127.0.0.1:8000/register/";
@@ -78,11 +77,11 @@ const EditProfile = (props) => {
           name={value.replaceAll(" ", "").toLowerCase()}
           id={value}
           placeholder={value}
-          required={true}
+          required={value === "Password" ? false : true}
           value={
             profile[
               value === "Password"
-                ? null
+                ? "password"
                 : value.replaceAll(" ", "").toLowerCase()
             ]
           }

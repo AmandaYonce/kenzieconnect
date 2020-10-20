@@ -16,6 +16,7 @@ const actions = {
   USERS: "USERS",
   NAVIGATE: "NAVIGATE",
   MATCHSCORES: "MATCHSCORES",
+  INBOX:"INBOX"
 };
 
 const getProfile = actionCreator(actions.PROFILE, "profile");
@@ -29,7 +30,9 @@ const receiveProfile = (list) => (dispatch) => dispatch(getProfile(list));
 const getMatchScores = actionCreator(actions.MATCHSCORES, "matchScores");
 const receiveSurvey = (surveyData) => (dispatch) =>
   dispatch(getSurvey(surveyData));
+const inbox=(actionCreator(actions.INBOX,"inbox"))
 
+const getInbox=(data)=>dispatch=>dispatch(inbox(data))
 const receiveUsers = (usersData) => (dispatch) => dispatch(getUsers(usersData));
 
 // const loggingOut = (dispatch) => dispatch(logout());
@@ -46,4 +49,5 @@ export {
   receiveUsers,
   navigate,
   getMatchScores,
+  getInbox
 };

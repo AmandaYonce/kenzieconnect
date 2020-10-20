@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from kenzie_connect.views import (
-    SurveyViewSet,
+    GetMessage, SurveyViewSet,
     PenpalViewSet,
     WinkViewSet,
     CustomUserViewSet,
@@ -28,6 +28,7 @@ from kenzie_connect.views import (
     UserWinkList,
     SendWinkView,
     UserSurvey,
+    CreateMessage
 )
 
 from rest_framework.authtoken import views
@@ -36,18 +37,21 @@ from rest_framework.authtoken import views
 # the url for logout is rest-auth/logout
 
 urlpatterns = [
+    path('message/<int:id>/', GetMessage),
     path('survey/', SurveyViewSet.as_view()),
     path('penpal/', PenpalViewSet.as_view()),
     path('sendmessage/', SendMessageView.as_view()),
-    path('inbox/<int:id>', UserMessageList),
+    path('draftmessage/', CreateMessage),
+    path('inbox/', UserMessageList),
     path('wink/', WinkViewSet.as_view()),
     path('sendwink/', SendWinkView.as_view()),
     path('userwinks/', UserWinkList.as_view()),
     path('users/', CustomUserViewSet.as_view(), name='user-info'),
-    path('user/', SingleUserViewSet.as_view()), #you can use rest-auth/user to get the detail
+    # you can use rest-auth/user to get the detail
+    path('user/', SingleUserViewSet.as_view()),
     path('register/', CustomRegisterView),
     url(r'^rest-auth/', include('rest_auth.urls')),
     path('usersurvey/', UserSurvey.as_view()),
     path('admin/', admin.site.urls),
-    path('api-token-auth/', views.obtain_auth_token)
+    path('api-token-auth/', views.obtain_auth_token),
 ]

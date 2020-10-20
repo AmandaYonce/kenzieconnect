@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/knegley/.pyenv/shims/python",
+    "python.pythonPath": "/home/knegley/.pyenv/versions/3.9.0/bin/python",
     "git.ignoreLimitWarning": true,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
