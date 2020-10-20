@@ -20,10 +20,10 @@ const Survey = (props) => {
   const { dispatch } = React.useContext(StateContext);
   const history = useHistory();
   const state = useLocation();
-  if (localStorage.getItem("key")||history.action==="POP") {
-    history.go(-1);
-    return <Redirect to={"/"} />;
-  }
+  // if (localStorage.getItem("key")||history.action==="POP") {
+  //   history.go(-1);
+  //   return <Redirect to={"/"} />;
+  // }
 
   // console.log(state);
   const {

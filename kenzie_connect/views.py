@@ -71,7 +71,7 @@ def CustomRegisterView(request):
                 # breakpoint()
                 if request.auth.user.password != password:
                     user.set_password(password)
-                    breakpoint()
+                    # breakpoint()
 
                 for field in request.data:
 
@@ -84,7 +84,7 @@ def CustomRegisterView(request):
                 # breakpoint()
 
                 user.save()
-                breakpoint()
+                # breakpoint()
 
                 return Response(data=serializer.data, status=status.HTTP_202_ACCEPTED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

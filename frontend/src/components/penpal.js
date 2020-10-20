@@ -29,14 +29,14 @@ const PenPal = (props) => {
   const handleSumbit = async (e) => {
     e.preventDefault();
     let form = e.target;
-    const penpal_message=form.penpal_message.value
-    const to_user=form.to_user.value
-    const postData = { penpal_message,to_user };
+    const penpal_message = form.penpal_message.value;
+    const to_user = form.to_user.value;
+    const postData = { penpal_message, to_user };
     console.log(postData);
     await handlePost(postData);
-    form.reset()
+    form.reset();
   };
-  // console.log(state.inbox);
+  console.log(state.inbox);
 
   const messages =
     state.inbox &&
@@ -46,6 +46,7 @@ const PenPal = (props) => {
         <Card key={value.id} className="postcard">
           <CardBody className="postcardBody">
             <CardText>From:{value.from_user}</CardText>
+
             <CardText>{value.penpal_message}</CardText>
             <CardText>Recevied:{value.sent}</CardText>
             {/* This button needs to be wired up to bring up the replyModal 

@@ -73,6 +73,7 @@ const LandingCards = (props) => {
                       Sexual Preference:{value.sexual_preference}
                     </CardText>
                     <CardText>Bio:{value.bio}</CardText>
+                    <CardText>Email:{value.email}</CardText>
                   </CardBody>
                 </Card>
               </div>
