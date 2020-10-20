@@ -16,7 +16,7 @@ import { formData } from "./helpers";
 import { StateContext } from "../App";
 // import { toggleModal } from "./actions";
 
-const UserRegistration = ({ modal }) => {
+const UserRegistration = (props) => {
   const { dispatch } = React.useContext(StateContext);
   const history = useHistory();
 
@@ -51,7 +51,7 @@ const UserRegistration = ({ modal }) => {
           id={value}
           placeholder={value}
           required={true}
-          min={value === "Age" && 18}
+          min={value === "Age" && "18"}
         />
       </Col>
     </FormGroup>

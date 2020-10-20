@@ -9,11 +9,11 @@ import Winks from "./components/winks";
 import { useLocation } from "react-router-dom";
 import { routeDispatcher } from "./components/helpers";
 import NotFound from "./components/notfound";
-import { StateContext } from "./App";
+// import { StateContext } from "./App";
 
-const Routes = () => {
+const Routes = ({state}) => {
   let path = useLocation();
-  const { state } = React.useContext(StateContext);
+  
   let { pathname } = path;
   const loggedIn = window.localStorage.getItem("key") || state.loggedIn;
   // console.log(loggedIn?"true":"false")

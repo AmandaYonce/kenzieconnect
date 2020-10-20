@@ -1,12 +1,7 @@
-from os import set_inheritable, stat
-from django.shortcuts import render, HttpResponseRedirect, reverse
-from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
-from rest_framework import serializers
 from rest_framework.decorators import api_view
+
 from .serializers import (
     CustomUserDetailSerializer,
-    CustomUserRegisterSerializer,
     SurveySerializer,
     PenpalSerializer,
     WinkSerializer,
@@ -16,8 +11,7 @@ from rest_framework import status, mixins, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 # from rest_auth.registration.views import RegisterView
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+
 from rest_framework.authtoken.models import Token
 import time
 # This view is for registering a new user but right now is only creating the
@@ -64,7 +58,7 @@ def CustomRegisterView(request):
 
             survey_serializer = SurveySerializer(
                 instance=survey, data=survey_data)
-
+            # breakpoint()
             if serializer.is_valid() and survey_serializer.is_valid():
 
                 request.data.pop("survey")
@@ -73,17 +67,24 @@ def CustomRegisterView(request):
                 survey.save()
 
                 password = request.data["password"]
+
+                # breakpoint()
+                if request.auth.user.password != password:
+                    user.set_password(password)
+                    breakpoint()
+
                 for field in request.data:
 
-                    if field == "password" and request.auth.user.password == password:
+                    if field == "password":
                         continue
                     if field:
+
                         user.__setattr__(field, request.data[field])
 
-                if not request.auth.user.password == password:
-                    user.set_password(password)
+                # breakpoint()
 
                 user.save()
+                breakpoint()
 
                 return Response(data=serializer.data, status=status.HTTP_202_ACCEPTED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -147,16 +148,22 @@ class UserSurvey(generics.ListAPIView, mixins.CreateModelMixin,):
 
 @api_view(['PUT', "GET"])
 def GetMessage(request, id):
-    print(request)
-    print(id)
+    # print(request)
+    # print(id)
     message = Penpal.objects.get(id=id)
 
-    if request.method == "PUT":
+    if request.method == "PUT" and request.auth:
+        pk_to = CustomUser.objects.get(email=request.data.get("to_user"))
 
-        message.__setattr__("message_read", True)
-        message.save()
-        return Response(status=status.HTTP_202_ACCEPTED)
-    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        initial_data = {**request.data,
+                        "from_user": request.auth.user, "to_user": pk_to}
+
+        serializer = PenpalSerializer(data=initial_data)
+        if serializer.is_valid():
+            message.__setattr__("message_read", True)
+            message.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     if request.method == "GET":
         serialzier = PenpalSerializer(message)
@@ -168,7 +175,13 @@ def GetMessage(request, id):
 @api_view(['POST'])
 def CreateMessage(request):
     if request.method == "POST" and request.auth:
-        pk_to = CustomUser.objects.get(email=request.data.get("to_user"))
+        try:
+            pk_to = CustomUser.objects.get(email=request.data.get("to_user"))
+        except CustomUser.DoesNotExist:
+            return Response({"detail": "User Doesn't Exist"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if request.auth.user == pk_to:
+            return Response({"detail": "Can't send yourself a message"}, status=status.HTTP_400_BAD_REQUEST)
 
         initial_data = {**request.data,
                         "from_user": request.auth.user, "to_user": pk_to}
@@ -221,8 +234,8 @@ def UserMessageList(request):
         # d = serializer.data
         y = serializer.data
         z = []
-        for i, x in enumerate(y):
-            print(i)
+        for x in y:
+            # print(i)
             pk = (x.pop("from_user"))
             # print(CustomUser.objects.get(pk=o))
             user = CustomUser.objects.get(pk=pk)

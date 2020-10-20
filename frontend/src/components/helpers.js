@@ -55,13 +55,12 @@ const handlePost = async (data) => {
       body: JSON.stringify(data),
     });
 
-    if (!response.ok){
-      alert((await response.json()).detail)
+    if (!response.ok) {
+      alert((await response.json()).detail);
     }
-    
   } catch (error) {
     console.error(error);
-    console.error==="TypeError"&& console.log("typeError")
+    console.error === "TypeError" && console.log("typeError");
   }
 };
 
@@ -153,7 +152,7 @@ const getProfileData = async (key, dispatch, signal) => {
 const putData = (postUrl, item, dispatch) =>
   (async () => {
     // enter logic here to update
-    const token = localStorage.getItem("key");
+    let token = localStorage.getItem("key");
 
     try {
       const postData = await fetch(postUrl, {
@@ -165,11 +164,12 @@ const putData = (postUrl, item, dispatch) =>
         body: JSON.stringify(item),
       });
       let { survey, ...profile } = await postData.json();
-      // console.log(survey);
-      // console.log(profile);
+      console.log(survey);
+      console.log(profile);
 
-      dispatch(getProfile([profile]));
-      dispatch(getSurvey([survey]));
+      // dispatch(getProfile([profile]));
+      // dispatch(getSurvey([survey]));
+      await getProfileData(token, dispatch)
     } catch (error) {
       console.error(error);
     }

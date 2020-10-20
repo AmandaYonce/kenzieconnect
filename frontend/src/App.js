@@ -10,7 +10,7 @@ const App = () => {
   
   return (
     <StateContext.Provider value={{ state, dispatch }}>
-      <Routes />
+      <Routes state={state}/>
     </StateContext.Provider>
   );
 };
