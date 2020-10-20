@@ -1,7 +1,7 @@
 import React from "react";
 import { CardBody, Card, Col, Row, CardText } from "reactstrap";
 import placeholder from "../images/placeholder.png";
-import logo from "../images/logo.png";
+// import logo from "../images/logo.png";
 import wink from "../images/wink.png";
 import { getData, getProfileData, matchMaker } from "./helpers";
 import { receiveUsers, getMatchScores } from "./actions";

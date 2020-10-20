@@ -4,7 +4,7 @@ import ReplyModal from "./replyModal";
 import { StateContext } from "../App";
 import { getInbox, toggleModal } from "./actions";
 import { CardBody, Card, Row, CardText, Button } from "reactstrap";
-import { getAuthData, getProfileData } from "./helpers";
+import { getAuthData, getProfileData, handlePost } from "./helpers";
 import { useHistory } from "react-router-dom";
 const PenPal = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
@@ -21,26 +21,22 @@ const PenPal = (props) => {
     if (history.action === "POP" || history.action === "PUSH") {
       (async () => {
         await getProfileData(key, dispatch, signal);
-        await getAuthData(
-          usersUrl,
-          dispatch,
-          getInbox,
-          key
-        );
+        await getAuthData(usersUrl, dispatch, getInbox, key);
       })();
     }
-  }, [dispatch,key,history.action]);
+  }, [dispatch, key, history.action]);
 
-  const handleSumbit = (e) => {
+  const handleSumbit = async (e) => {
     e.preventDefault();
-    const {
-      target: {
-        message: { value: data },
-      },
-    } = e;
-    console.log(data);
+    let form = e.target;
+    const penpal_message=form.penpal_message.value
+    const to_user=form.to_user.value
+    const postData = { penpal_message,to_user };
+    console.log(postData);
+    await handlePost(postData);
+    form.reset()
   };
-  console.log(state.inbox);
+  // console.log(state.inbox);
 
   const messages =
     state.inbox &&
@@ -60,10 +56,8 @@ const PenPal = (props) => {
             <ReplyModal
               show={state.modal}
               onHide={() => openModal()}
-              inbox={value.from_user}
               index={index}
               email={value.from_email}
-              read={value.message_read}
               id={value.id}
               penpal_message={value.penpal_message}
             />
@@ -76,15 +70,19 @@ const PenPal = (props) => {
         <Header />
         <h1 className="penpalTitle">Messsages</h1>
         <form onSubmit={handleSumbit}>
-          <input autoFocus placeholder="to: user@user.com" type="email" name="to_user"/>
+          <input
+            autoFocus
+            placeholder="to: user@user.com"
+            type="email"
+            name="to_user"
+          />
           <textarea
-            
             id="message"
-            name="message"
+            name="penpal_message"
             cols="70"
             required={true}
             placeholder="enter message here"
-            rows="7"
+            rows="3"
             maxLength="180"
           />
           <input type="submit" value="Send" />

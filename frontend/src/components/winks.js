@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "./header";
-import { StateContext } from "../App";
+// import { StateContext } from "../App";
 import { Row } from "reactstrap";
 import WinkCards from './winkCards'
 
 const Winks = (props) => {
 
-  const { state, dispatch } = React.useContext(StateContext);
+  // const { state, dispatch } = React.useContext(StateContext);
 
   return (
     <div style={{backgroundColor: "#4a5066", height: "1000px" }}>

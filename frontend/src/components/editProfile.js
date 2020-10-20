@@ -18,11 +18,12 @@ const EditProfile = (props) => {
   const { state, dispatch } = React.useContext(StateContext);
   let [survey, profile] = [state.survey[0], state.profile[0]];
 
+  console.log(survey);
   const handleEdit = async (e) => {
     e.preventDefault();
     const registerUrl = "http://127.0.0.1:8000/register/";
-    const form = e.target;
-    // console.log(form);
+    const form = handleChange(e);
+    console.log(form);
     let data = formData(form);
 
     let {
@@ -50,12 +51,16 @@ const EditProfile = (props) => {
       password,
       survey,
     };
-    // console.log(submitData)
+    console.log(submitData)
     await putData(registerUrl, submitData, dispatch);
     dispatch(toggleModal());
   };
 
   const formNames = ["Email", "Display Name", "Password", "Bio", "Age"];
+
+  const handleChange = (e) => {
+    return e.target;
+  };
 
   const formGroups = formNames.map((value, index) => (
     <FormGroup key={index}>
@@ -77,14 +82,15 @@ const EditProfile = (props) => {
           name={value.replaceAll(" ", "").toLowerCase()}
           id={value}
           placeholder={value}
-          required={value === "Password" ? false : true}
-          value={
+          // required={true}
+          defaultValue={
             profile[
               value === "Password"
                 ? "password"
                 : value.replaceAll(" ", "").toLowerCase()
             ]
           }
+          onChange={handleChange}
         />
       </Col>
     </FormGroup>

@@ -4,7 +4,7 @@ import { Modal } from "reactstrap";
 import { StateContext } from "../App";
 import { toggleModal } from "./actions";
 
-const ReplyModal = ({ inbox, index, email, read, id, penpal_message }) => {
+const ReplyModal = ({ index, email, id, penpal_message }) => {
   const { state, dispatch } = React.useContext(StateContext);
 
   const toggle = () => {
@@ -16,10 +16,8 @@ const ReplyModal = ({ inbox, index, email, read, id, penpal_message }) => {
     <React.Fragment>
       <Modal isOpen={state.modal} toggle={toggle}>
         <MessageReply
-          inbox={inbox}
           index={index}
           email={email}
-          read={read}
           id={id}
           penpal_message={penpal_message}
         />

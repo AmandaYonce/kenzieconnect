@@ -2,7 +2,7 @@ import React from "react";
 
 import { StateContext } from "../App";
 import { toggleModal, getInbox } from "./actions";
-import { getAuthData } from "./helpers";
+import { getAuthData, handlePost,handlePut } from "./helpers";
 import {
   CardBody,
   Card,
@@ -13,60 +13,30 @@ import {
   FormGroup,
 } from "reactstrap";
 
-const MessageReply = ({ inbox, index, email, read, id, penpal_message }) => {
-  const { state, dispatch } = React.useContext(StateContext);
-  const postUrl = "http://127.0.0.1:8000/draftmessage/";
+const MessageReply = ({ index, email, id, penpal_message }) => {
+  const { dispatch } = React.useContext(StateContext);
   const usersUrl = "http://127.0.0.1:8000/inbox/";
   let token = localStorage.getItem("key");
-  // console.log(index);
-  // console.log(id)
-
-  const handlePost = async (data) => {
-    console.log(data);
-    const response = await fetch(postUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-      body: JSON.stringify(data),
-    });
-
-    console.log(await response.json());
-  };
-
-  const handlePut = async (data) => {
-    const putUrl = `http://127.0.0.1:8000/message/${id}/`;
-    console.log(id);
-
-    await fetch(putUrl, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-      body: JSON.stringify(data),
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let text = e.target.text.value;
-    console.log(text);
-    console.log(inbox);
-    console.log(email);
-    console.log(read);
+    // console.log(text);
+    // console.log(inbox);
+    // console.log(email);
+    // console.log(read);
     let putData = {
+      penpal_message,
       message_read: true,
+      to_user: email,
     };
     let postData = {
       penpal_message: text,
-      from_user: state.profile[0].email,
       to_user: email,
       message_read: false,
     };
     await handlePost(postData);
-    await handlePut(putData);
+    await handlePut(putData,id);
     await getAuthData(usersUrl, dispatch, getInbox, token);
     dispatch(toggleModal());
   };

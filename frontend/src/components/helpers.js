@@ -41,6 +41,48 @@ const postData = async (postUrl, data) => {
   }
 };
 
+const handlePost = async (data) => {
+  console.log(data);
+  const token = localStorage.getItem("key");
+  const postUrl = "http://127.0.0.1:8000/draftmessage/";
+  try {
+    const response = await fetch(postUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok){
+      alert((await response.json()).detail)
+    }
+    
+  } catch (error) {
+    console.error(error);
+    console.error==="TypeError"&& console.log("typeError")
+  }
+};
+
+const handlePut = async (data, id) => {
+  const token = localStorage.getItem("key");
+  const putUrl = `http://127.0.0.1:8000/message/${id}/`;
+  console.log(id);
+  try {
+    await fetch(putUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const getData = (url, dispatch, actionCallback, signal) =>
   (async () => {
     try {
@@ -74,7 +116,7 @@ const getAuthData = (url, dispatch, actionCallback, token) =>
         headers: { Authorization: `Token ${token}` },
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       console.log("working");
 
       actionCallback(data)(dispatch);
@@ -97,7 +139,7 @@ const getProfileData = async (key, dispatch, signal) => {
     let { survey, ...profile } = result;
     dispatch(getProfile([profile]));
     dispatch(getSurvey([survey]));
-    console.log(result)
+    console.log(result);
 
     return result;
   } catch (error) {
@@ -125,8 +167,7 @@ const putData = (postUrl, item, dispatch) =>
       let { survey, ...profile } = await postData.json();
       // console.log(survey);
       // console.log(profile);
-      
-  
+
       dispatch(getProfile([profile]));
       dispatch(getSurvey([survey]));
     } catch (error) {
@@ -206,4 +247,6 @@ export {
   getAuthData,
   getProfileData,
   matchMaker,
+  handlePost,
+  handlePut,
 };
